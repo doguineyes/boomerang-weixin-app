@@ -1,0 +1,25 @@
+/* pages/send/addAddress.wxss */
+page {
+  background: #e7e7e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.address-info-box {
+  margin: 2%;
+}
+
+.area-popup {
+  width: 100%;
+  height: 70%;
+}
+
+.add-address-btn {
+  background: #084683 !important;
+  left: 10%;
+  width: 80%;
+  margin: 1%;
+  color: white !important;
+  font-size: 1.2em !important;
+}

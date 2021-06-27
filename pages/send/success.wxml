@@ -1,0 +1,7 @@
+<!--pages/send/success.wxml-->
+<van-empty description="订单提交成功">
+  <van-button round class="to-check-order-button" bind:click="onGoToOrderList">
+    去订单列表查看
+  </van-button>
+</van-empty>
+

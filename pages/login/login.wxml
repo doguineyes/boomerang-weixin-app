@@ -1,0 +1,11 @@
+<!--pages/login/login.wxml-->
+<view class="full-height">
+  <view class="logo-box">
+    <image mode="aspectFit" src="./logo_transparent.png" />
+  </view>
+  <view>
+    <van-button disabled="{{loading}}" custom-class="weixin-quick-login-btn" block bindtap="onLoginClick">微信账号快捷登陆</van-button>
+    <van-cell value-class="login-by-mobile-btn" value="输入手机号码登陆/注册" link-type="navigateTo" url="/pages/login/mobile-login" 
+    border="{{ false }}" />
+  </view>
+</view>

@@ -1,0 +1,72 @@
+/* pages/send/send.wxss */
+page {
+  background: #e7e7e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.main {
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.order-info-box {
+  background-color: white;
+  margin: 2%;
+}
+
+.name-mobile-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  color: black;
+}
+
+.name {
+  margin-right: 5%;
+}
+
+.address-line {
+  text-align: left;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.add-cargo-btn {
+  left: 70%;
+  background: #084683 !important;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  color: white !important;
+}
+
+.cargo-name {
+  flex: 1;
+}
+
+.van-swipe-cell__right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: red;
+  color: white;
+  width: 40%;
+  text-align: center;
+  flex: 1;
+}
+
+.submit-order-btn{
+  background: #084683 !important;
+  left: 10%;
+  width: 80%;
+  margin: 1%;
+  color: white !important;
+  font-size: 1.2em !important;
+}

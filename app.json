@@ -1,0 +1,65 @@
+{
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/send/send",
+        "text": "寄件"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "订单"
+      }
+    ]
+  },
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/send/send",
+    "pages/orders/orders",
+    "pages/send/addAddress",
+    "pages/try/try",
+    "pages/send/success",
+    "pages/orders/orderDetails",
+    "pages/orders/testPicker",
+    "pages/login/mobile-login"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Boomerang",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
+    "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/field/index",
+    "van-button": "/miniprogram_npm/@vant/weapp/button/index",
+    "van-image": "/miniprogram_npm/@vant/weapp/image/index",
+    "van-popup": "/miniprogram_npm/@vant/weapp/popup/index",
+    "van-area": "/miniprogram_npm/@vant/weapp/area/index",
+    "van-toast": "/miniprogram_npm/@vant/weapp/toast/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-stepper": "/miniprogram_npm/@vant/weapp/stepper/index",
+    "van-skeleton": "/miniprogram_npm/@vant/weapp/skeleton/index",
+    "van-swipe-cell": "/miniprogram_npm/@vant/weapp/swipe-cell/index",
+    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index",
+    "van-empty": "/miniprogram_npm/@vant/weapp/empty/index",
+    "van-submit-bar": "/miniprogram_npm/@vant/weapp/submit-bar/index",
+    "van-sticky": "/miniprogram_npm/@vant/weapp/sticky/index",
+    "van-goods-action": "/miniprogram_npm/@vant/weapp/goods-action/index",
+    "van-goods-action-icon": "/miniprogram_npm/@vant/weapp/goods-action-icon/index",
+    "van-goods-action-button": "/miniprogram_npm/@vant/weapp/goods-action-button/index",
+    "van-checkbox": "/miniprogram_npm/@vant/weapp/checkbox/index",
+    "van-dropdown-menu": "/miniprogram_npm/@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "/miniprogram_npm/@vant/weapp/dropdown-item/index",
+    "van-search": "/miniprogram_npm/@vant/weapp/search/index",
+    "van-picker": "/miniprogram_npm/@vant/weapp/picker/index",
+    "van-uploader": "/miniprogram_npm/@vant/weapp/uploader/index",
+    "van-overlay": "/miniprogram_npm/@vant/weapp/overlay/index"
+  }
+}

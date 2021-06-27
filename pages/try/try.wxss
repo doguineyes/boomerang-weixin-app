@@ -1,0 +1,19 @@
+/* pages/try/try.wxss */
+page {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

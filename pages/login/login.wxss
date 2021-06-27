@@ -1,0 +1,22 @@
+/* pages/login/login.wxss */
+page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+}
+
+.full-height{
+  height: 100%;
+}
+
+.weixin-quick-login-btn{
+  background-color: #336B87 !important;
+  border-color: #336B87 !important;
+  color: white !important;
+  font-size: 1rem !important;
+}
+
+.login-by-mobile-btn {
+  color: #90AFC5 !important;
+}

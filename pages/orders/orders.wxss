@@ -1,0 +1,75 @@
+/* pages/orders/orders.wxss */
+page {
+  background: #e7e7e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.9em;
+}
+
+.order-card {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 2%;
+}
+
+.order-card-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order-card-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.order-card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.order-card-footer-item {
+  color: black;
+  margin: 1%;
+}
+
+.from-to-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.person-and-address-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.name {
+  color: black;
+  font-size: 1.1em;
+}
+
+.address {
+  color: gray;
+  font-size: 0.85em;
+}
+
+.order-no {
+  color: gray;
+  font-size: 0.85em
+}

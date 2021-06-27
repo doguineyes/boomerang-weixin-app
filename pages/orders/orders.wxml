@@ -1,0 +1,38 @@
+<!--pages/orders/orders.wxml-->
+<view>
+  <view wx:if="{{isAdmin}}" class="admin-filters-card">
+    <van-search value="{{ searchKeyWord }}" use-action-slot clearable placeholder="请输入订单号或入仓码" bind:change="onSearchKeyWordChange" bind:search="onKeyWordSearch">
+      <view slot="action" bind:tap="onClickKeyWordSearch">搜索</view>
+    </van-search>
+  </view>
+  <van-dropdown-menu>
+    <van-dropdown-item value="{{ requestOrderStatus }}" options="{{ orderStatusOptions }}" bindchange="orderStatusOptionsChange" />
+  </van-dropdown-menu>
+  <van-empty description="暂无订单" wx-if="{{orders.length === 0}}" />
+  <view class="order-card" wx:for="{{ orders }}" wx:key="index">
+    <view class="order-card-head">
+      <view class="order-no">订单号: {{item.id}}</view>
+      <view class="order-status">
+        <van-tag size="small" wx-if="{{item.orderStatus=='Cancelled'}}">已取消</van-tag>
+				<van-tag type="primary" size="small" wx-if="{{item.orderStatus=='ToBePacked'}}">提交成功</van-tag>
+				<van-tag type="success" size="small" wx-if="{{item.orderStatus=='Mailed'}}">已寄出</van-tag>
+				<van-tag type="danger" size="small" wx-if="{{item.orderStatus=='ToBePaid'}}">待支付</van-tag>
+      </view>
+    </view>
+    <view custom-class="order-card-summary">
+      <van-cell value-class="from-to-line" link-type="navigateTo" url="/pages/orders/orderDetails?orderId={{item.id}}">
+        <view class="person-and-address-box text-align-left">
+          <view class="name">{{item.sender.name}}</view>
+          <view class="address">{{item.sender.address}}</view>
+        </view>
+        <view class="person-and-address text-align-right">
+          <view class="name">{{item.receiver.name}}</view>
+          <view class="address">{{item.receiver.address}}</view>
+        </view>
+      </van-cell>
+    </view>
+  </view>
+  <view class="loadmore" wx:if="{{ hasMore }}">
+		<van-loading wx:if="{{ hasMore }}">加载中...</van-loading>
+	</view>
+</view>
