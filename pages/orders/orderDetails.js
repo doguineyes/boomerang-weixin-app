@@ -17,6 +17,7 @@ Page({
     photosNeedToBeDeletedRemotely: [],
     loading: false,
     submitting: false,
+    costIsChanged: false,
   },
 
   onClickEditOrderStatusCell: function() {
@@ -41,10 +42,30 @@ Page({
     });
   },
 
+  onOrderCostChange: function(event) {
+    const cost = event.detail;
+    this.setData({
+      "order.cost": cost,
+      costIsChanged: true,
+    });
+  },
+
+  onCargoNameBlur: function(event) {
+    const cost = event.target.value;
+    this.setData({
+      "order.cost": cost,
+      costIsChanged: true,
+    });
+  },
+
   onCancelOrderStatusPicker: function(event) {
     this.setData({
       showOrderStatusPickerPopup: false,
     });
+  },
+
+  onPayOrder: function() {
+    
   },
 
   /**
@@ -71,6 +92,7 @@ Page({
       orderStatusNamesToOptions: app.globalData.orderStatusNamesToOptions,
       orderStatusOptionsToNames: app.globalData.orderStatusOptionsToNames,
       orderStatusToBePaidOption: app.globalData.orderStatusToBePaidOption,
+      orderStatusToBePackedOption: app.globalData.orderStatusToBePackedOption,
     });
 
     const id = options.orderId;
@@ -151,7 +173,6 @@ Page({
         );
       }
     );
-
 
 
     // wx.request({
@@ -260,21 +281,38 @@ Page({
 
     let tasks = [];
 
-    let orderStatusUpdateTask = new Promise((resolve, reject) => {
-      wx.request({
-        url: orderStatusUpdateQuery,
-        method: "PUT",
-        header: {
-          "content-type": "application/json",
-          "Authorization": token
-        },
-        success: function(res) {
-          resolve(res);
-        },
+    if (this.data.costIsChanged) {
+      const orderCostUpdateQuery = `${baseUrl}/orders/${orderId}/cost?cost=${this.data.order.cost}`;
+      let orderCostUpdateTask = new Promise((resolve, reject) => {
+        wx.request({
+          url: orderCostUpdateQuery,
+          method: "PUT",
+          header: {
+            "content-type": "application/json",
+            "Authorization": token
+          },
+          success: function(res) {
+            resolve(res);
+          },
+        });
       });
-    });
-
-    tasks.push(orderStatusUpdateTask);
+      tasks.push(orderCostUpdateTask);
+    } else {
+      let orderStatusUpdateTask = new Promise((resolve, reject) => {
+        wx.request({
+          url: orderStatusUpdateQuery,
+          method: "PUT",
+          header: {
+            "content-type": "application/json",
+            "Authorization": token
+          },
+          success: function(res) {
+            resolve(res);
+          },
+        });
+      });
+      tasks.push(orderStatusUpdateTask);
+    }
 
     for (let photoNeedToBeDelete of this.data.photosNeedToBeDeletedRemotely) {
       let photoDeleteTask = new Promise((resolve, reject) => {

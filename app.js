@@ -25,17 +25,20 @@ App({
     }
     
     this.globalData.orderStatusToBePaidOption = "ToBePaid";
-    this.globalData.orderStatusOptions = ["ToBePacked", "ToBePaid", "Mailed", "Cancelled"];
-    this.globalData.orderStatusNames = ["已提交", "待支付", "已寄出", "已取消"];
+    this.globalData.orderStatusToBePackedOption = "ToBePacked";
+    this.globalData.orderStatusOptions = ["ToBePacked", "ToBePaid", "PaymentCompleted", "Mailed", "Cancelled"];
+    this.globalData.orderStatusNames = ["已提交", "待支付", "已支付", "已寄出", "已取消"];
     this.globalData.orderStatusOptionsToNames = {
       "ToBePacked": "已提交",
       "ToBePaid": "待支付",
+      "PaymentCompleted": "已支付",
       "Mailed": "已寄出",
       "Cancelled": "已取消",
     };
     this.globalData.orderStatusNamesToOptions = {
       "已提交": "ToBePacked",
       "待支付": "ToBePaid",
+      "已支付": "PaymentCompleted",
       "已寄出": "Mailed",
       "已取消": "Cancelled",
     };

@@ -12,6 +12,12 @@
         <view wx:else="{{ !isAdmin }}">
           <van-cell title="订单状态" value="{{ orderStatusOptionsToNames[order.orderStatus] }}"></van-cell>
         </view>
+        <view wx:if="{{ isAdmin && order.orderStatus == orderStatusToBePackedOption }}">
+          <van-field label="订单价格" placeholder="请输入价格" value="{{ order.cost }}" clearable bind:change="onOrderCostChange" bind:blur="onOrderCostBlur"></van-field>
+        </view>
+        <view wx:else="{{ !isAdmin || order.orderStatus != orderStatusToBePackedOption}}">
+          <van-cell title="订单价格" value="{{ order.cost }}"></van-cell>
+        </view>
     </van-cell-group>
     <van-cell-group title="寄件人信息">
       <van-cell title="寄件人姓名" value="{{order.sender.name}}"></van-cell>
@@ -30,6 +36,9 @@
         <van-uploader max-count="3" id="{{ index }}" file-list="{{ item.photos }}" bind:after-read="afterReadUploadPhoto" bind:delete="onDeletePhoto" disabled="{{ !isAdmin }}" deletable="{{ isAdmin }}" show-upload="{{ isAdmin }}"></van-uploader>
       </view>
     </van-cell-group>
+  </view>
+  <view wx:if="{{ !isAdmin && order.orderStatus == orderStatusToBePaidOption }}" >
+    <van-button bind:click="onPayOrder">支付</van-button>
   </view>
   <view wx:if="{{ isAdmin }}" class="admin-btn-box">
       <van-button custom-class="cancel-change-btn" bind:click="onCancelEditOrder">放弃修改</van-button>
