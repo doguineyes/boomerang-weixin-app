@@ -65,7 +65,53 @@ Page({
   },
 
   onPayOrder: function() {
+    const id = options.orderId;
+    const that = this;
+    const token = "Bearer " + app.globalData.token;
+    const baseUrl = app.globalData.baseUrl;
+    const orderUrl = baseUrl + `/orders/${id}`;
+
+    let getPrepayIdTask = new Promise((resolve, reject) => {
+      wx.request({
+        url: orderUrl + "/prepay-info",
+        method: "GET",
+        header: {
+          "content-type": "application/json",
+          "Authorization": token
+        },
+        success: function(res) {
+          if (res.statusCode !== 200) {
+            reject(res);
+          }
+          that.setData({
+            "order.prepayInfo": res.data, 
+          });
+          resolve(res.data);
+        },
+        fail(err) {
+          reject(err);
+        },
+      });
+      getPrepayIdTask.then(
+        (response) => {
+          let prepayInfo = that.order.prepayInfo;
+          wx.requestPayment({
+            nonceStr: prepayInfo.nonceStr,
+            package: prepayInfo.package,
+            paySign: prepayInfo.paySign,
+            timeStamp: prepayInfo.timeStamp,
+            signType: prepayInfo.signType,
+            success: function(res) {
+              wx.redirectTo({
+                url: './pay-success',
+              })
+            },
+          })
+        }
+      );
+    });
     
+
   },
 
   /**
