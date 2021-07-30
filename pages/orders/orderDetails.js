@@ -45,7 +45,7 @@ Page({
   onOrderCostChange: function(event) {
     const cost = event.detail;
     this.setData({
-      "order.cost": cost,
+      "order.costInCent": cost,
       costIsChanged: true,
     });
   },
@@ -53,7 +53,7 @@ Page({
   onCargoNameBlur: function(event) {
     const cost = event.target.value;
     this.setData({
-      "order.cost": cost,
+      "order.costInCent": cost,
       costIsChanged: true,
     });
   },
@@ -65,8 +65,8 @@ Page({
   },
 
   onPayOrder: function() {
-    const id = options.orderId;
     const that = this;
+    const id = this.data.order.id;
     const token = "Bearer " + app.globalData.token;
     const baseUrl = app.globalData.baseUrl;
     const orderUrl = baseUrl + `/orders/${id}`;
@@ -86,30 +86,32 @@ Page({
           that.setData({
             "order.prepayInfo": res.data, 
           });
-          resolve(res.data);
+          resolve(res);
         },
         fail(err) {
           reject(err);
         },
       });
-      getPrepayIdTask.then(
-        (response) => {
-          let prepayInfo = that.order.prepayInfo;
-          wx.requestPayment({
-            nonceStr: prepayInfo.nonceStr,
-            package: prepayInfo.package,
-            paySign: prepayInfo.paySign,
-            timeStamp: prepayInfo.timeStamp,
-            signType: prepayInfo.signType,
-            success: function(res) {
-              wx.redirectTo({
-                url: './pay-success',
-              })
-            },
-          })
-        }
-      );
     });
+    getPrepayIdTask.then(
+      (res) => {
+        debugger;
+        let prepayInfo = res.data;
+        debugger;
+        wx.requestPayment({
+          nonceStr: prepayInfo.nonceStr,
+          package: prepayInfo.package,
+          paySign: prepayInfo.paySign,
+          timeStamp: prepayInfo.timeStamp,
+          signType: prepayInfo.signType,
+          success: function(res) {
+            wx.redirectTo({
+              url: './pay-success',
+            })
+          },
+        })
+      }
+    );
     
 
   },

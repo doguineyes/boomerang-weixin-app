@@ -134,7 +134,6 @@ Page({
         wx.requestSubscribeMessage({
           tmplIds: ["loJMx4AGyLQnmP6WO3l7CfsC549yOzxSKacnO98-ALI", "ws8iZAAPeKzoidhjG4gqYI5IlzFx28OXuejT8kJvOik"],
           success: (res) => {
-            debugger;
             if(res["loJMx4AGyLQnmP6WO3l7CfsC549yOzxSKacnO98-ALI"] === "accept") {
               resolve("loJMx4AGyLQnmP6WO3l7CfsC549yOzxSKacnO98-ALI");
             } else {

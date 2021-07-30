@@ -13,10 +13,10 @@
           <van-cell title="订单状态" value="{{ orderStatusOptionsToNames[order.orderStatus] }}"></van-cell>
         </view>
         <view wx:if="{{ isAdmin && order.orderStatus == orderStatusToBePackedOption }}">
-          <van-field label="订单价格" placeholder="请输入价格" value="{{ order.cost }}" clearable bind:change="onOrderCostChange" bind:blur="onOrderCostBlur"></van-field>
+          <van-field label="订单价格" placeholder="请输入价格" value="{{ order.costInCent }}" clearable bind:change="onOrderCostChange" bind:blur="onOrderCostBlur"></van-field>
         </view>
         <view wx:else="{{ !isAdmin || order.orderStatus != orderStatusToBePackedOption}}">
-          <van-cell title="订单价格" value="{{ order.cost }}"></van-cell>
+          <van-cell title="订单价格" value="{{ order.costInCent }}"></van-cell>
         </view>
     </van-cell-group>
     <van-cell-group title="寄件人信息">
