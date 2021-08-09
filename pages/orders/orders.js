@@ -1,4 +1,5 @@
 // pages/orders/orders.js
+import {getOrderView} from "./orderStatus.js";
 
 const app = getApp();
 
@@ -11,9 +12,11 @@ Page({
     orders: [],
     orderStatusOptions: [
       { text: "全部商品", value: "" },
-      { text: "提交成功", value: "ToBePacked" },
-      { text: "待付款", value: "ToBePaid" },
-      { text: "已寄出", value: "Mailed" },
+      { text: "新订单", value: "NewOrder" },
+      { text: "待支付", value: "UnPaid" },
+      { text: "已支付", value: "PaymentComplete" },
+      { text: "已完成", value: "Mailed" },
+      { text: "已取消", value: "Cancelled" },
     ],
     requestOrderStatus: "",
     nextPage: 0,
@@ -35,7 +38,6 @@ Page({
       });
       return;
     }
-    
     const that = this;
     const token = "Bearer " + app.globalData.token;
     let queryUrl = app.globalData.baseUrl + `/orders?page=${this.data.nextPage}&per-page=${this.data.perPage}`;
@@ -45,7 +47,7 @@ Page({
     if (this.data.searchKeyWord) {
       queryUrl += `&query=${this.data.searchKeyWord}`;
     }
-    console.log(queryUrl);
+    //console.log(queryUrl);
     wx.request({
       url: queryUrl,
       method: "GET",
@@ -74,7 +76,12 @@ Page({
           });
         }
         if (newOrders.length > 0) {
-          newOrders.forEach(order => that.data.orders.push(order));
+          newOrders.forEach(
+            (order) => {
+              const url = getOrderView(order);
+              order.stepUrl = url;
+              that.data.orders.push(order);
+            });
           that.setData({
             orders: that.data.orders
           });

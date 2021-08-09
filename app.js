@@ -24,20 +24,20 @@ App({
       wx.clearStorageSync();
     }
     
-    this.globalData.orderStatusToBePaidOption = "ToBePaid";
-    this.globalData.orderStatusToBePackedOption = "ToBePacked";
-    this.globalData.orderStatusOptions = ["ToBePacked", "ToBePaid", "PaymentCompleted", "Mailed", "Cancelled"];
+    this.globalData.orderStatusToBePaidOption = "UnPaid";
+    this.globalData.orderStatusToBePackedOption = "NewOrder";
+    this.globalData.orderStatusOptions = ["NewOrder", "UnPaid", "PaymentCompleted", "Mailed", "Cancelled"];
     this.globalData.orderStatusNames = ["已提交", "待支付", "已支付", "已寄出", "已取消"];
     this.globalData.orderStatusOptionsToNames = {
-      "ToBePacked": "已提交",
-      "ToBePaid": "待支付",
+      "NewOrder": "已提交",
+      "UnPaid": "待支付",
       "PaymentCompleted": "已支付",
       "Mailed": "已寄出",
       "Cancelled": "已取消",
     };
     this.globalData.orderStatusNamesToOptions = {
-      "已提交": "ToBePacked",
-      "待支付": "ToBePaid",
+      "已提交": "NewOrder",
+      "待支付": "UnPaid",
       "已支付": "PaymentCompleted",
       "已寄出": "Mailed",
       "已取消": "Cancelled",

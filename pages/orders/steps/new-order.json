@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "basic-info": "/pages/orders/components/basic-information",
+    "packaging-pricing-editor": "/pages/orders/components/packaging-pricing-editor"
+  }
+}

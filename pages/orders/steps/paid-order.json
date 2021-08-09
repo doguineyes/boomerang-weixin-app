@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "basic-info": "/pages/orders/components/basic-information",
+    "packaging-pricing-view": "/pages/orders/components/packaging-pricing-view"
+  }
+}

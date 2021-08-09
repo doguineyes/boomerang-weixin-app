@@ -1,8 +1,0 @@
-<!--pages/orders/testPicker.wxml-->
-
-<view>
-  当前选择：{{array[index]}}
-</view>
-<view class="picker-box">
-  <van-picker columns="{{ columns }}" bind:change="onChange" custom-class="my-picker"/>
-</view>

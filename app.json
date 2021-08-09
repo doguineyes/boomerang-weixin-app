@@ -24,8 +24,10 @@
     "pages/try/try",
     "pages/send/success",
     "pages/orders/orderDetails",
-    "pages/orders/testPicker",
-    "pages/login/mobile-login"
+    "pages/login/mobile-login",
+    "pages/orders/steps/new-order",
+    "pages/orders/steps/unpaid-order",
+    "pages/orders/steps/paid-order"
   ],
   "window": {
     "backgroundTextStyle": "light",

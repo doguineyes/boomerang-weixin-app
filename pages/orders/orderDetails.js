@@ -1,6 +1,7 @@
 // pages/orders/orderDetails.js
 import Dialog from "@vant/weapp/dialog/dialog";
-import Toast from '@vant/weapp/toast/toast';
+import Toast from "@vant/weapp/toast/toast";
+import {getOrderPromise, getPhotosPromise} from "./orderHelper.js";
 
 const app = getApp();
 
@@ -112,8 +113,12 @@ Page({
         })
       }
     );
-    
+  },
 
+  setPhotoOk: function(cargoIndex, photoIndex, photo) {
+    this.setData({
+      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}]`]: photo,
+    });
   },
 
   /**
@@ -125,6 +130,7 @@ Page({
     //   message: "加载中...",
     //   forbidClick: true,
     // });
+    
     if (app.isAdmin()) {
       this.setData({
         isAdmin: true,
@@ -144,143 +150,26 @@ Page({
     });
 
     const id = options.orderId;
-    const that = this;
-    const token = "Bearer " + app.globalData.token;
-    const baseUrl = app.globalData.baseUrl;
-    const orderUrl = baseUrl + `/orders/${id}`;
 
-    let orderLoadingTask = new Promise((resolve, reject) => {
-      wx.request({
-        url: orderUrl,
-        method: "GET",
-        header: {
-          "content-type": "application/json",
-          "Authorization": token
-        },
-        success: function(res) {
-          // if (res.statusCode === 403) {
-          //   wx.reLaunch({
-          //     url: '../login/login',
-          //   });
-          // }
-          if (res.statusCode !== 200) {
-            reject(res);
-          }
-          const newOrder = res.data;
-          that.setData({
-            order: newOrder,
-            pickedOrderStatusName: that.data.orderStatusNamesToOptions[newOrder.orderStatus],
-          });
-          resolve(res);
-        },
-        fail(err) {
-          reject(err);
-        },
-      });
-    });
-
-    orderLoadingTask.then(
-      (res) => {
-        let downloadingPhotoTasks = [];
-        const orderId = that.data.order.id;
-        for(let cargoIndex in that.data.order.cargoRecords) {
-          for (let photoIndex in that.data.order.cargoRecords[cargoIndex].photos) {
-            const photoUrl = baseUrl + `/orders/${orderId}/cargos/${that.data.order.cargoRecords[cargoIndex].id}/photos/${that.data.order.cargoRecords[cargoIndex].photos[photoIndex].id}`;
-            that.setData({
-              [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].originPath`]: that.data.order.cargoRecords[cargoIndex].photos[photoIndex].url,
-              [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: "",
-              [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].isImage`]: true,
-              [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "uploading",
-              [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].type`]: "original",
-            });
-            let task = new Promise((resolve, reject) => {
-              wx.downloadFile({
-                url: photoUrl,
-                header: {
-                  "content-type": "application/json",
-                  "Authorization": token
-                },
-                success (res) {
-                  if (res.statusCode === 200) {
-                    that.setData({
-                      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: res.tempFilePath,
-                      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "done",
-                    });
-                  }
-                  resolve();
-                }
-              });
-            });
-            downloadingPhotoTasks.push(task);
-          }
-        }
-        Promise.all(downloadingPhotoTasks).then(
-          (res) => {
-            Toast.success("加载完成");
-          }
-        );
+    getOrderPromise(id).then(
+      (newOrder) => {
+        this.setData({
+          order: newOrder,
+        });
+        return newOrder;
+      }
+    ).then(
+      (newOrder) => {
+        return getPhotosPromise(newOrder, this.setPhotoOk);
+      }
+    ).then(
+      (orderWithPhotos) => {
+        // this.setData({
+        //   ["order.cargoRecords"]: orderWithPhotos.cargoRecords,
+        // });
+        Toast.success("加载完成");
       }
     );
-
-
-    // wx.request({
-    //   url: queryUrl,
-    //   method: "GET",
-    //   header: {
-    //     "content-type": "application/json",
-    //     "Authorization": token
-    //   },
-    //   success: function(res) {
-    //     if (res.statusCode === 403) {
-    //       wx.reLaunch({
-    //         url: '../login/login',
-    //       });
-    //     }
-    //     if (res.statusCode !== 200) {
-          
-    //     }
-    //     const newOrder = res.data;
-    //     that.setData({
-    //       order: newOrder,
-    //       pickedOrderStatusName: that.data.orderStatusNamesToOptions[newOrder.orderStatus],
-    //     });
-
-    //     const orderId = that.data.order.id;
-    //     for(let cargoIndex in that.data.order.cargoRecords) {
-    //       for (let photoIndex in that.data.order.cargoRecords[cargoIndex].photos) {
-    //         const photoPath = baseUrl + `/orders/${orderId}/cargos/${that.data.order.cargoRecords[cargoIndex].id}/photos/${that.data.order.cargoRecords[cargoIndex].photos[photoIndex].id}`;
-    //         that.setData({
-    //           [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].originPath`]: that.data.order.cargoRecords[cargoIndex].photos[photoIndex].url,
-    //           [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: "",
-    //           [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].isImage`]: true,
-    //           [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "uploading",
-    //           [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].type`]: "original",
-    //         });
-            
-    //         wx.downloadFile({
-    //           url: photoPath,
-    //           header: {
-    //             "content-type": "application/json",
-    //             "Authorization": token
-    //           },
-    //           success (res) {
-    //             if (res.statusCode === 200) {
-    //               that.setData({
-    //                 [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: res.tempFilePath,
-    //                 [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "done",
-    //               });
-    //             }
-    //           }
-    //         })
-    //       }
-    //     }
-    //   },
-    //   fail(err) {
-    //     that.setData({
-    //       order: {},
-    //     });
-    //   }
-    // });
   },
 
   afterReadUploadPhoto: function(event) {

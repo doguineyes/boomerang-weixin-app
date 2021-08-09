@@ -71,6 +71,12 @@ Page({
     });
   },
 
+  onIncomingCourierNumberChange: function(event) {
+    this.setData({
+      incomingCourierNumber: event.detail,
+    });
+  },
+
   onDeleteCargoRecord: function(event) {
     const { position, instance, name } = event.detail;
     switch (position) {
@@ -115,6 +121,7 @@ Page({
     }
     const order = {
       customerName: app.globalData.username,
+      incomingCourierNumber: this.data.incomingCourierNumber,
       sender: {
         name: this.data.sender.name,
         mobile: this.data.sender.mobile,

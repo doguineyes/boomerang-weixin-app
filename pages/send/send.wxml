@@ -23,10 +23,7 @@
     </van-cell>
   </view>
   <view class="order-info-box">
-    <van-cell title="寄件方式"></van-cell>
-    <van-field label="国际快递单号" placeholder="请输入国际快递单号"></van-field>
-    <van-cell title="网点选择"></van-cell>
-    <van-field label="入仓号" placeholder="请输入入仓号"></van-field>
+    <van-field label="国际快递单号" placeholder="请输入国际快递单号" value="{{ incomingCourierNumber }}" bind:change="onIncomingCourierNumberChange"></van-field>
   </view>
   <view class="order-info-box">
     <van-cell-group title="物品信息">

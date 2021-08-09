@@ -1,0 +1,18 @@
+<!--pages/orders/steps/paid-order.wxml-->
+<view>
+  <basic-info order="{{ order }}"></basic-info>
+  <packaging-pricing-view order="{{ order }}"></packaging-pricing-view>
+  <view wx:if="{{ isAdmin && order.orderStatus === 'PaymentCompleted' }}">
+    <van-field label="ETK快递号码" placeholder="请输入ETK快递号码" clearable value="{{ order.etkNumber }}" bind:change="onEtkNumberChange"></van-field>
+  </view>
+  <view wx:else>
+    <van-cell title="ETK快递号码" value="{{ order.etkNumber }}"></van-cell>
+  </view>
+  <view wx:if="{{ isAdmin && order.orderStatus === 'PaymentCompleted'}}">
+      <van-button bind:click="onQuitEditing">放弃修改</van-button>
+      <van-button bind:click="onSave">保存</van-button>
+  </view>
+  <van-dialog id="van-dialog" />
+  <van-toast id="van-toast" />
+  <van-overlay show="{{ submitting }}"/>
+</view>

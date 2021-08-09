@@ -4,12 +4,20 @@
   "description": "boomerang weixin mini app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "doguin",
   "license": "ISC",
   "dependencies": {
     "@vant/weapp": "^1.5.0",
     "js-base64": "^2.5.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^27.0.6",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^27.0.6",
+    "miniprogram-simulate": "^1.4.1",
+    "regenerator-runtime": "^0.13.9"
   }
 }

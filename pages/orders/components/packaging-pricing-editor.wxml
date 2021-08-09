@@ -1,0 +1,9 @@
+<!--pages/orders/orderPackagingPricing.wxml-->
+<view>
+  <van-field label="重量" placeholder="请输入重量" clearable value="{{ order.feeList.weightInKilograms }}" id="feeList.weightInKilograms" type="digit" bind:change="onOrderPackagePriceChange"></van-field>
+  <van-field label="打包费" placeholder="请输入打包费" clearable value="{{ order.feeList.packingFeeInCent }}" id="feeList.packingFeeInCent" type="digit" bind:change="onOrderPackagePriceChange"></van-field>
+  <van-field label="运费" placeholder="请输入运费" clearable value="{{ order.feeList.expressFeeInCent }}" id="feeList.expressFeeInCent" type="digit" bind:change="onOrderPackagePriceChange"></van-field>
+  <van-field label="税费补贴" placeholder="请输入税费补贴" clearable value="{{ order.feeList.taxesInCent }}" id="feeList.taxesInCent" type="digit" bind:change="onOrderPackagePriceChange"></van-field>
+  <van-field label="保价" placeholder="请输入保价" clearable value="{{ order.feeList.insuranceInCent }}" id="feeList.insuranceInCent" type="digit" bind:change="onOrderPackagePriceChange"></van-field>
+  <van-cell title="订单总价" value="{{ order.feeList.totalCostInCent }}"></van-cell>
+</view>
