@@ -1,1 +1,29 @@
 /* pages/orders/stages/newOrder.wxss */
+page {
+  background: #e7e7e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 3%;
+}
+
+.quit-editing-btn {
+  background: #FFBB00 !important;
+  color: white !important;
+}
+
+.save-btn {
+  background: #375E97 !important;
+  color: white !important;
+}
+
+.submit-btn {
+  background: red !important;
+  color: white !important;
+}

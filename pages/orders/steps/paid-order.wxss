@@ -1,1 +1,7 @@
 /* pages/orders/steps/paid-order.wxss */
+page {
+  background: #e7e7e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -2,10 +2,10 @@
   <basic-info order="{{ order }}" isAdmin="{{ isAdmin }}" bind:after-read-photo="onAfterReadPhoto" bind:delete-photo="onDeletePhoto"></basic-info>
   <view wx:if="{{ isAdmin }}">
     <packaging-pricing-editor order="{{ order }}" bind:order-package-price-change="onOrderPackagePriceChange"></packaging-pricing-editor>
-    <view>
+    <view class="btn-box">
       <van-button custom-class="quit-editing-btn" bind:click="onQuitEditing">放弃修改</van-button>
-      <van-button custom-class="save-btn" bind:click="onSave">保存</van-button>
-      <van-button custom-class="save-and-notice-payment-btn" bind:click="onSaveAndNoticePayment">保存并通知支付</van-button>
+      <van-button custom-class="save-btn" bind:click="onSave">仅保存</van-button>
+      <van-button custom-class="submit-btn" bind:click="onSaveAndNoticePayment">保存并通知支付</van-button>
     </view>
   </view>
   <van-dialog id="van-dialog" />
