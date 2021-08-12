@@ -18,4 +18,5 @@ page {
   color: white !important;
   left: 10%;
   width: 80%;
+  font-size: 1.2em !important;
 }

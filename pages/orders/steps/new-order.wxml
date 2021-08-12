@@ -4,7 +4,7 @@
     <packaging-pricing-editor order="{{ order }}" bind:order-package-price-change="onOrderPackagePriceChange"></packaging-pricing-editor>
     <view class="btn-box">
       <van-button custom-class="quit-editing-btn" bind:click="onQuitEditing">放弃修改</van-button>
-      <van-button custom-class="save-btn" bind:click="onSave">仅保存</van-button>
+      <van-button custom-class="save-btn" bind:click="onSave">保存</van-button>
       <van-button custom-class="submit-btn" bind:click="onSaveAndNoticePayment">保存并通知支付</van-button>
     </view>
   </view>

@@ -3,7 +3,7 @@
   <basic-info order="{{ order }}"></basic-info>
   <packaging-pricing-view order="{{ order }}"></packaging-pricing-view>
   <view wx:if = "{{ !isAdmin }}" class="btn-box">
-    <van-button custom-class="pay-btn" bind:click="onPay">支付</van-button>
+    <van-button round custom-class="pay-btn" bind:click="onPay">支付</van-button>
   </view>
   <van-toast id="van-toast" />
 </view>
