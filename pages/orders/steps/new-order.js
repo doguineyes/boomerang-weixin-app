@@ -20,11 +20,27 @@ Page({
     const { file } = event.detail.detail;
     const cargoIndex = event.detail.target.id;
     const photoIndex = this.data.order.cargoRecords[cargoIndex].photos.length;
-    this.setData({
-      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: file.url,
-      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].isImage`]: true,
-      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "done",
-      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].type`]: "new",
+    const self = this;
+
+    wx.compressImage({
+      src: file.url,
+      quality: 5,
+      success: function(res) {
+        self.setData({
+          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: res.tempFilePath,
+          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].isImage`]: true,
+          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "done",
+          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].type`]: "new",
+        });
+      },
+      fail: function(err) {
+        self.setData({
+          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: file.url,
+          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].isImage`]: true,
+          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "done",
+          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].type`]: "new",
+        });
+      },
     });
   },
 
