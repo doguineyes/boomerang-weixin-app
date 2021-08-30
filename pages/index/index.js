@@ -29,49 +29,6 @@ Page({
     }
   },
 
-  // wxLogin: function() {
-  //   //let self = this;
-  //   Toast.loading({
-  //     mask: true,
-  //     message: "登陆中..."
-  //   });
-
-  //   wx.login({
-  //     success (res) {
-  //       if (res.code) {
-  //         //发起网络请求
-  //         wx.request({
-  //           url: `${app.globalData.baseUrl}/users/wechat-sign-in/${res.code}`,
-  //           method: "POST",
-  //           success: function (response) {
-  //             const token = response.data.jwtToken;
-  //             const username = response.data.username;
-  //             const authorities = response.data.authorities;
-  //             const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
-  //             wx.setStorageSync('token', token);
-  //             wx.setStorageSync('username', username);
-  //             wx.setStorageSync('expiredtime', expiredTime);
-  //             wx.setStorageSync('authorities', authorities)
-  //             app.globalData.token = token;
-  //             app.globalData.username = username;
-  //             app.globalData.expiredTime = expiredTime;
-  //             app.globalData.authorities = authorities;
-  //             Toast.clear();
-  //             wx.reLaunch({
-  //               url: '../index/index',
-  //             });
-  //           },
-  //           fail(err) {
-  //             console.log('登录失败！' + err);
-  //           }
-  //         });
-  //       } else {
-  //         console.log('登录失败！' + res.errMsg);
-  //       }
-  //     }
-  //   });
-  // },
-
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
     wx.getUserProfile({

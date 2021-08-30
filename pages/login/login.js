@@ -10,77 +10,143 @@ Page({
   data: {
     // loggedin: false,
     loading: false,
+    countryCode:"",
+    country: {
+      short: "CN",
+      name: "中国",
+      en: "China",
+      tel: "86",
+      pinyin: "zg"
+    }
   },
 
+  onMobileChange: function(event) {
+    this.setData({
+      mobile: event.detail,
+    });
+  },
+
+  onPasswordChange: function(event) {
+    this.setData({
+      password: event.detail,
+    });
+  },
+
+  onSignUpClick: function() {
+    wx.reLaunch({
+      url: '/pages/login/register',
+    });
+  },
+
+  onLoginClick: function() {
+    const that = this;
+    this.setData({
+      loading: true
+    });
+    Toast.loading({
+      mask: true,
+      message: '加载中...'
+    });
+    const baseUrl = app.globalData.baseUrl;
+    const password = this.data.password;
+    const mobile = this.data.mobile;
+    const areaCode = this.data.country.tel;
+    const requestData = {
+      "areaCode": areaCode,
+      "mobile": mobile,
+      "password": password,
+    };
+    if (!password || !mobile || !areaCode) return;
+    wx.request({
+      url: `${baseUrl}/users/login/mobile`,
+      method: "POST",
+      data: requestData,
+      success: function(response) {
+        if (response.statusCode != 200) {
+          return;
+        }
+        that.saveTokens(response);
+      },
+      fail(err) {
+      },
+      complete() {
+        Toast.clear();
+        that.setData({
+          loading: false
+        });
+      },
+    })
+  },
+
+  saveTokens: function(response) {
+    const token = response.data.token;
+    const username = response.data.username;
+    const authorities = response.data.authorities;
+    const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
+    wx.setStorageSync('token', token);
+    wx.setStorageSync('username', username);
+    wx.setStorageSync('expiredtime', expiredTime);
+    wx.setStorageSync('authorities', authorities)
+    app.globalData.token = token;
+    app.globalData.username = username;
+    app.globalData.expiredTime = expiredTime;
+    app.globalData.authorities = authorities;
+    this.setData({
+      username: response.data.username,
+      token: response.data.jwtToken,
+      loggedin: true,
+    })
+    wx.reLaunch({
+      url: '../index/index',
+    });
+  },
+ 
   /**
-   * 点击微信登陆按钮
+   * 生命周期函数--监听页面加载
    */
-  onLoginClick: function () {
+  onLoad: function (options) {
     let that = this;
+
+    this.setData({
+      countryCode: `${this.data.country.name} ${this.data.country.tel}`
+    });
 
     this.setData({
       loading: true
     });
 
-    const toast = Toast.loading({
+    Toast.loading({
       mask: true,
       message: '加载中...'
     });
 
+    //Try to quick login with wechat openId
     wx.login({
       success (res) {
         if (res.code) {
-          //发起网络请求
           wx.request({
-            url: `${app.globalData.baseUrl}/users/wechat-sign-in/${res.code}`,
+            url: `${app.globalData.baseUrl}/users/login/wechat/${res.code}`,
             method: "POST",
             success: function (response) {
-              Toast.clear();
-              that.setData({
-                loading: false
-              });
-              const token = response.data.jwtToken;
-              const username = response.data.username;
-              const authorities = response.data.authorities;
-              const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
-              wx.setStorageSync('token', token);
-              wx.setStorageSync('username', username);
-              wx.setStorageSync('expiredtime', expiredTime);
-              wx.setStorageSync('authorities', authorities)
-              app.globalData.token = token;
-              app.globalData.username = username;
-              app.globalData.expiredTime = expiredTime;
-              app.globalData.authorities = authorities;
-
-              that.setData({
-                username: response.data.username,
-                token: response.data.jwtToken,
-                loggedin: true
-              })
-              wx.reLaunch({
-                url: '../index/index',
-              });
+              if (response.statusCode != 200) {
+                return;
+              }
+              that.saveTokens(response);
             },
             fail(err) {
+            },
+            complete() {
               Toast.clear();
               that.setData({
                 loading: false
               });
-            }
+            },
           })
-
         } else {
-          console.log('登录失败！' + res.errMsg)
+          console.log("Wx login failed, get wechat code error: " + res.errMsg)
         }
       }
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+    });
   },
 
   /**
@@ -94,7 +160,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1];
+    //console.log(currPage.__data__.country.v);
+    if (currPage.__data__.country) {
+      this.setData({
+        countryCode: currPage.__data__.country.v,
+        country: currPage.__data__.country
+      });
+    }
   },
 
   /**

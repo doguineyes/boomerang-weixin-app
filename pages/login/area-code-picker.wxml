@@ -1,0 +1,7 @@
+<!--pages/login/area-code-picker.wxml-->
+<van-index-bar highlight-color="#b16949" index-list="{{ ckeys }}">
+  <view wx:for="{{ ckeys }}" wx:for-item="ck"> 
+    <van-index-anchor index="{{ck}}"/>
+    <van-cell wx:for="{{sortedcountry[ck]}}" title="{{cv.v}}" wx:for-item="cv" data-country="{{cv}}" bind:click="selectcountry"	/>
+  </view>
+</van-index-bar>

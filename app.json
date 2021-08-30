@@ -27,7 +27,9 @@
     "pages/login/mobile-login",
     "pages/orders/steps/new-order",
     "pages/orders/steps/unpaid-order",
-    "pages/orders/steps/paid-order"
+    "pages/orders/steps/paid-order",
+    "pages/login/register",
+    "pages/login/area-code-picker"
   ],
   "window": {
     "backgroundTextStyle": "light",
