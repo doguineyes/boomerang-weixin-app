@@ -27,6 +27,28 @@ Page({
     });
   },
 
+  onVerifycodeChange: function(event) {
+    this.setData({
+      verifyCode: event.detail,
+    });
+  },
+
+  onPasswordChange: function(event) {
+    this.setData({
+      password: event.detail,
+    });
+  },
+
+  onRePasswordChange: function(event) {
+    this.setData({
+      rePassword: event.detail,
+    })
+  },
+
+  onSubmit: function(event) {
+    
+  },
+
   onGetSmsVerificationCode: function(event) {
     if (!this.data.mobile || !this.data.country) return;
     this.setData({
