@@ -1,5 +1,6 @@
 // pages/login/login.js
 import Toast from '@vant/weapp/toast/toast';
+import Dialog from "@vant/weapp/dialog/dialog";
 
 const app = getApp();
 
@@ -26,10 +27,24 @@ Page({
     });
   },
 
+  onMobileFocus: function(event) {
+    this.setData({
+      mobile: event.detail.value,
+      mobileErrorMessage: "",
+    });
+  },
+
   onPasswordChange: function(event) {
     this.setData({
       password: event.detail,
     });
+  },
+
+  onPasswordFocus: function(event) {
+    this.setData({
+      password: event.detail.value,
+      passwordErrorMessage: "",
+    })
   },
 
   onSignUpClick: function() {
@@ -39,6 +54,21 @@ Page({
   },
 
   onLoginClick: function() {
+    let somethingWrong = false;
+    if (!this.data.mobile || this.data.mobile.length < 5 || this.data.mobile.length > 15 || !/^\d+$/.test(this.data.mobile)) {
+      this.setData({
+        mobileErrorMessage: "手机号格式错误",
+      });
+      somethingWrong = true;
+    }
+    if (!this.data.password || this.data.password.length < 6) {
+      this.setData({
+        passwordErrorMessage: "密码太短",
+      });
+      somethingWrong = true;
+    }
+    if (somethingWrong) return;
+
     const that = this;
     this.setData({
       loading: true
@@ -56,13 +86,17 @@ Page({
       "mobile": mobile,
       "password": password,
     };
-    if (!password || !mobile || !areaCode) return;
     wx.request({
       url: `${baseUrl}/users/login/mobile`,
       method: "POST",
       data: requestData,
       success: function(response) {
         if (response.statusCode != 200) {
+          Dialog.alert({
+            message: "登录失败",
+          }).then(() => {
+            // on close
+          });
           return;
         }
         that.saveTokens(response);
@@ -121,10 +155,16 @@ Page({
             url: `${app.globalData.baseUrl}/users/login/wechat/${res.code}`,
             method: "POST",
             success: function (response) {
-              if (response.statusCode != 200) {
-                return;
+              if (response.statusCode == 401 || response == 404) {
+                Dialog.alert({
+                  message: "微信没有绑定账号请先注册",
+                }).then(() => {
+                  // on close
+                });
               }
-              that.saveTokens(response);
+              if (response.statusCode == 200) {
+                that.saveTokens(response);
+              }
             },
             fail(err) {
             },
@@ -167,7 +207,7 @@ Page({
     //console.log(currPage.__data__.country.v);
     if (currPage.__data__.country) {
       this.setData({
-        countryCode: currPage.__data__.country.v,
+        countryCode: `${currPage.__data__.country.name} ${currPage.__data__.country.tel}`,
         country: currPage.__data__.country
       });
     }

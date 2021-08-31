@@ -89,16 +89,34 @@ Page({
         mobileErrorMessage: "请输入手机号",
       });
     }
+    if (this.data.mobile.length < 5 || this.data.mobile.length >= 15 || !/^\d+$/.test(this.data.mobile)) {
+      somethingWrong = true;
+      this.setData({
+        mobileErrorMessage: "手机号格式错误",
+      });
+    }
     if (!this.data.verifyCode) {
       somethingWrong = true;
       this.setData({
         verifyCodeErrorMessage: "请输入验证码",
       });
     }
+    if (this.data.verifyCode.length != 6 || !/^\d+$/.test(this.data.verifyCode)) {
+      somethingWrong = true;
+      this.setData({
+        verifyCodeErrorMessage: "验证码格式错误",
+      });
+    }
     if (!this.data.password) {
       somethingWrong = true;
       this.setData({
         passwordErrorMessage: "请输入密码",
+      });
+    }
+    if (this.data.password.length <= 5) {
+      somethingWrong = true;
+      this.setData({
+        passwordErrorMessage: "密码位数太短",
       });
     }
     if (!this.data.rePassword) {
@@ -114,6 +132,7 @@ Page({
       });
     }
     if (somethingWrong) return;
+
     const that = this;
     new Promise((resolve, reject) => {
       wx.login({
@@ -134,9 +153,24 @@ Page({
           "smsVerificationCode": this.data.verifyCode,
         },
         success: function(response) {
-          that.saveTokens(response);
+          if (response.statusCode == 400) {
+            that.setData({
+              verifyCodeErrorMessage: "验证码错误",
+            });
+            return;
+          }
+          if (response.statusCode == 403) {
+            that.setData({
+              mobileErrorMessage: "手机号已注册",
+            });
+            return;
+          }
+          if (response.statusCode == 200) {
+            that.saveTokens(response);
+          }
         },
         fail: function(error) {
+
         },
       })
     });
@@ -166,7 +200,19 @@ Page({
   },
 
   onGetSmsVerificationCode: function(event) {
-    if (!this.data.mobile || !this.data.country) return;
+    if (!this.data.country) return;
+    if (!this.data.mobile) {
+      this.setData({
+        mobileErrorMessage: "请输入手机号",
+      });
+      return;
+    }
+    if (this.data.mobile.length < 5 || this.data.mobile.length >= 15 || !/^\d+$/.test(this.data.mobile)) {
+      this.setData({
+        mobileErrorMessage: "手机号格式错误",
+      });
+      return;
+    }
     this.setData({
       countDown: 60,
       disableGetSmsCodeBtn: true,
@@ -190,6 +236,11 @@ Page({
       url: `${baseUrl}/users/sms-verify-code/${areaCode}/${mobile}`,
       method: "POST",
       success: function(response) {
+        if (response.statusCode == 429) {
+          that.setData({
+            mobileErrorMessage: "请求次数过多",
+          });
+        }
       },
       fail: function(error) {
       },

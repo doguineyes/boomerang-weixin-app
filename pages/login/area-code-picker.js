@@ -45,7 +45,7 @@ Page({
   },
 
   selectcountry(o){
-    console.log(o.currentTarget.dataset.country);
+    //console.log(o.currentTarget.dataset.country);
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
     prevPage.setData({
