@@ -20,6 +20,7 @@
     </van-field> -->
     <van-button block bind:tap="onLoginClick">登陆</van-button>
     <van-button block bind:tap="onSignUpClick">新用户注册</van-button>
+    <van-button block bind:tap="onWechatQuickLoginClick">账号已绑定微信快速登录</van-button>
   </view>
   <van-toast id="van-toast" />
 </view>

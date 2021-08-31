@@ -79,7 +79,7 @@ Page({
   },
 
   saveTokens: function(response) {
-    const token = response.data.token;
+    const token = response.data.jwtToken;
     const username = response.data.username;
     const authorities = response.data.authorities;
     const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
@@ -100,17 +100,8 @@ Page({
       url: '../index/index',
     });
   },
- 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    let that = this;
 
-    this.setData({
-      countryCode: `${this.data.country.name} ${this.data.country.tel}`
-    });
-
+  onWechatQuickLoginClick: function(event) {
     this.setData({
       loading: true
     });
@@ -119,6 +110,8 @@ Page({
       mask: true,
       message: '加载中...'
     });
+
+    const that = this;
 
     //Try to quick login with wechat openId
     wx.login({
@@ -146,6 +139,15 @@ Page({
           console.log("Wx login failed, get wechat code error: " + res.errMsg)
         }
       }
+    });
+  },
+ 
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      countryCode: `${this.data.country.name} ${this.data.country.tel}`
     });
   },
 

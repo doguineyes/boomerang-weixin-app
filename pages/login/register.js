@@ -1,4 +1,5 @@
 // pages/login/register.js
+import Toast from '@vant/weapp/toast/toast';
 
 const app = getApp();
 
@@ -16,7 +17,6 @@ Page({
       tel: "86",
       pinyin: "zg"
     },
-    mobileErrorMessage: "",
     countDown: 0,
     disableGetSmsCodeBtn: false,
   },
@@ -24,6 +24,21 @@ Page({
   onMobileChange: function(event) {
     this.setData({
       mobile: event.detail,
+      mobileErrorMessage: "",
+    });
+  },
+
+  onMobileBlur: function(event) {
+    this.setData({
+      mobile: event.detail.value,
+      mobileErrorMessage: "",
+    });
+  },
+
+  onMobileFocus: function(event) {
+    this.setData({
+      mobile: event.detail.value,
+      mobileErrorMessage: "",
     });
   },
 
@@ -33,9 +48,23 @@ Page({
     });
   },
 
+  onVerifyCodeFocus: function(event) {
+    this.setData({
+      verifyCode: event.detail.value,
+      verifyCodeErrorMessage: "",
+    });
+  },
+
   onPasswordChange: function(event) {
     this.setData({
       password: event.detail,
+    });
+  },
+
+  onPasswordFocus: function(event) {
+    this.setData({
+      password: event.detail.value,
+      passwordErrorMessage: "",
     });
   },
 
@@ -45,8 +74,95 @@ Page({
     })
   },
 
+  onRePasswordFocus: function(event) {
+    this.setData({
+      rePassword: event.detail.value,
+      rePasswordErrorMessage: "",
+    });
+  },
+
   onSubmit: function(event) {
-    
+    let somethingWrong = false;
+    if (!this.data.mobile) {
+      somethingWrong = true;
+      this.setData({
+        mobileErrorMessage: "请输入手机号",
+      });
+    }
+    if (!this.data.verifyCode) {
+      somethingWrong = true;
+      this.setData({
+        verifyCodeErrorMessage: "请输入验证码",
+      });
+    }
+    if (!this.data.password) {
+      somethingWrong = true;
+      this.setData({
+        passwordErrorMessage: "请输入密码",
+      });
+    }
+    if (!this.data.rePassword) {
+      somethingWrong = true;
+      this.setData({
+        rePasswordErrorMessage: "请再次输入密码",
+      });
+    }
+    if (this.data.password !== this.data.rePassword) {
+      somethingWrong = true;
+      this.setData({
+        rePasswordErrorMessage: "两次输入密码不一致",
+      });
+    }
+    if (somethingWrong) return;
+    const that = this;
+    new Promise((resolve, reject) => {
+      wx.login({
+        success: function(res) {
+          resolve(res.code);
+        }
+      });
+    })
+    .then((code) => {
+      const baseUrl = app.globalData.baseUrl;
+      wx.request({
+        url: `${baseUrl}/users/register/wechat/${code}`,
+        method: "POST",
+        data: {
+          "areaCode": this.data.country.tel,
+          "mobile": this.data.mobile,
+          "password": this.data.password,
+          "smsVerificationCode": this.data.verifyCode,
+        },
+        success: function(response) {
+          that.saveTokens(response);
+        },
+        fail: function(error) {
+        },
+      })
+    });
+  },
+
+  saveTokens: function(response) {
+    const token = response.data.jwtToken;
+    const username = response.data.username;
+    const authorities = response.data.authorities;
+    const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
+    wx.setStorageSync('token', token);
+    wx.setStorageSync('username', username);
+    wx.setStorageSync('expiredtime', expiredTime);
+    wx.setStorageSync('authorities', authorities)
+    app.globalData.token = token;
+    app.globalData.username = username;
+    app.globalData.expiredTime = expiredTime;
+    app.globalData.authorities = authorities;
+    this.setData({
+      username: response.data.username,
+      token: response.data.jwtToken,
+      loggedin: true,
+    })
+    wx.reLaunch({
+      url: '../index/index',
+    });
   },
 
   onGetSmsVerificationCode: function(event) {
