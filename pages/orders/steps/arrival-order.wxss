@@ -1,4 +1,4 @@
-/* pages/orders/steps/paid-order.wxss */
+/* pages/orders/steps/arrival-order.wxss */
 page {
   background: #e7e7e8;
   display: flex;
@@ -7,7 +7,7 @@ page {
 }
 
 .etk-packages-box {
-  margin: 3%;
+  margin: 1%;
 }
 
 .etk-package {

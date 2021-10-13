@@ -1,6 +1,7 @@
 function orderStatusNameToOption(name) {
   const orderStatusNamesToOptions = {
     "新订单": "NewOrder",
+    "已到达": "Arrival",
     "待支付": "UnPaid",
     "已支付": "PaymentCompleted",
     "已完成": "Mailed",
@@ -12,6 +13,7 @@ function orderStatusNameToOption(name) {
 function orderStatusOptionToName(status) {
   const orderStatusOptionsToNames = {
     "NewOrder": "新订单",
+    "Arrival": "已到达",
     "UnPaid": "待支付",
     "PaymentCompleted": "已支付",
     "Mailed": "已完成",
@@ -23,6 +25,7 @@ function orderStatusOptionToName(status) {
 function getOrderView(order) {
   const mapper = {
     "NewOrder": "/pages/orders/steps/new-order?orderId=",
+    "Arrival": "/pages/orders/steps/arrival-order?orderId=",
     "UnPaid": "/pages/orders/steps/unpaid-order?orderId=",
     "PaymentCompleted": "/pages/orders/steps/paid-order?orderId=",
     "Mailed": "/pages/orders/steps/paid-order?orderId=",
@@ -34,6 +37,8 @@ function getOrderView(order) {
 function getOrderStatusName(order) {
   if (isNewOrder(order)) {
     return "新订单";
+  } else if (isArrival(order)) {
+    return "已到达";
   } else if (isToBePaid(order)) {
     return "待支付";
   } else if (isPaid(order)) {
@@ -43,6 +48,10 @@ function getOrderStatusName(order) {
   } else if (isCancelled(order)) {
     return "已取消";
   }
+}
+
+function isArrival(order) {
+  return (order.orderStatus === "Arrival");
 }
 
 function isNewOrder(order) {

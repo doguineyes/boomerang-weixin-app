@@ -17,16 +17,16 @@ function getOrderPromise (id) {
           reject(res);
         }
         const newOrder = res.data;
-        for (let cargo of newOrder.cargoRecords) {
-          for (let photo of cargo.photos) {
-            photo.originPath = photo.url;
-            photo.url = "";
-            photo.isImage = true;
-            photo.deletable = false;
-            photo.status = "uploading";
-            photo.type = "original";
-          }
-        }
+        // for (let cargo of newOrder.cargoRecords) {
+        //   for (let photo of cargo.photos) {
+        //     photo.originPath = photo.url;
+        //     photo.url = "";
+        //     photo.isImage = true;
+        //     photo.deletable = false;
+        //     photo.status = "uploading";
+        //     photo.type = "original";
+        //   }
+        // }
         resolve(newOrder);
       },
       fail(err) {
@@ -34,6 +34,149 @@ function getOrderPromise (id) {
       },
     });
   });
+}
+
+function getOrder(orderId, setOrder, setIdCardPhoto, setArrivalPhoto, setPackagePhoto) {
+  const tasks = [];
+
+  const getOrderTask = getOrderPromise(orderId)
+  .then(
+    (newOrder) => {
+      setOrder(newOrder);
+      return newOrder;
+    }
+  );
+  tasks.push(getOrderTask);
+
+  const getArrivalPhotoTasks = getOrderTask.then(
+    (newOrder) => {
+      return getArrivalPhotosPromises(newOrder, setArrivalPhoto);
+    }
+  );
+  tasks.push(getArrivalPhotoTasks);
+
+  const getPackagePhotosTasks = getOrderTask.then(
+    (newOrder) => {
+      if (newOrder.etkPackages && newOrder.etkPackages.length != 0) {
+        return getPackagePhotosPromises(newOrder, setPackagePhoto);
+      }
+    }
+  );
+  tasks.push(getPackagePhotosTasks);
+  
+  const getIdCardFrontPhotoTask = getIdCardPhotoPromise(orderId, "id-card-front-photo")
+  .then(
+    (file) => {
+      setIdCardPhoto(file, "front");
+    }
+  );
+  tasks.push(getIdCardFrontPhotoTask);
+
+  const getIdCardReversePhotoTask = getIdCardPhotoPromise(orderId, "id-card-reverse-side-photo")
+  .then(
+    (file) => {
+      setIdCardPhoto(file, "reverse");
+    }
+  );
+  tasks.push(getIdCardReversePhotoTask);
+
+  return tasks;
+}
+
+function getIdCardPhotoPromise(orderId, sideUrl) {
+  const token = "Bearer " + app.globalData.token;
+  const baseUrl = app.globalData.baseUrl;
+  const photoUrl = `${baseUrl}/orders/${orderId}/${sideUrl}`;
+  return new Promise((resolve, reject) => {
+    wx.downloadFile({
+      url: photoUrl,
+      header: {
+        "content-type": "application/json",
+        "Authorization": token
+      },
+      success (res) {
+        if (res.statusCode != 200) {
+          reject(res);
+        }
+        resolve(res);
+      },
+      fail: function(err) {
+        reject(err);
+      },
+    })
+  });
+}
+
+function getPackagePhotosPromises(order, setPackagePhoto) {
+  if (!order.etkPackages) return [];
+  const token = "Bearer " + app.globalData.token;
+  const baseUrl = app.globalData.baseUrl;
+  const orderId = order.id;
+  const tasks = [];
+  for (let [packageIndex, etkPackage] of order.etkPackages.entries()) {
+    if (!etkPackage.etkPackagePhotos) continue;
+    for (let [photoIndex, photo] of etkPackage.etkPackagePhotos.entries()) {
+      const packageId = etkPackage.id;
+      const photoId = photo.id;
+      const photoUrl = `${baseUrl}/orders/${orderId}/etk-packages/${packageId}/etk-package-photos/${photoId}`;
+      let task = new Promise(
+        (resolve, reject) => {
+          wx.downloadFile({
+            url: photoUrl,
+            header: {
+              "content-type": "application/json",
+              "Authorization": token
+            },
+            success: function(res) {
+              if (res.statusCode != 200) {
+                reject(res);
+              }
+              setPackagePhoto(packageIndex, photoIndex, res.tempFilePath);
+              resolve();
+            },
+            fail: function(err) {
+              reject(err);
+            },
+          });
+        }
+      );
+      tasks.push(task);
+    }
+  }
+  return tasks;
+}
+
+function getArrivalPhotosPromises(order, setArrivalPhoto) {
+  const token = "Bearer " + app.globalData.token;
+  const baseUrl = app.globalData.baseUrl;
+  const orderId = order.id;
+  const tasks = [];
+  for (let [index, photo] of order.arrivalPhotos.entries()) {
+    const photoUrl = `${baseUrl}/orders/${orderId}/arrival-photos/${photo.id}`;
+    let task = new Promise(
+      (resolve, reject) => {
+        wx.downloadFile({
+          url: photoUrl,
+          header: {
+            "content-type": "application/json",
+            "Authorization": token
+          },
+          success: function(res) {
+            if (res.statusCode != 200) {
+              reject(res);
+            }
+            setArrivalPhoto(index, res.tempFilePath);
+            resolve();
+          },
+          fail: function(err) {
+            reject(err);
+          },
+        });
+      }
+    );
+    tasks.push(task);
+  }
+  return tasks;
 }
 
 function getPhotosPromise(order, setPhotoOk) {
@@ -64,7 +207,7 @@ function getPhotosPromise(order, setPhotoOk) {
           },
           fail: function(err) {
             reject(err);
-          }
+          },
         });
       });
       downloadingPhotoTasks.push(task);
@@ -79,4 +222,4 @@ function getPhotosPromise(order, setPhotoOk) {
   return orderWithPhotosPromise;
 }
 
-export {getOrderPromise, getPhotosPromise};
+export {getOrderPromise, getPhotosPromise, getIdCardPhotoPromise, getArrivalPhotosPromises, getOrder};

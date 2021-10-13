@@ -1,4 +1,4 @@
-// pages/orders/orderPackagingPricing.js
+// pages/orders/components/package-price-view.js
 Component({
   /**
    * 组件的属性列表
@@ -6,6 +6,7 @@ Component({
   properties: {
     order: {
       type: Object,
+      value: {},
     },
   },
 
@@ -20,9 +21,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    onOrderPackagePriceChange: function(event) {
-      const option = {};
-      this.triggerEvent("order-package-price-change", event, option);
-    }
+
   }
 })

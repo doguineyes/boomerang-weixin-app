@@ -1,13 +1,13 @@
-// pages/orders/orderPackagingPricingView.js
+// pages/orders/components/arrival-information-view.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    order: {
-      type: Object,
-      value: {},
-    }
+    arrivalPhotos: {
+      type: Array,
+      value: [],
+    },
   },
 
   /**
@@ -22,6 +22,5 @@ Component({
    */
   methods: {
 
-  },
-
+  }
 })

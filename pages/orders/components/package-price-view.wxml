@@ -1,0 +1,29 @@
+<!--pages/orders/components/package-price-view.wxml-->
+<view>
+  <van-cell-group title="ETK打包信息" custom-class="etk-packages-box">
+    <view wx:for="{{ order.etkPackages }}" wx:for-item="package" wx:for-index="packageIndex" wx:key="packageIndex">
+      <package-cargo-fee-view package="{{ package }}" packageIndex="{{ packageIndex }}">
+      </package-cargo-fee-view>
+      <!-- <van-cell-group custom-class="etk-package">
+        <van-cell title="{{ '包裹'+(packageIndex+1) }}"></van-cell>
+        <view class="etk-package-body">
+          <van-cell-group title="物品信息">
+            <view wx:for="{{ package.etkCargoRecords }}" wx:for-item="cargo" wx:for-index="cargoIndex" wx:key="cargoIndex">
+              <van-cell title="物品名称" value="{{ cargo.name }}"></van-cell>
+              <van-cell title="件数" value="{{ cargo.count }}"></van-cell>
+            </view>
+          </van-cell-group>
+          <van-cell-group title="称重和计价">
+            <van-cell title="重量(kg)" value="{{ package.feeList.weightInKilograms }}"></van-cell>
+            <van-cell title="打包费(元)" value="{{ package.feeList.packingFeeInYuan }}"></van-cell>
+            <van-cell title="运费(元)" value="{{ package.feeList.expressFeeInYuan }}"></van-cell>
+            <van-cell title="税费补贴(元)" value="{{ package.feeList.taxesInYuan }}"></van-cell>
+            <van-cell title="保价(元)" value="{{ package.feeList.insuranceInYuan }}"></van-cell>
+            <van-cell title="包裹合计(元)" value="{{ package.feeList.packageTotalCostInYuan }}"></van-cell>
+          </van-cell-group>
+        </view>
+      </van-cell-group> -->
+    </view>
+  </van-cell-group>
+  <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}"></van-cell>
+</view>

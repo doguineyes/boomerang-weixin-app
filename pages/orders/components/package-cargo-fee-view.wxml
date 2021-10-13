@@ -1,0 +1,22 @@
+<!--pages/orders/components/package-cargo-fee-view.wxml-->
+<van-cell-group custom-class="etk-package">
+  <van-cell title="{{ '包裹'+(packageIndex+1) }}"></van-cell>
+  <view class="etk-package-body">
+    <van-cell-group title="物品信息">
+      <view wx:for="{{ package.etkCargoRecords }}" wx:for-item="cargo" wx:for-index="cargoIndex" wx:key="cargoIndex">
+        <van-cell title="物品名称" value="{{ cargo.name }}"></van-cell>
+        <van-cell title="件数" value="{{ cargo.count }}"></van-cell>
+      </view>
+    </van-cell-group>
+    <van-cell-group title="称重和计价">
+      <van-cell title="重量(kg)" value="{{ package.feeList.weightInKilograms }}"></van-cell>
+      <van-cell title="打包费(元)" value="{{ package.feeList.packingFeeInYuan }}"></van-cell>
+      <van-cell title="运费(元)" value="{{ package.feeList.expressFeeInYuan }}"></van-cell>
+      <van-cell title="税费补贴(元)" value="{{ package.feeList.taxesInYuan }}"></van-cell>
+      <van-cell title="保价(元)" value="{{ package.feeList.insuranceInYuan }}"></van-cell>
+      <van-cell title="包裹合计(元)" value="{{ package.feeList.packageTotalCostInYuan }}"></van-cell>
+    </van-cell-group>
+    <slot>
+    </slot>
+  </view>
+</van-cell-group>

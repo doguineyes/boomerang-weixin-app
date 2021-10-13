@@ -20,7 +20,6 @@
     "pages/login/login",
     "pages/send/send",
     "pages/orders/orders",
-    "pages/send/addAddress",
     "pages/try/try",
     "pages/send/success",
     "pages/orders/orderDetails",
@@ -29,7 +28,8 @@
     "pages/orders/steps/unpaid-order",
     "pages/orders/steps/paid-order",
     "pages/login/register",
-    "pages/login/area-code-picker"
+    "pages/login/area-code-picker",
+    "pages/orders/steps/arrival-order"
   ],
   "window": {
     "backgroundTextStyle": "light",

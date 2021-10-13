@@ -14,7 +14,7 @@ Page({
       { text: "全部商品", value: "" },
       { text: "新订单", value: "NewOrder" },
       { text: "待支付", value: "UnPaid" },
-      { text: "已支付", value: "PaymentComplete" },
+      { text: "已支付", value: "PaymentCompleted" },
       { text: "已完成", value: "Mailed" },
       { text: "已取消", value: "Cancelled" },
     ],

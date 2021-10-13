@@ -1,7 +1,7 @@
 // pages/orders/stages/newOrder.js
 import Toast from "@vant/weapp/toast/toast";
 import Dialog from "@vant/weapp/dialog/dialog";
-import {getOrderPromise, getPhotosPromise} from "../orderHelper.js";
+import {getOrder} from "../orderHelper.js";
 import {getOrderStatusName} from "../orderStatus.js";
 
 const app = getApp();
@@ -12,133 +12,109 @@ Page({
    * 页面的初始数据
    */
   data: {
-    order: {
-    },
   },
 
-  onAfterReadPhoto: function(event) {
-    const { file } = event.detail.detail;
-    const cargoIndex = event.detail.target.id;
-    const photoIndex = this.data.order.cargoRecords[cargoIndex].photos.length;
+  afterArrivalPhotoRead(event) {
+    const { file } = event.detail;
+    const lastIndex = this.data.order.arrivalPhotos.length;
     const self = this;
-
     wx.compressImage({
       src: file.url,
-      quality: 5,
+      quality: 1,
       success: function(res) {
         self.setData({
-          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: res.tempFilePath,
-          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].isImage`]: true,
-          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "done",
-          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].type`]: "new",
+          [`order.arrivalPhotos[${lastIndex}].url`]: res.tempFilePath,
+          [`order.arrivalPhotos[${lastIndex}].isImage`]: true,
         });
       },
-      fail: function(err) {
+      fail: function() {
         self.setData({
-          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].url`]: file.url,
-          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].isImage`]: true,
-          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "done",
-          [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].type`]: "new",
+          [`order.arrivalPhotos[${lastIndex}].url`]: file.url,
+          [`order.arrivalPhotos[${lastIndex}].isImage`]: true,
         });
       },
     });
   },
 
-  onDeletePhoto: function(event) {
-    const cargoIndex = event.detail.target.id;
-    const photoIndex = event.detail.detail.index;
-    const order = this.data.order;
-    const cargo = order.cargoRecords[cargoIndex];
-    const photo = cargo.photos[photoIndex];
-    const baseUrl = app.globalData.baseUrl;
-    if (photo.type === "original") {
-      const queryUrl = `${baseUrl}/orders/${order.id}/cargos/${cargo.id}/photos/${photo.id}`;
-      const needToBeDeleteIndex = this.data.photosNeedToBeDeletedRemotely ? this.data.photosNeedToBeDeletedRemotely.length : 0;
-      this.setData({
-        [`photosNeedToBeDeletedRemotely[${needToBeDeleteIndex}].queryUrl`]: queryUrl,
-      });
-    }
-    cargo.photos.splice(photoIndex, 1);
+  onDeleteArrivalPhoto(event) {
+    const index = event.detail.index;
+    this.data.order.arrivalPhotos.splice(index, 1);
     this.setData({
-      [`order.cargoRecords[${cargoIndex}].photos`]: cargo.photos, 
+      ["order.arrivalPhotos"]: this.data.order.arrivalPhotos,
     });
   },
 
-  onOrderPackagePriceChange: function (event) {
-    const orderPropName = event.detail.target.id;
-    const orderPropValue = event.detail.detail;
+  onSaveAndNotifyCustomerOrderArrival: function() {
     this.setData({
-      [`order.${orderPropName}`]: orderPropValue,
+      submitting: true,
     });
-    this.calculateTheTotalPrice();
-  },
-
-  onQuitEditing: function() {
-    Dialog.confirm({
-      message: "是否放弃修改",
-    })
-    .then(() => {
-      wx.switchTab({
-        url: '../orders'
-      });
-    })
-    .catch(() => {
+    Toast.loading({
+      message: "正在提交",
+      forbidClick: true,
     });
-  },
-
-  onSaveAndNoticePayment: function() {
     const self = this;
     const token = "Bearer " + app.globalData.token;
     const baseUrl = app.globalData.baseUrl;
     const orderId = this.data.order.id;
-    this.submitSaveTasks()
-    .then(() => {
-        return new Promise((resolve, reject) => {
-          wx.request({
-            url: `${baseUrl}/orders/${orderId}/notify-pay`,
-            method: "PUT",
+
+    const tasks = [];
+    for (let [index, arrivalPhoto] of this.data.order.arrivalPhotos.entries()) {
+      self.setData({
+        [`order.arrivalPhotos[${index}].status`]: "uploading",
+      });
+      let uploadArrivalPhotoTask = new Promise(
+        (resolve, reject) => {
+          wx.uploadFile({
+            url: `${baseUrl}/orders/${orderId}/arrival-photos`,
+            filePath: arrivalPhoto.url,
             header: {
-              "content-type": "application/json",
               "Authorization": token
             },
+            name: "photo",
             success: function(res) {
-              resolve(res);
+              if (res.statusCode != 200) {
+                reject(res);
+              }
+              const response = JSON.parse(res.data);
+              self.setData({
+                [`order.arrivalPhotos[${index}].id`]: response.id,
+                [`order.arrivalPhotos[${index}].originUrl`]: response.url,
+                [`order.arrivalPhotos[${index}].status`]: "done",
+              });
+              resolve(response);
             },
             fail: function(err) {
               reject(err);
             }
           });
-        });
+        }
+      );
+      tasks.push(uploadArrivalPhotoTask);
+    }
+
+    Promise.all(tasks)
+    .then(
+      () => {
+        return new Promise(
+          (resolve, reject) => {
+            wx.request({
+              url: `${baseUrl}/orders/${orderId}/notify-arrival`,
+              method: "GET",
+              header: {
+                "content-type": "application/json",
+                "Authorization": token
+              },
+              success: function(res) {
+                resolve(res);
+              },
+              fail: function(err) {
+                resolve(err);
+              },
+            });
+          });
       }
     )
     .then(() => {
-      // for (let response of responses) {
-      //   console.log(response);
-      // }
-      return Dialog.alert({
-        message: "订单修改提交完毕",
-      });
-    })
-    .then(() => {
-      // on close
-      self.setData({
-        submitting: false,
-      });
-      wx.switchTab({
-        url: "../orders"
-      });
-    });
-
-
-  },
-
-  onSave: function() {
-    const self = this;
-    this.submitSaveTasks()
-    .then(() => {
-      // for (let response of responses) {
-      //   console.log(response);
-      // }
       return Dialog.alert({
         message: "订单修改提交完毕",
       });
@@ -154,112 +130,32 @@ Page({
     });
   },
 
-  submitSaveTasks: function() {
+  setOrder(newOrder) {
     this.setData({
-      submitting: true,
+      order: newOrder,
     });
-    const self = this;
-    const token = "Bearer " + app.globalData.token;
-    const baseUrl = app.globalData.baseUrl;
-    const orderId = this.data.order.id;
-
-    let tasks = [];
-
-    const orderFeeListUpdateQuery = `${baseUrl}/orders/${orderId}/fees`;
-    let orderFeeListUpdateTask = new Promise((resolve, reject) => {
-      wx.request({
-        url: orderFeeListUpdateQuery,
-        method: "PUT",
-        data: self.data.order.feeList,
-        header: {
-          "content-type": "application/json",
-          "Authorization": token
-        },
-        success: function(res) {
-          resolve(res);
-        },
-        fail: function(err) {
-          reject(err);
-        }
-      });
-    });
-    tasks.push(orderFeeListUpdateTask);
-    
-    for (let photoNeedToBeDelete of (this.data.photosNeedToBeDeletedRemotely || [])) {
-      let photoDeleteTask = new Promise((resolve, reject) => {
-        wx.request({
-          url: photoNeedToBeDelete.queryUrl,
-          method: "Delete",
-          header: {
-            "content-type": "application/json",
-            "Authorization": token
-          },
-          success: function(res) {
-            resolve(res);
-          },
-          fail: function(err) {
-            reject(err);
-          }
-        });
-      });
-      tasks.push(photoDeleteTask);
-    }
-
-    for (let [cargoIndex, cargo] of Object.entries(this.data.order.cargoRecords)) {
-      const cargoId = cargo.id;
-      const uploadUrl = `${baseUrl}/orders/${orderId}/cargos/${cargoId}/photos`;
-      for (let [photoIndex, photo] of Object.entries(cargo.photos)) {
-        if (photo.type === "new") {
-          this.setData({
-            [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "uploading",
-          });
-          let uploadTask = new Promise(
-            (resolve, reject) => {
-              wx.uploadFile({
-                url: uploadUrl,
-                filePath: photo.url,
-                header: {
-                  "Authorization": token
-                },
-                name: "photo",
-                success: function(res) {
-                  if (res.statusCode === 200) {
-                    const response = JSON.parse(res.data);
-                    self.setData({
-                      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].id`]: response.id,
-                      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].originPath`]: response.url,
-                      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}].status`]: "done",
-                    });
-                    resolve(response);
-                  }
-                },
-                fail: function(err) {
-                  reject(err);
-                }
-              });
-            }
-          );
-          tasks.push(uploadTask);
-        }
-      }
-    }
-
-    return Promise.all(tasks);
-  },
-
-  calculateTheTotalPrice: function() {
-    if (!this.data.order.feeList) return;
-    const feeList = this.data.order.feeList;
-    const total = (Number.parseFloat(feeList.packingFeeInCent) || 0.0) + (Number.parseFloat(feeList.expressFeeInCent) || 0.0) + (Number.parseFloat(feeList.taxesInCent) || 0.0) + (Number.parseFloat(feeList.insuranceInCent) || 0.0);
+    const orderStatusName = getOrderStatusName(newOrder);
     this.setData({
-      ["order.feeList.totalCostInCent"]: total,
+      ["order.orderStatusName"]: orderStatusName,
+      ["idCardPhotos.front[0].isImage"]: true,
+      ["idCardPhotos.front[0].status"]: "uploading",
+      ["idCardPhotos.reverse[0].isImage"]: true,
+      ["idCardPhotos.reverse[0].status"]: "uploading",
     });
   },
 
-  setPhotoOk: function(cargoIndex, photoIndex, photo) {
-    this.setData({
-      [`order.cargoRecords[${cargoIndex}].photos[${photoIndex}]`]: photo,
-    });
+  setIdCardPhoto(photo, side) {
+    if (side === "front") {
+      this.setData({
+        ["idCardPhotos.front[0].url"]: photo.tempFilePath,
+        ["idCardPhotos.front[0].status"]: "done",
+      });
+    } else if (side === "reverse") {
+      this.setData({
+        ["idCardPhotos.reverse[0].url"]: photo.tempFilePath,
+        ["idCardPhotos.reverse[0].status"]: "done",
+      });
+    }
   },
 
   /**
@@ -275,25 +171,15 @@ Page({
         isAdmin: false,
       });
     }
-
     const id = options.orderId;
+    this.setData({
+      ["order.id"]: id,
+    });
 
-    getOrderPromise(id).then(
-      (newOrder) => {
-        this.setData({
-          order: newOrder,
-        });
-        const orderStatusName = getOrderStatusName(newOrder);
-        this.setData({
-          ["order.orderStatusName"]: orderStatusName,
-        });
-        return newOrder;
-      }
-    ).then(
-      (newOrder) => {
-        return getPhotosPromise(newOrder, this.setPhotoOk);
-      }
-    ).then(
+    const tasks = getOrder(id, this.setOrder, this.setIdCardPhoto);
+
+    Promise.all(tasks)
+    .then(
       () => {
         Toast.success("加载完成");
       }
@@ -304,7 +190,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
@@ -347,5 +232,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
 })

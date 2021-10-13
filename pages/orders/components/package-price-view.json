@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "package-cargo-fee-view": "/pages/orders/components/package-cargo-fee-view"
+  }
+}

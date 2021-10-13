@@ -1,9 +1,0 @@
-<!--pages/orders/orderPackagingPricingView.wxml-->
-<view>
-  <van-cell title="重量" value="{{ order.feeList.weightInKilograms }}"></van-cell>
-  <van-cell title="打包费" value="{{ order.feeList.packingFeeInCent }}"></van-cell>
-  <van-cell title="运费" value="{{ order.feeList.expressFeeInCent }}"></van-cell>
-  <van-cell title="税费补贴" value="{{ order.feeList.taxesInCent }}"></van-cell>
-  <van-cell title="保价" value="{{ order.feeList.insuranceInCent }}"></van-cell>
-  <van-cell title="订单总价" value="{{ order.feeList.totalCostInCent }}"></van-cell>
-</view>

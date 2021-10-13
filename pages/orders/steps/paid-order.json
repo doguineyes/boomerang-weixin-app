@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "basic-info": "/pages/orders/components/basic-information",
-    "packaging-pricing-view": "/pages/orders/components/packaging-pricing-view"
+    "arrival-info-view": "/pages/orders/components/arrival-information-view",
+    "package-cargo-fee-view": "/pages/orders/components/package-cargo-fee-view"
   }
 }

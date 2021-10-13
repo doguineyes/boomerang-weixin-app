@@ -15,9 +15,10 @@
       <view class="order-status">
         <van-tag size="small" wx-if="{{item.orderStatus=='Cancelled'}}">已取消</van-tag>
 				<van-tag type="primary" size="small" wx-if="{{item.orderStatus=='NewOrder'}}">新订单</van-tag>
-				<van-tag type="success" size="small" wx-if="{{item.orderStatus=='Mailed'}}">已完成</van-tag>
+        <van-tag type="warning" size="small" wx-if="{{item.orderStatus=='Arrival'}}">已到达</van-tag>
 				<van-tag type="danger" size="small" wx-if="{{item.orderStatus=='UnPaid'}}">待支付</van-tag>
-        <van-tag type="danger" size="small" wx-if="{{item.orderStatus=='PaymentCompleted'}}">已支付</van-tag>
+        <van-tag type="success" size="small" wx-if="{{item.orderStatus=='PaymentCompleted'}}">已支付</van-tag>
+        <van-tag type="success" size="small" wx-if="{{item.orderStatus=='Mailed'}}">已完成</van-tag>
       </view>
     </view>
     <view custom-class="order-card-summary">

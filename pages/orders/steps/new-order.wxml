@@ -1,12 +1,12 @@
 <view>
-  <basic-info order="{{ order }}" isAdmin="{{ isAdmin }}" bind:after-read-photo="onAfterReadPhoto" bind:delete-photo="onDeletePhoto"></basic-info>
+  <basic-info order="{{ order }}" idCardPhotos="{{ idCardPhotos }}"></basic-info>
   <view wx:if="{{ isAdmin }}">
-    <packaging-pricing-editor order="{{ order }}" bind:order-package-price-change="onOrderPackagePriceChange"></packaging-pricing-editor>
-    <view class="btn-box">
-      <van-button custom-class="quit-editing-btn" bind:click="onQuitEditing">放弃修改</van-button>
-      <van-button custom-class="save-btn" bind:click="onSave">保存</van-button>
-      <van-button custom-class="submit-btn" bind:click="onSaveAndNoticePayment">保存并通知支付</van-button>
-    </view>
+    <van-cell-group title="到达信息">
+      <van-cell title="到达照片">
+        <van-uploader max-count="3" file-list="{{ order.arrivalPhotos }}" bind:after-read="afterArrivalPhotoRead" bind:delete="onDeleteArrivalPhoto"></van-uploader>
+      </van-cell>
+    </van-cell-group>
+    <van-button bind:click="onSaveAndNotifyCustomerOrderArrival">通知客户包裹到达</van-button>
   </view>
   <van-dialog id="van-dialog" />
   <van-toast id="van-toast" />

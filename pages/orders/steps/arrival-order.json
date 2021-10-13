@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "basic-info": "/pages/orders/components/basic-information",
+    "arrival-info-view": "/pages/orders/components/arrival-information-view"
+  }
+}

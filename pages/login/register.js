@@ -234,12 +234,17 @@ Page({
     const mobile = this.data.mobile;
     wx.request({
       url: `${baseUrl}/users/sms-verify-code/${areaCode}/${mobile}`,
-      method: "POST",
+      method: "GET",
       success: function(response) {
         if (response.statusCode == 429) {
           that.setData({
             mobileErrorMessage: "请求次数过多",
           });
+        }
+        if (response.statusCode != 200) {
+          that.setData({
+            mobileErrorMessage: "出现了一些错误",
+          })
         }
       },
       fail: function(error) {
