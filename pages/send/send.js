@@ -17,26 +17,26 @@ Page({
     showWarehouseAddressPopup: false,
     warehouseAddressesOptions: ["香港大道1155号", "香港很远很远大区卡达格兰大道115号北国风光大厦11层100299室第A区3柜台"],
 
-    order: {
-        arrivalExpressInfo: {
-          arrivalExpressNumber: "DHL10092900",
-          name: "李师傅",
-          warehouseAddress: "香港大道1155号",
-        },
-        receiver: {
-          name: "伏虎",
-          mobile: "19820012002",
-          address: "北京东路100021号",
-          province: "北京市",
-          city: "北京市",
-          district: "海淀区",
-        },
-        receiverIdCardNumber: "320102198610092899",
-        cargoRecords: [
-          {name: "手机", count: 10},
-          {name: "包包", count: 9},
-        ],
-    },
+    // order: {
+    //     arrivalExpressInfo: {
+    //       arrivalExpressNumber: "DHL10092900",
+    //       name: "李师傅",
+    //       warehouseAddress: "香港大道1155号",
+    //     },
+    //     receiver: {
+    //       name: "伏虎",
+    //       mobile: "19820012002",
+    //       address: "北京东路100021号",
+    //       province: "北京市",
+    //       city: "北京市",
+    //       district: "海淀区",
+    //     },
+    //     receiverIdCardNumber: "320102198610092899",
+    //     cargoRecords: [
+    //       {name: "手机", count: 10},
+    //       {name: "包包", count: 9},
+    //     ],
+    // },
   },
 
   onArrivalExpressNumberChange(event) {
@@ -369,6 +369,7 @@ Page({
     for (let i = 0; i < order?.cargoRecords.length; i++) {
       const cargo = order?.cargoRecords[i];
       if (cargo && !cargo?.name.trim()) {
+        somethingError = true;
         this.setData({
           [`cargoRecordsErrorMsgs[${i}]`]: "请输入正确的货物名称",
         });

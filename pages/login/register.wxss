@@ -1,1 +1,24 @@
-/* pages/login/register.wxss */
+page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #eeeeee;
+}
+
+.footer-btn-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.primary-btn {
+  background: #ffb300 !important;
+  left: 20%;
+  width: 60%;
+  margin-top: 1%;
+}
+
+.little-btn {
+  background-color: #344955 !important;
+  color: white !important;
+}

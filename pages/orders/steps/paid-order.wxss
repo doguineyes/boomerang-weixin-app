@@ -1,20 +1,32 @@
 /* pages/orders/steps/paid-order.wxss */
 page {
-  background: #e7e7e8;
+  background: #eeeeee;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.etk-packages-box {
-  margin: 3%;
-}
-
-.etk-package {
-  background: #bdbdca;
-  margin: 1%;
-}
-
 .etk-package-body {
   margin: 1%;
+}
+
+.page-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.secondary-btn {
+  background: #344955 !important;
+  color: white !important;
+  /* font-size: 0.9em !important; */
+}
+
+.primary-btn {
+  background: #F9AA33 !important;
+  /* font-size: 1.2em !important; */
+}
+
+.error-message {
+  color: red !important;
 }

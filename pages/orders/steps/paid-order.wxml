@@ -2,29 +2,29 @@
 <view>
   <basic-info order="{{ order }}" idCardPhotos="{{ idCardPhotos }}"></basic-info>
   <arrival-info-view arrivalPhotos="{{ order.arrivalPhotos }}"></arrival-info-view>
-  <van-cell-group title="ETK打包信息" custom-class="etk-packages-box">
+  <van-cell-group title="ETK打包信息">
     <view wx:for="{{ order.etkPackages }}" wx:for-item="etkPackage" wx:for-index="packageIndex" wx:key="packageIndex">
       <package-cargo-fee-view package="{{ etkPackage }}" packageIndex="{{ packageIndex }}">
+        <view wx:if="{{ etkPackage.alreadySentOut }}">
+          <van-cell-group title="打包照片">
+            <van-uploader id="{{ packageIndex }}" max-count="3" max-size="20971520" file-list="{{ etkPackage.etkPackagePhotos }}" disabled="{{ true }}" deletable="{{ false }}" show-upload="{{ false }}"></van-uploader>
+          </van-cell-group>
+          <van-cell title="ETK快递号码" value="{{ etkPackage.etkNumber }}"></van-cell>
+        </view>
+        <view wx:else="{{ !etkPackage.alreadySentOut }}">
+          <van-cell title="打包照片" label="{{ etkPackage.etkPackagePhotosErrorMessage }}" label-class="error-message">
+            <van-uploader id="{{ packageIndex }}" max-count="3" max-size="20971520" file-list="{{ etkPackage.etkPackagePhotos }}" bind:after-read="afterReadPackagePhoto" bind:delete="onDeletePackagePhoto"></van-uploader>
+          </van-cell>
+          <van-field id="{{ packageIndex }}" label="ETK快递号码" value="{{ etkPackage.etkNumber }}" bind:change="onEtkNumberChange" error-message="{{ etkPackage.etkNumberErrorMessage }}"></van-field>
+          <van-checkbox checked-color="#f9aa33" shape="square" id="{{ packageIndex }}" value="{{ etkPackage.sentChecked }}" bind:change="onSentCheckedChange">本次寄出</van-checkbox>
+        </view>
       </package-cargo-fee-view>
-      <view wx:if="{{ etkPackage.alreadySentOut }}">
-        <van-cell-group title="打包照片">
-          <van-uploader id="{{ packageIndex }}" max-count="3" max-size="20971520" file-list="{{ etkPackage.etkPackagePhotos }}" disabled="{{ true }}" deletable="{{ false }}" show-upload="{{ false }}"></van-uploader>
-        </van-cell-group>
-        <van-cell title="ETK快递号码" value="{{ etkPackage.etkNumber }}"></van-cell>
-      </view>
-      <view wx:else="{{ !etkPackage.alreadySentOut }}">
-        <van-cell-group title="打包照片" label="{{ etkPackage.etkPackagePhotosErrorMessage }}">
-          <van-uploader id="{{ packageIndex }}" max-count="3" max-size="20971520" file-list="{{ etkPackage.etkPackagePhotos }}" bind:after-read="afterReadPackagePhoto" bind:delete="onDeletePackagePhoto"></van-uploader>
-        </van-cell-group>
-        <van-field id="{{ packageIndex }}" label="ETK快递号码" value="{{ etkPackage.etkNumber }}" bind:change="onEtkNumberChange" error-message="{{ etkPackage.etkNumberErrorMessage }}"></van-field>
-        <van-checkbox id="{{ packageIndex }}" value="{{ etkPackage.sentChecked }}" bind:change="onSentCheckedChange">本次寄出</van-checkbox>
-      </view>
     </view>
   </van-cell-group>
   <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}"></van-cell>
-  <view wx:if="{{ isAdmin && order.orderStatus === 'PaymentCompleted'}}">
-      <van-button bind:click="onSave">保存但不通知客户</van-button>
-      <van-button bind:click="onNotifyCustomerOrderComplete">通知客户订单完成</van-button>
+  <view wx:if="{{ isAdmin && order.orderStatus === 'PaymentCompleted'}}" class="page-footer">
+      <van-button bind:click="onSave" custom-class="secondary-btn">保存但不通知客户</van-button>
+      <van-button bind:click="onNotifyCustomerOrderComplete" custom-class="primary-btn">通知客户订单完成</van-button>
   </view>
   <van-dialog id="van-dialog" />
   <van-toast id="van-toast" />

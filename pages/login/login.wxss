@@ -3,11 +3,7 @@ page{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: white;
-}
-
-.full-height{
-  height: 100%;
+  background: #eeeeee;
 }
 
 .logo-box {
@@ -16,13 +12,31 @@ page{
   justify-content: center;
 }
 
-.weixin-quick-login-btn{
-  background-color: #336B87 !important;
-  border-color: #336B87 !important;
-  color: white !important;
-  font-size: 1rem !important;
+.full-height{
+  height: 100%;
 }
 
-.login-by-mobile-btn {
-  color: #90AFC5 !important;
+.footer-btn-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.primary-login-btn {
+  background-color: #ffb300 !important;
+  width: 70% !important;
+  margin-top: 1%;
+}
+
+.quick-login-btn {
+  background-color: #344955 !important;
+  color: white !important;
+  width: 70% !important;
+  margin-top: 1%;
+}
+
+.register-btn {
+  background: #eeeeee !important;
+  color: #0b222c !important;
+  width: 50% !important;
 }

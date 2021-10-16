@@ -1,20 +1,74 @@
 /* pages/orders/steps/arrival-order.wxss */
 page {
-  background: #e7e7e8;
+  background: #eeeeee;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.etk-packages-box {
+.etk-package-box {
+  background: #e0e0e0;
   margin: 1%;
 }
 
-.etk-package {
-  background: #bdbdca;
-  margin: 1%;
+.etk-package-box-head {
+  flex: 1;
+}
+
+.etk-package-box-head-title {
+  background: #344955 !important;
+  color: #ffffff !important;
+}
+
+.delete-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 100%;
+  width: 65px;
 }
 
 .etk-package-body {
   margin: 1%;
+}
+
+.etk-package-btn-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.cargo-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cargo-info-box-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.page-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.little-btn {
+  background: #FFDC65 !important;
+  font-size: 0.9em !important;
+}
+
+.primary-btn {
+  background: #F9AA33 !important;
+  font-size: 1.2em !important;
+}
+
+.error-message {
+  color: red !important;
 }

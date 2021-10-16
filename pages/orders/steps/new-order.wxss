@@ -1,32 +1,24 @@
 /* pages/orders/stages/newOrder.wxss */
 page {
-  background: #e7e7e8;
+  background: #eeeeee;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.btn-box {
+.footer-btn-box {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin: 3%;
+  justify-content: center;
 }
 
-.quit-editing-btn {
-  background: #FFBB00 !important;
-  color: white !important;
-  font-size: 1em !important;
+.primary-btn {
+  background: #F9AA33 !important;
+  font-size: 1.2em !important;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
-.save-btn {
-  background: #375E97 !important;
-  color: white !important;
-  font-size: 1em !important;
-}
-
-.submit-btn {
-  background: red !important;
-  color: white !important;
-  font-size: 1em !important;
+.error-message {
+  color: red !important;
 }

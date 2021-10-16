@@ -1,5 +1,5 @@
 <!--pages/orders/components/basic-information.wxml-->
-<view>
+<view class="order-info-box">
   <van-cell-group title="基本信息">
     <van-cell title="订单号" value="{{ order.id }}"></van-cell>
     <van-cell title="订单状态" value="{{ order.orderStatusName }}" ></van-cell>

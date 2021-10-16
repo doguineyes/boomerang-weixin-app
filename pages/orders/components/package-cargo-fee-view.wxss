@@ -1,1 +1,24 @@
-/* pages/orders/components/package-cargo-fee-view.wxss */
+page {
+  background: #eeeeee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.etk-package-box {
+  background: #e0e0e0;
+  margin: 1%;
+}
+
+.etk-package-box-head {
+  flex: 1;
+}
+
+.etk-package-box-head-title {
+  background: #344955 !important;
+  color: #ffffff !important;
+}
+
+.etk-package-body {
+  margin: 1%;
+}

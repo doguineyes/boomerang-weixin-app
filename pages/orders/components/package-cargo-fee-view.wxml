@@ -1,6 +1,8 @@
 <!--pages/orders/components/package-cargo-fee-view.wxml-->
-<van-cell-group custom-class="etk-package">
-  <van-cell title="{{ '包裹'+(packageIndex+1) }}"></van-cell>
+<van-cell-group custom-class="etk-package-box">
+  <view class="etk-package-box-head">
+    <van-cell custom-class="etk-package-box-head-title" title="{{ '包裹'+(packageIndex+1) }}"></van-cell>
+  </view>
   <view class="etk-package-body">
     <van-cell-group title="物品信息">
       <view wx:for="{{ package.etkCargoRecords }}" wx:for-item="cargo" wx:for-index="cargoIndex" wx:key="cargoIndex">

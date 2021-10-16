@@ -18,6 +18,9 @@ Page({
     const { file } = event.detail;
     const lastIndex = this.data.order.arrivalPhotos.length;
     const self = this;
+    this.setData({
+      ["order.arrivalPhotosErrorMessage"]: "",
+    });
     wx.compressImage({
       src: file.url,
       quality: 1,
@@ -41,10 +44,17 @@ Page({
     this.data.order.arrivalPhotos.splice(index, 1);
     this.setData({
       ["order.arrivalPhotos"]: this.data.order.arrivalPhotos,
+      ["order.arrivalPhotosErrorMessage"]: "",
     });
   },
 
   onSaveAndNotifyCustomerOrderArrival: function() {
+    if (!this.data.order.arrivalPhotos || this.data.order.arrivalPhotos.length === 0) {
+      this.setData({
+        ["order.arrivalPhotosErrorMessage"]: "请上传到达照片",
+      });
+      return;
+    }
     this.setData({
       submitting: true,
     });

@@ -1,1 +1,23 @@
-/* pages/login/mobile-login.wxss */
+page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #eeeeee;
+}
+
+.footer-btn-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.primary-btn {
+  background: #ffb300 !important;
+  width: 80% !important;
+  margin-top: 1%;
+}
+
+.little-btn {
+  background-color: #344955 !important;
+  color: white !important;
+}

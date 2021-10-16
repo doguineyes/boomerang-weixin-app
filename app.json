@@ -1,5 +1,8 @@
 {
   "tabBar": {
+    "backgroundColor": "#344955",
+    "color": "#ffffff",
+    "selectedColor": "#f9aa33",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -33,9 +36,9 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#344955",
     "navigationBarTitleText": "Boomerang",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {

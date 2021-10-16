@@ -3,7 +3,7 @@
   <ven-cell-group>
     <van-field value="{{ mobile }}" title="手机号" clearable placeholder="请输入手机号" error-message="{{ mobileErrorMessage }}"/>
     <van-cell value="{{ smsVerificationCode }}" title="短信验证码" clearable>
-      <van-button slot="right-icon" class="custom-icon" bind:click="onGetSmsVerificationCode" 
+      <van-button custom-class="little-btn" slot="right-icon" size="small" class="custom-icon" bind:click="onGetSmsVerificationCode" 
       disabled="{{ disableGetSmsCodeBtn }}">获取验证码 
       <view wx:if="{{countDown}}">
         {{countDown}}
@@ -11,5 +11,7 @@
       </van-button>
     </van-cell>
   </ven-cell-group>
-  <van-button block bindtap="onLoginClick">登陆</van-button>
+  <view class="footer-btn-box">
+    <van-button custom-class="primary-btn" block bindtap="onLoginClick">登陆</van-button>
+  </view>
 </view>

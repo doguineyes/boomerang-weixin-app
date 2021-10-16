@@ -1,6 +1,6 @@
 /* pages/orders/orders.wxss */
 page {
-  background: #e7e7e8;
+  background: #eeeeee;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,4 +1,11 @@
 /**index.wxss**/
+page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #eeeeee;
+}
+
 .userinfo {
   display: flex;
   flex-direction: column;

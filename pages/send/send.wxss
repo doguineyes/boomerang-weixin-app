@@ -1,6 +1,6 @@
 /* pages/send/send.wxss */
 page {
-  background: #e7e7e8;
+  background: #eeeeee;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,21 +12,26 @@ page {
 }
 
 .footer {
+  background-color: #e0e0e0;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .order-info-box {
-  background-color: white;
-  margin: 2%;
+  margin: 1%;
+}
+
+.cell-group-box {
+  background: #232F34;
+  margin: 1%;
 }
 
 .name-mobile-line {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  color: black;
+  color: white;
 }
 
 .name {
@@ -41,10 +46,10 @@ page {
 
 .add-cargo-btn {
   left: 70%;
-  background: #084683 !important;
+  background: #FFDC65 !important;
   margin-top: 1%;
   margin-bottom: 2%;
-  color: white !important;
+  color: black !important;
 }
 
 .cargo-name {
@@ -57,16 +62,21 @@ page {
   justify-content: center;
   background-color: red;
   color: white;
-  width: 40%;
   text-align: center;
-  flex: 1;
+  height: 100%;
+  width: 65px;
 }
 
 .submit-order-btn{
-  background: #084683 !important;
+  background: #F9AA33 !important;
+  border-color: #F9AA33 !important;
   left: 10%;
   width: 80%;
   margin: 1%;
-  color: white !important;
+  color: black !important;
   font-size: 1.2em !important;
+}
+
+.error-message {
+  color: red !important;
 }
