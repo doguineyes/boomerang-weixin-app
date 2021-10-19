@@ -40,7 +40,7 @@
     "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.6",
+  "libVersion": "2.20.0",
   "appid": "wx97a1e00875b65dca",
   "projectname": "boomerang-weixin-app",
   "debugOptions": {
