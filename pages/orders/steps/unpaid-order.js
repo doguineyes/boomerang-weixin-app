@@ -142,26 +142,47 @@ Page({
     const baseUrl = app.globalData.baseUrl;
     const orderUrl = baseUrl + `/orders/${id}`;
 
-    let getPrepayIdTask = new Promise((resolve, reject) => {
-      wx.request({
-        url: orderUrl + "/prepay-info",
-        method: "GET",
-        header: {
-          "content-type": "application/json",
-          "Authorization": token
-        },
-        success: function(res) {
-          if (res.statusCode !== 200) {
-            reject(res);
-          }
-          const prepayInfo = res.data;
-          resolve(prepayInfo);
-        },
-        fail(err) {
-          reject(err);
-        },
-      });
-    });
+    const requestSubscribeMessageTask = new Promise(
+      (resolve) => {
+        wx.requestSubscribeMessage({
+          tmplIds: [
+            "ws8iZAAPeKzoidhjG4gqYIyJghndtBetOQL1zhEIdpo",
+          ],
+          success: (res) => {
+            resolve(res);
+          },
+          fail: (err) => {
+            resolve(err);
+          },
+        });
+      }
+    ); 
+
+    let getPrepayIdTask = requestSubscribeMessageTask
+    .then(
+      () => {
+        return new Promise((resolve, reject) => {
+          wx.request({
+            url: orderUrl + "/prepay-info",
+            method: "GET",
+            header: {
+              "content-type": "application/json",
+              "Authorization": token
+            },
+            success: function(res) {
+              if (res.statusCode !== 200) {
+                reject(res);
+              }
+              const prepayInfo = res.data;
+              resolve(prepayInfo);
+            },
+            fail(err) {
+              reject(err);
+            },
+          });
+        });
+      }
+    );
 
     getPrepayIdTask.then((prepayInfo) => {
       return new Promise((resolve, reject) => {

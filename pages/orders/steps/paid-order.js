@@ -12,36 +12,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-  //   order: {
-  //     arrivalExpressInfo: {
-  //       arrivalExpressNumber: "DHL10092900",
-  //       name: "李师傅",
-  //       warehouseAddress: "香港大道1155号",
-  //     },
-  //     receiver: {
-  //       name: "伏虎",
-  //       mobile: "19820012002",
-  //       address: "北京东路100021号",
-  //       province: "北京市",
-  //       city: "北京市",
-  //       district: "海淀区",
-  //     },
-  //     receiverIdCardNumber: "320102198610092899",
-  //     cargoRecords: [
-  //       {name: "手机", count: 10},
-  //       {name: "包包", count: 9},
-  //     ],
-  //     etkPackages: [
-  //       {
-  //         etkCargoRecords:[{name: "", count: 1,},
-  //         ],
-  //       },
-  //       {
-  //         etkCargoRecords:[{name: "", count: 1,},
-  //         ],
-  //       },
-  //     ],
-  // },
   },
 
   afterReadPackagePhoto: function(event) {

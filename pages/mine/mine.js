@@ -1,22 +1,17 @@
-// pages/try/try.js
+// pages/mine/mine.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    cargos: [
-      {name: "手机", count: 1},
-      {name: "手机", count: 1},
-      // {name: "手机", count: 1},
-      // {name: "手机", count: 1},
-      // {name: "手机", count: 1},
-      // {name: "手机", count: 1},
-      // {name: "手机", count: 1},
-      // {name: "手机", count: 1},
-      // {name: "手机", count: 1},
-      // {name: "手机", count: 1},
-    ],
+
+  },
+
+  onChangePasswordClick: function() {
+    wx.reLaunch({
+      url: '/pages/mine/change-passwd',
+    });
   },
 
   /**

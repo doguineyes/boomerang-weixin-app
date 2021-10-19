@@ -1,0 +1,13 @@
+<!--pages/mine/change-passwd.wxml-->
+<view>
+  <van-cell-group>
+    <van-field value="{{ oldPassword }}" password label="旧的密码" maxlength="50" placeholder="请输入旧的密码" clearable error-message="{{ oldPasswordErrorMessage }}" bind:change="onOldPasswordChange" bind:blur="onOldPasswordBlur" bind:focus="onOldPasswordFocus"/>
+    <van-field value="{{ password }}" password label="新的密码" maxlength="50" placeholder="请输入新的密码" clearable error-message="{{ passwordErrorMessage }}" bind:change="onPasswordChange" bind:blur="onPasswordBlur" bind:focus="onPasswordFocus"/>
+    <van-field value="{{ rePassword }}" password label="确认新的密码" maxlength="50" placeholder="请再次输入新的密码" clearable error-message="{{ rePasswordErrorMessage }}" bind:change="onRePasswordChange" bind:blur="onRePasswordBlur" bind:focus="onRePasswordFocus"/>
+  </van-cell-group>
+  <view class="footer-btn-box">
+    <van-button custom-class="primary-btn" round bind:click="onSubmit">提交</van-button>
+  </view>
+  <van-toast id="van-toast" />
+  <van-dialog id="van-dialog" />
+</view>

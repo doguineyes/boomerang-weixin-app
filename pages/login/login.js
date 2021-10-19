@@ -53,6 +53,12 @@ Page({
     });
   },
 
+  onResetPasswordClick: function() {
+    wx.reLaunch({
+      url: '/pages/login/reset-passwd',
+    });
+  },
+
   onLoginClick: function() {
     let somethingWrong = false;
     if (!this.data.mobile || this.data.mobile.length < 5 || this.data.mobile.length > 15 || !/^\d+$/.test(this.data.mobile)) {

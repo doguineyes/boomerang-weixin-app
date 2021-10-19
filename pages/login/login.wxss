@@ -35,7 +35,7 @@ page{
   margin-top: 1%;
 }
 
-.register-btn {
+.hyperlink-btn {
   background: #eeeeee !important;
   color: #0b222c !important;
   width: 50% !important;

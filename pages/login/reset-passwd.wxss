@@ -13,11 +13,18 @@ page {
 
 .primary-btn {
   background: #ffb300 !important;
-  width: 80% !important;
+  left: 20%;
+  width: 60%;
   margin-top: 1%;
 }
 
 .little-btn {
   background-color: #344955 !important;
   color: white !important;
+}
+
+.in-little-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

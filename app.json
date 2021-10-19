@@ -15,6 +15,10 @@
       {
         "pagePath": "pages/orders/orders",
         "text": "订单"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
       }
     ]
   },
@@ -23,16 +27,17 @@
     "pages/login/login",
     "pages/send/send",
     "pages/orders/orders",
-    "pages/try/try",
     "pages/send/success",
     "pages/orders/orderDetails",
-    "pages/login/mobile-login",
     "pages/orders/steps/new-order",
     "pages/orders/steps/unpaid-order",
     "pages/orders/steps/paid-order",
     "pages/login/register",
     "pages/login/area-code-picker",
-    "pages/orders/steps/arrival-order"
+    "pages/orders/steps/arrival-order",
+    "pages/mine/mine",
+    "pages/login/reset-passwd",
+    "pages/mine/change-passwd"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -67,6 +72,9 @@
     "van-search": "/miniprogram_npm/@vant/weapp/search/index",
     "van-picker": "/miniprogram_npm/@vant/weapp/picker/index",
     "van-uploader": "/miniprogram_npm/@vant/weapp/uploader/index",
-    "van-overlay": "/miniprogram_npm/@vant/weapp/overlay/index"
+    "van-overlay": "/miniprogram_npm/@vant/weapp/overlay/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+    "van-grid": "/miniprogram_npm/@vant/weapp/grid/index",
+    "van-grid-item": "/miniprogram_npm/@vant/weapp/grid-item/index"
   }
 }

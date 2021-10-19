@@ -10,7 +10,8 @@
     <view class="footer-btn-box">
       <van-button round custom-class="primary-login-btn" block bind:tap="onLoginClick">登陆</van-button>
       <van-button round custom-class="quick-login-btn" block bind:tap="onWechatQuickLoginClick">账号已绑定微信快速登录</van-button>
-      <van-button custom-class="register-btn" block bind:tap="onSignUpClick">新用户注册</van-button>
+      <van-button custom-class="hyperlink-btn" block bind:tap="onSignUpClick">新用户注册</van-button>
+      <van-button custom-class="hyperlink-btn" block bind:tap="onResetPasswordClick">忘记密码</van-button>
     </view>
   </view>
   <van-dialog id="van-dialog" />

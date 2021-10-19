@@ -387,8 +387,8 @@ Page({
       (resolve) => {
         wx.requestSubscribeMessage({
           tmplIds: [
-            "fcXFO32mH_XqFkYtU4ZeGmQOozj5yCoB6-4MyCA1vdY",
             "loJMx4AGyLQnmP6WO3l7CX_sE8ZEGS7nnrGEVNpLAP4",
+            "fcXFO32mH_XqFkYtU4ZeGmQOozj5yCoB6-4MyCA1vdY",
             "6-aMAe08S_Svtb7fIq9AxaCQVaXSMqpFAitteQULFXs",
           ],
           success: (res) => {

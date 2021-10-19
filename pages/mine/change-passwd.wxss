@@ -17,14 +17,3 @@ page {
   width: 60%;
   margin-top: 1%;
 }
-
-.little-btn {
-  background-color: #344955 !important;
-  color: white !important;
-}
-
-.in-little-btn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}

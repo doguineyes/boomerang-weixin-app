@@ -1,5 +1,6 @@
-// pages/login/register.js
+// pages/login/reset-passwd.js
 import Toast from '@vant/weapp/toast/toast';
+import Dialog from "@vant/weapp/dialog/dialog";
 
 const app = getApp();
 
@@ -133,70 +134,60 @@ Page({
     }
     if (somethingWrong) return;
 
-    const that = this;
-    new Promise((resolve, reject) => {
-      wx.login({
-        success: function(res) {
-          resolve(res.code);
-        }
-      });
-    })
-    .then((code) => {
-      const baseUrl = app.globalData.baseUrl;
-      wx.request({
-        url: `${baseUrl}/users/register/wechat/${code}`,
-        method: "POST",
-        data: {
-          "areaCode": this.data.country.tel,
-          "mobile": this.data.mobile,
-          "password": this.data.password,
-          "smsVerificationCode": this.data.verifyCode,
-        },
-        success: function(response) {
-          if (response.statusCode == 400) {
-            that.setData({
-              verifyCodeErrorMessage: "验证码错误",
-            });
-            return;
-          }
-          if (response.statusCode == 403) {
-            that.setData({
-              mobileErrorMessage: "手机号已注册",
-            });
-            return;
-          }
-          if (response.statusCode == 200) {
-            that.saveTokens(response);
-          }
-        },
-        fail: function(error) {
-
-        },
-      })
-    });
-  },
-
-  saveTokens: function(response) {
-    const token = response.data.jwtToken;
-    const username = response.data.username;
-    const authorities = response.data.authorities;
-    const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
-    wx.setStorageSync('token', token);
-    wx.setStorageSync('username', username);
-    wx.setStorageSync('expiredtime', expiredTime);
-    wx.setStorageSync('authorities', authorities)
-    app.globalData.token = token;
-    app.globalData.username = username;
-    app.globalData.expiredTime = expiredTime;
-    app.globalData.authorities = authorities;
-    this.setData({
-      username: response.data.username,
-      token: response.data.jwtToken,
-      loggedin: true,
-    })
-    wx.reLaunch({
-      url: '../index/index',
-    });
+    const baseUrl = app.globalData.baseUrl;
+    new Promise(
+      (resolve, reject) => {
+        wx.request({
+          url: `${baseUrl}/users/reset-passwd`,
+          method: "POST",
+          data: {
+            areaCode: this.data.country.tel,
+            mobile: this.data.mobile,
+            password: this.data.password,
+            smsVerificationCode: this.data.verifyCode,
+          },
+          success: (response) => {
+            if (response.statusCode === 400) {
+              this.setData({
+                verifyCodeErrorMessage: "验证码错误",
+              });
+              reject(response);
+            }
+            if (response.statusCode === 404) {
+              this.setData({
+                mobileErrorMessage: "没有使用该手机号注册的账号",
+              });
+              reject(response);
+            }
+            if (response.statusCode === 200) {
+              resolve(response);
+            }
+          },
+          fail: function(error) {
+            reject(error);
+          },
+        });
+      }
+    )
+    .then(
+      () => {
+        return Dialog.alert({
+          message: "密码重置成功，请用新密码登录",
+        });
+      }
+    )
+    .then(
+      () => {
+        wx.reLaunch({
+          url: '/pages/login/login',
+        });
+      }
+    )
+    .catch(
+      () => {
+        Toast.fail("密码重置失败");
+      }
+    );
   },
 
   onGetSmsVerificationCode: function() {

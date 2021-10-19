@@ -113,18 +113,14 @@ Page({
     });
   },
 
-  onKeyWordSearch: function(event) {
-    if (this.data.searchKeyWord) {
-      this.clearPage();
-      this.loadOrders();
-    }
+  onKeyWordSearch: function() {
+    this.clearPage();
+    this.loadOrders();
   },
 
-  onClickKeyWordSearch: function(event) {
-    if (this.data.searchKeyWord) {
-      this.clearPage();
-      this.loadOrders();
-    }
+  onClickKeyWordSearch: function() {
+    this.clearPage();
+    this.loadOrders();
   },
 
   orderStatusOptionsChange: function(event) {
