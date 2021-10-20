@@ -434,7 +434,7 @@ Page({
       }
     );
 
-    const uploadPhotoTask = submitOrderTask
+    submitOrderTask
     .then(
       (res) => {
         const orderId = res.data.id;
@@ -475,30 +475,34 @@ Page({
         self.setData({
           ["receiverIdCardReversePhoto[0].status"]: "uploading",
         });
-        wx.uploadFile({
-          url: `${app.globalData.baseUrl}/orders/${orderId}/id-card-reverse-side-photo`,
-          filePath: self.data.receiverIdCardReversePhoto[0].url,
-          header: {
-            "Authorization": token,
-            "accept": "application/json;charset=UTF-8",
-          },
-          name: "photo",
-          success: function(res) {
-            if (res.statusCode != 200) {
-              reject(res);
-            }
-            self.setData({
-              ["receiverIdCardReversePhoto[0].status"]: "done",
+        return new Promise(
+          (resolve, reject) => {
+            wx.uploadFile({
+              url: `${app.globalData.baseUrl}/orders/${orderId}/id-card-reverse-side-photo`,
+              filePath: self.data.receiverIdCardReversePhoto[0].url,
+              header: {
+                "Authorization": token,
+                "accept": "application/json;charset=UTF-8",
+              },
+              name: "photo",
+              success: function(res) {
+                if (res.statusCode != 200) {
+                  reject(res);
+                }
+                self.setData({
+                  ["receiverIdCardReversePhoto[0].status"]: "done",
+                });
+                resolve(res);
+              },
+              fail: function(err) {
+                self.setData({
+                  ["receiverIdCardReversePhoto[0].status"]: "done",
+                });
+                reject(err);
+              },
             });
-            resolve(res);
-          },
-          fail: function(err) {
-            self.setData({
-              ["receiverIdCardReversePhoto[0].status"]: "done",
-            });
-            reject(err);
-          },
-        });
+          }
+        );
       }
     ).then(
       () => {
