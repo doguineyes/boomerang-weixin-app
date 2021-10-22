@@ -28,11 +28,11 @@
               </view>
             </van-cell-group>
             <van-cell-group title="称重和计价">
-              <van-field label="重量(kg)" placeholder="请输入重量" clearable value="{{ package.feeList.weightInKilograms }}" id="{{ packageIndex }}" type="number" bind:change="onPackageWeightChange" error-message="{{ package.feeList.weightErrorMessage }}"></van-field>
-              <van-field label="打包费(元)" placeholder="请输入打包费" clearable value="{{ package.feeList.packingFeeInYuan }}" id="{{ packageIndex }}" type="number" bind:change="onPackagePackagingFeeChange"></van-field>
-              <van-field label="运费(元)" placeholder="请输入运费" clearable value="{{ package.feeList.expressFeeInYuan }}" id="{{ packageIndex }}" type="number" bind:change="onPackageExpressFeeChange"></van-field>
-              <van-field label="税费补贴(元)" placeholder="请输入税费补贴" clearable value="{{ package.feeList.taxesInYuan }}" id="{{ packageIndex }}" type="number" bind:change="onPackageTaxesChange"></van-field>
-              <van-field label="保价(元)" placeholder="请输入保价" clearable value="{{ package.feeList.insuranceInYuan }}" id="{{ packageIndex }}" type="number" bind:change="onPackageInsuranceChange"></van-field>
+              <van-field label="重量(kg)" placeholder="请输入重量" clearable value="{{ package.feeList.weightInKilograms }}" id="{{ packageIndex }}" type="digit" bind:change="onPackageWeightChange" error-message="{{ package.feeList.weightErrorMessage }}"></van-field>
+              <van-field label="打包费(元)" placeholder="请输入打包费" clearable value="{{ package.feeList.packingFeeInYuan }}" id="{{ packageIndex }}" type="digit" bind:change="onPackagePackagingFeeChange"></van-field>
+              <van-field label="运费(元)" placeholder="请输入运费" clearable value="{{ package.feeList.expressFeeInYuan }}" id="{{ packageIndex }}" type="digit" bind:change="onPackageExpressFeeChange"></van-field>
+              <van-field label="税费补贴(元)" placeholder="请输入税费补贴" clearable value="{{ package.feeList.taxesInYuan }}" id="{{ packageIndex }}" type="digit" bind:change="onPackageTaxesChange"></van-field>
+              <van-field label="保价(元)" placeholder="请输入保价" clearable value="{{ package.feeList.insuranceInYuan }}" id="{{ packageIndex }}" type="digit" bind:change="onPackageInsuranceChange"></van-field>
               <van-cell title="包裹合计(元)" value="{{ package.feeList.packageTotalCostInYuan }}" label="{{ package.feeList.feesErrorMessage }}" label-class="error-message"></van-cell>
             </van-cell-group>
           </view>
@@ -44,6 +44,7 @@
       <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}" label="{{ order.totalCostInCentErrorMessage }}" label-class="error-message"></van-cell>
     </van-cell-group>
     <view class="page-footer">
+      <van-button round bind:click="onSavePackagingAndFeeButNotNotice" custom-class="secondary-btn">仅保存但不通知支付</van-button>
       <van-button round bind:click="onSaveAndNoticePayment" custom-class="primary-btn">保存并通知支付</van-button>
     </view>
   </view>

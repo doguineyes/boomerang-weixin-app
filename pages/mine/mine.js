@@ -1,4 +1,9 @@
 // pages/mine/mine.js
+import Toast from '@vant/weapp/toast/toast';
+import Dialog from "@vant/weapp/dialog/dialog";
+
+const app = getApp();
+
 Page({
 
   /**
@@ -11,6 +16,23 @@ Page({
   onChangePasswordClick: function() {
     wx.reLaunch({
       url: '/pages/mine/change-passwd',
+    });
+  },
+
+  onSignOutClick: function() {
+    Dialog.confirm({
+      title: "是否登出",
+      message: '登出当前用户，将回到登录界面',
+    })
+    .then(() => {
+      // on confirm
+      wx.clearStorageSync();
+      wx.reLaunch({
+        url: '/pages/login/login',
+      });
+    })
+    .catch(() => {
+      // on cancel
     });
   },
 

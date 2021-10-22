@@ -12,11 +12,17 @@ Page({
    * 页面的初始数据
    */
   data: {
+    deletedOriginPackages: [],
   },
 
   onPackageCargoNameChange: function(event) {
     const [packageIndex, cargoIndex] = event.target.id.split(",");
     const name = event.detail;
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
+    }
     this.setData({
       [`order.etkPackages[${packageIndex}].etkCargoRecords[${cargoIndex}].name`]: name,
       [`order.etkPackages[${packageIndex}].etkCargoRecords[${cargoIndex}].errorMessage`]: "",
@@ -26,6 +32,11 @@ Page({
   onPackageCargoCountChange: function(event) {
     const [packageIndex, cargoIndex] = event.target.id.split(",");
     const count = event.detail;
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
+    }
     this.setData({
       [`order.etkPackages[${packageIndex}].etkCargoRecords[${cargoIndex}].count`]: count,
     });
@@ -39,6 +50,11 @@ Page({
       .alert({message: "添加的货物过多"})
       .then(() => {});
       return;
+    }
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
     }
     this.setData({
       [`order.etkPackages[${packageIndex}].etkCargoRecords[${lastIndex}]`]: {name: "", count: 1,},
@@ -56,6 +72,11 @@ Page({
       instance.close();
       return;
     }
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
+    }
     this.data.order.etkPackages[packageIndex].etkCargoRecords.splice(cargoIndex, 1);
     this.setData({
       [`order.etkPackages[${packageIndex}].etkCargoRecords`]: this.data.order.etkPackages[packageIndex].etkCargoRecords,
@@ -64,6 +85,11 @@ Page({
 
   onPackageWeightChange: function(event) {
     const packageIndex = event.target.id;
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
+    }
     this.setData({
       [`order.etkPackages[${packageIndex}]feeList.weightInKilograms`]: event.detail,
       [`order.etkPackages[${packageIndex}]feeList.weightErrorMessage`]: "",
@@ -72,6 +98,11 @@ Page({
 
   onPackagePackagingFeeChange: function(event) {
     const packageIndex = event.target.id;
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
+    }
     this.setData({
       [`order.etkPackages[${packageIndex}]feeList.packingFeeInYuan`]: event.detail,
       [`order.etkPackages[${packageIndex}]feeList.packingFeeInCent`]: event.detail * 100,
@@ -81,6 +112,11 @@ Page({
 
   onPackageExpressFeeChange: function(event) {
     const packageIndex = event.target.id;
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
+    }
     this.setData({
       [`order.etkPackages[${packageIndex}]feeList.expressFeeInYuan`]: event.detail,
       [`order.etkPackages[${packageIndex}]feeList.expressFeeInCent`]: event.detail * 100,
@@ -90,6 +126,11 @@ Page({
 
   onPackageTaxesChange: function(event) {
     const packageIndex = event.target.id;
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
+    }
     this.setData({
       [`order.etkPackages[${packageIndex}]feeList.taxesInYuan`]: event.detail,
       [`order.etkPackages[${packageIndex}]feeList.taxesInCent`]: event.detail * 100,
@@ -100,6 +141,11 @@ Page({
   onPackageInsuranceChange: function(event) {
     const value = event.detail < 0 ? 0 : event.detail;
     const packageIndex = event.target.id;
+    if (this.data.order.etkPackages[packageIndex].status === "origin") {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].status`]: "modified",
+      });
+    }
     this.setData({
       [`order.etkPackages[${packageIndex}]feeList.insuranceInYuan`]: value,
       [`order.etkPackages[${packageIndex}]feeList.insuranceInCent`]: value * 100,
@@ -144,6 +190,7 @@ Page({
       [`order.etkPackages[${lastIndex}]`]: {
         etkCargoRecords:[{name: "", count: 1,},],
         feeList: {},
+        status: "new",
       }
     });
     this.calculateTotalFee();
@@ -168,7 +215,10 @@ Page({
     .then(() => {
       // on confirm
       instance.close();
-      this.data.order.etkPackages.splice(packageIndex, 1);
+      const [ deletedPackage ] = this.data.order.etkPackages.splice(packageIndex, 1);
+      if (deletedPackage.status == "origin" || deletedPackage.status == "modified") {
+        this.data.deletedOriginPackages.push(deletedPackage);
+      }
       this.setData({
         ["order.etkPackages"]: this.data.order.etkPackages,
       });
@@ -255,35 +305,74 @@ Page({
     const token = "Bearer " + app.globalData.token;
     const baseUrl = app.globalData.baseUrl;
     const orderId = this.data.order.id;
-    const requestData = {
-      etkPackages: this.data.order.etkPackages,
+    this.data.deletedOriginPackages = this.data.deletedOriginPackages
+    .concat(this.data.order.etkPackages.filter((etkPackage) => etkPackage.status === "modified"));
+    const tasks = [];
+    for (let needDeletePackage of this.data.deletedOriginPackages) {
+      const deletePackageTask = new Promise(
+        (resolve, reject) => {
+          wx.request({
+            url: `${baseUrl}/orders/${orderId}/etk-packages/${needDeletePackage.id}`,
+            method: "DELETE",
+            header: {
+              "content-type": "application/json",
+              "Authorization": token
+            },
+            success: (res) => {
+              if (res.statusCode != 200) {
+                reject(response);
+              }
+              resolve(res);
+            },
+            fail: (err) => {
+              reject(err);
+            }
+          });
+        }
+      );
+      tasks.push(deletePackageTask);
     }
-    return new Promise((resolve, reject) => {
-      wx.request({
-        url: `${baseUrl}/orders/${orderId}/etk-packages/`,
-        method: "POST",
-        data: requestData,
-        header: {
-          "content-type": "application/json",
-          "Authorization": token
-        },
-        success: (response) => {
-          if (response.statusCode != 200) {
-            //Toast.clear();
-            reject(response);
-          }
-          const order = response.data;
-          resolve(order);
-        },
-        fail: (err) => {
-          reject(err);
-          // if (res.data.code != 200) {
-          //   app.globalData.appController.callhandler(res.data);
-          //   return;
-          // }
-        },
-      });
-    });
+
+    const needAddPackagesRequest = {
+      etkPackages: this.data.order.etkPackages.filter((etkPackage) => etkPackage.status != "origin"),
+    }
+    if (needAddPackagesRequest.etkPackages && needAddPackagesRequest.etkPackages.length != 0) {
+      const addPackagesTask = new Promise(
+        (resolve, reject) => {
+          wx.request({
+            url: `${baseUrl}/orders/${orderId}/etk-packages/`,
+            method: "POST",
+            data: needAddPackagesRequest,
+            header: {
+              "content-type": "application/json",
+              "Authorization": token
+            },
+            success: (response) => {
+              if (response.statusCode != 200) {
+                //Toast.clear();
+                reject(response);
+              }
+              const order = response.data;
+              resolve(order);
+            },
+            fail: (err) => {
+              reject(err);
+              // if (res.data.code != 200) {
+              //   app.globalData.appController.callhandler(res.data);
+              //   return;
+              // }
+            },
+          });
+        });
+      tasks.push(addPackagesTask);
+    }
+
+    return Promise.all(tasks)
+    .then(
+      () => {
+        return this.data.order;
+      }
+    );
   },
 
   notifyPayPromise(order) {
@@ -308,6 +397,31 @@ Page({
           fail: function(err) {
             reject(err);
           }
+        });
+      }
+    );
+  },
+
+  onSavePackagingAndFeeButNotNotice: function() {
+    if (!this.checkPackagePriceOk()) {
+      Dialog
+      .alert({message: "订单打包和计价信息存在错误，请修改后再提交"})
+      .then(
+        () => {
+        }
+      );
+      return;
+    }
+    Toast.loading({
+      mask: true,
+      message: '处理中...'
+    });
+    this.savePackageInfoPromise()
+    .then(
+      () => {
+        Toast.clear();
+        wx.switchTab({
+          url: '../orders',
         });
       }
     );
@@ -346,7 +460,7 @@ Page({
               url: '../orders',
             });
           }
-        )
+        );
       }
     )
     .catch(
@@ -392,8 +506,9 @@ Page({
     }
     if (!this.data.order.etkPackages || this.data.order.etkPackages.length === 0) {
       const emptyPackages = [{
-        etkCargoRecords:[{name: "", count: 1,},
-        ],
+        etkCargoRecords:[{name: "", count: 1,},],
+        feeList: {},
+        status: "new",
       }];
       this.setData({
         ["order.etkPackages"]: emptyPackages,
@@ -406,6 +521,7 @@ Page({
           [`order.etkPackages[${packageIndex}].feeList.expressFeeInYuan`]: feeList.expressFeeInCent ? feeList.expressFeeInCent / 100 : 0.0,
           [`order.etkPackages[${packageIndex}].feeList.taxesInYuan`]: feeList.taxesInCent ? feeList.taxesInCent / 100 : 0.0,
           [`order.etkPackages[${packageIndex}].feeList.insuranceInYuan`]: feeList.insuranceInCent ? feeList.insuranceInCent / 100 : 0.0,
+          [`order.etkPackages[${packageIndex}].status`]: "origin",
         });
       }
       this.calculateTotalFee();

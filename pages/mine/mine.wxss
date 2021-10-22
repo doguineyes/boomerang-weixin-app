@@ -2,17 +2,16 @@
 page {
   background: #eeeeee;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: center;
   min-height: 100%;
 }
 
 .primary-btn {
   background: #5f7481 !important;
   border-color: #5f7481 !important;
-  left: 10%;
-  width: 80%;
-  margin: 1%;
+  width: 100%;
+  margin: 2%;
   color: white !important;
   font-size: 1em !important;
 }
