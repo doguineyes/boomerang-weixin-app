@@ -349,7 +349,6 @@ Page({
             },
             success: (response) => {
               if (response.statusCode != 200) {
-                //Toast.clear();
                 reject(response);
               }
               const order = response.data;
@@ -357,10 +356,6 @@ Page({
             },
             fail: (err) => {
               reject(err);
-              // if (res.data.code != 200) {
-              //   app.globalData.appController.callhandler(res.data);
-              //   return;
-              // }
             },
           });
         });

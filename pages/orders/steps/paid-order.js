@@ -281,54 +281,6 @@ Page({
     );
   },
 
-  // onSaveOld: function() {
-  //   if (!this.data.order.etkNumber) {
-  //     Dialog.confirm({
-  //       message: "请填写ETK快递号码",
-  //     });
-  //     return;
-  //   }
-  //   this.setData({
-  //     submitting: true,
-  //   });
-  //   const self = this;
-  //   const token = "Bearer " + app.globalData.token;
-  //   const baseUrl = app.globalData.baseUrl;
-  //   const orderId = this.data.order.id;
-  //   const etkNumber = this.data.order.etkNumber;
-  //   const setEtkNumberUrl = `${baseUrl}/orders/${orderId}/etk/${etkNumber}`;
-  //   new Promise((resolve, reject) => {
-  //     wx.request({
-  //       url: setEtkNumberUrl,
-  //       method: "PUT",
-  //       header: {
-  //         "content-type": "application/json",
-  //         "Authorization": token
-  //       },
-  //       success: function(res) {
-  //         resolve(res);
-  //       },
-  //       fail: function(err) {
-  //         reject(err);
-  //       }
-  //     });
-  //   })
-  //   .then(() => {
-  //     return Dialog.alert({
-  //       message: "订单修改提交完毕",
-  //     });
-  //   })
-  //   .then(() => {
-  //     // on close
-  //     self.setData({
-  //       submitting: false,
-  //     });
-  //     wx.switchTab({
-  //       url: "../orders"
-  //     });
-  //   });
-  // },
-
   setPackagePhoto: function(packageIndex, photoIndex, localUrl) {
     this.setData({
       [`order.etkPackages[${packageIndex}].etkPackagePhotos[${photoIndex}].url`]: localUrl,

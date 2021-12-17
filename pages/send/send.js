@@ -17,27 +17,6 @@ Page({
     },
     showWarehouseAddressPopup: false,
     warehouseAddressesOptions: [],
-
-    // order: {
-    //     arrivalExpressInfo: {
-    //       arrivalExpressNumber: "DHL10092900",
-    //       name: "李师傅",
-    //       warehouseAddress: "香港大道1155号",
-    //     },
-    //     receiver: {
-    //       name: "伏虎",
-    //       mobile: "19820012002",
-    //       address: "北京东路100021号",
-    //       province: "北京市",
-    //       city: "北京市",
-    //       district: "海淀区",
-    //     },
-    //     receiverIdCardNumber: "320102198610092899",
-    //     cargoRecords: [
-    //       {name: "手机", count: 10},
-    //       {name: "包包", count: 9},
-    //     ],
-    // },
   },
 
   onArrivalExpressNumberChange(event) {
@@ -425,10 +404,6 @@ Page({
             },
             fail: (err) => {
               reject(err);
-              // if (res.data.code != 200) {
-              //   app.globalData.appController.callhandler(res.data);
-              //   return;
-              // }
             },
           });
         });
@@ -567,16 +542,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // const token = app.globalData.token;
-    // const expiredTime = app.globalData.expiredTime;
-    // const userName = app.globalData.username;
-    // const now = new Date();
     
-    // if (!token || now > expiredTime || !userName) {
-    //   wx.reLaunch({
-    //     url: '../login/login',
-    //   })
-    // }
   },
 
   /**

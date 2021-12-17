@@ -1,6 +1,4 @@
 // pages/orders/components/basic-information.js
-import {getOrderPromise, getPhotosPromise, getIdCardPhotoPromise, getArrivalPhotosPromises} from "../orderHelper.js";
-import {getOrderStatusName} from "../orderStatus.js";
 
 Component({
   /**
@@ -15,10 +13,6 @@ Component({
       type: Object,
       value: {},
     },
-    // isAdmin: {
-    //   type: Boolean,
-    //   value: false,
-    // }
   },
 
   /**

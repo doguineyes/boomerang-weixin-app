@@ -1,5 +1,4 @@
 // pages/login/register.js
-import Toast from '@vant/weapp/toast/toast';
 
 const app = getApp();
 
@@ -274,7 +273,6 @@ Page({
   onShow: function () {
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];
-    //console.log(currPage.__data__.country.v);
     if (currPage.__data__.country) {
       this.setData({
         countryCode: currPage.__data__.country.v,

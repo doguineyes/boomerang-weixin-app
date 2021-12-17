@@ -265,7 +265,6 @@ Page({
   onShow: function () {
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];
-    //console.log(currPage.__data__.country.v);
     if (currPage.__data__.country) {
       this.setData({
         countryCode: currPage.__data__.country.v,

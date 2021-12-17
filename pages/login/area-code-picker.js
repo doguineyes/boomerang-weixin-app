@@ -1,5 +1,5 @@
 // pages/login/area-code-picker.js
-import codes, { areaCodes } from "./area-codes"
+import { areaCodes } from "./area-codes"
 
 Page({
 
@@ -45,7 +45,6 @@ Page({
   },
 
   selectcountry(o){
-    //console.log(o.currentTarget.dataset.country);
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
     prevPage.setData({

@@ -42,16 +42,6 @@ function getOrderPromise (id) {
           reject(res);
         }
         const newOrder = res.data;
-        // for (let cargo of newOrder.cargoRecords) {
-        //   for (let photo of cargo.photos) {
-        //     photo.originPath = photo.url;
-        //     photo.url = "";
-        //     photo.isImage = true;
-        //     photo.deletable = false;
-        //     photo.status = "uploading";
-        //     photo.type = "original";
-        //   }
-        // }
         resolve(newOrder);
       },
       fail(err) {
@@ -238,12 +228,7 @@ function getPhotosPromise(order, setPhotoOk) {
       downloadingPhotoTasks.push(task);
     }
   }
-  let orderWithPhotosPromise = Promise.all(downloadingPhotoTasks)
-  // .then(
-  //   (res) => {
-  //     return order;
-  //   }
-  // );
+  let orderWithPhotosPromise = Promise.all(downloadingPhotoTasks);
   return orderWithPhotosPromise;
 }
 

@@ -48,7 +48,6 @@ Page({
     if (this.data.searchKeyWord) {
       queryUrl += `&query=${this.data.searchKeyWord}`;
     }
-    //console.log(queryUrl);
     wx.request({
       url: queryUrl,
       method: "GET",
@@ -156,7 +155,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // console.log("on show");
     this.clearPage();
     this.loadOrders();
   },
@@ -178,7 +176,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    //console.log("pull down");
     this.clearPage();
     this.loadOrders();
     wx.stopPullDownRefresh();
@@ -188,7 +185,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    //console.log("reach bottom");
     if (!this.data.loading && this.data.hasMore) {
       this.loadOrders();
     }

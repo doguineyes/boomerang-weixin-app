@@ -9,7 +9,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // loggedin: false,
     loading: false,
     countryCode:"",
     country: {
@@ -210,7 +209,6 @@ Page({
   onShow: function () {
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];
-    //console.log(currPage.__data__.country.v);
     if (currPage.__data__.country) {
       this.setData({
         countryCode: `${currPage.__data__.country.name} ${currPage.__data__.country.tel}`,

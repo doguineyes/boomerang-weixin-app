@@ -125,11 +125,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // Toast.loading({
-    //   duration: 0,
-    //   message: "加载中...",
-    //   forbidClick: true,
-    // });
     
     if (app.isAdmin()) {
       this.setData({
@@ -163,10 +158,7 @@ Page({
         return getPhotosPromise(newOrder, this.setPhotoOk);
       }
     ).then(
-      (orderWithPhotos) => {
-        // this.setData({
-        //   ["order.cargoRecords"]: orderWithPhotos.cargoRecords,
-        // });
+      () => {
         Toast.success("加载完成");
       }
     );
@@ -313,11 +305,6 @@ Page({
         message: "订单修改提交完毕",
       })
     })
-    // .then(() => {
-    //   if (this.data.order.orderStatus === this.data.orderStatusOptionsToNames) {
-      
-    //   }
-    // })
     .then(() => {
       // on close
       self.setData({
