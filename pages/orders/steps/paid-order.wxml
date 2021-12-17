@@ -11,7 +11,7 @@
           </van-cell-group>
           <van-cell title="ETK快递号码" value="{{ etkPackage.etkNumber }}"></van-cell>
         </view>
-        <view wx:else="{{ !etkPackage.alreadySentOut }}">
+        <view wx:elif="{{ !etkPackage.alreadySentOut && isAdmin }}">
           <van-cell title="打包照片" label="{{ etkPackage.etkPackagePhotosErrorMessage }}" label-class="error-message">
             <van-uploader id="{{ packageIndex }}" max-count="3" max-size="20971520" file-list="{{ etkPackage.etkPackagePhotos }}" bind:after-read="afterReadPackagePhoto" bind:delete="onDeletePackagePhoto"></van-uploader>
           </van-cell>

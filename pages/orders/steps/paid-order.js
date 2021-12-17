@@ -80,6 +80,12 @@ Page({
       });
       somethingError = true;
     }
+    if (etkPackage.etkNumber?.length > 64) {
+      this.setData({
+        [`order.etkPackages[${packageIndex}].etkNumberErrorMessage`]: "ETK订单号码过长",
+      });
+      somethingError = true;
+    }
     return !somethingError;
   },
 
