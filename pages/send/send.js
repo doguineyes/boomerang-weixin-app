@@ -1,6 +1,7 @@
 // pages/send/send.js
 import Dialog from "@vant/weapp/dialog/dialog";
 import Toast from "@vant/weapp/toast/toast";
+import { getWarehouseAddressesPromise } from "../orders/orderHelper";
 
 const app = getApp();
 
@@ -15,7 +16,7 @@ Page({
       ],
     },
     showWarehouseAddressPopup: false,
-    warehouseAddressesOptions: ["香港大道1155号", "香港很远很远大区卡达格兰大道115号北国风光大厦11层100299室第A区3柜台"],
+    warehouseAddressesOptions: [],
 
     // order: {
     //     arrivalExpressInfo: {
@@ -536,8 +537,23 @@ Page({
     if (!token || now > expiredTime || !userName) {
       wx.reLaunch({
         url: '../login/login',
-      })
+      });
     }
+
+    getWarehouseAddressesPromise()
+    .then(
+      (data) => {
+        console.log(data);
+        this.setData({
+          warehouseAddressesOptions: data,
+        });
+      }
+    )
+    .catch(
+      (error) => {
+        console.log(error);
+      }
+    );
   },
 
   /**

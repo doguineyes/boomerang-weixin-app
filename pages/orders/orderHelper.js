@@ -1,5 +1,30 @@
 const app = getApp();
 
+function getWarehouseAddressesPromise() {
+  const token = "Bearer " + app.globalData.token;
+  const baseUrl = app.globalData.baseUrl;
+  const url = `${baseUrl}/orders/warehouse-addresses`;
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: url,
+      method: "GET",
+      header: {
+        "content-type": "application/json",
+        "Authorization": token,
+      },
+      success: function(response) {
+        if (response.statusCode !== 200) {
+          reject(response);
+        }
+        resolve(response.data);
+      },
+      fail(err) {
+        reject(err);
+      },
+    })
+  });
+}
+
 function getOrderPromise (id) {
   const token = "Bearer " + app.globalData.token;
   const baseUrl = app.globalData.baseUrl;
@@ -222,4 +247,4 @@ function getPhotosPromise(order, setPhotoOk) {
   return orderWithPhotosPromise;
 }
 
-export {getOrderPromise, getPhotosPromise, getIdCardPhotoPromise, getArrivalPhotosPromises, getOrder};
+export {getWarehouseAddressesPromise, getOrderPromise, getPhotosPromise, getIdCardPhotoPromise, getArrivalPhotosPromises, getOrder};
