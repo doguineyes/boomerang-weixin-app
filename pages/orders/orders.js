@@ -11,7 +11,7 @@ Page({
   data: {
     orders: [],
     orderStatusOptions: [
-      { text: "全部商品", value: "" },
+      { text: "全部订单", value: "" },
       { text: "新订单", value: "NewOrder" },
       { text: "已到达", value: "Arrival" },
       { text: "待支付", value: "UnPaid" },

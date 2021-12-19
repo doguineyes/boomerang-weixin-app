@@ -20,10 +20,10 @@
       <van-field label="详细地址" placeholder="请输入收件人详细地址" value="{{ order.receiver.address }}" bind:change="onReceiverAddressChange" error-message="{{ receiverAddressErrorMsg }}"></van-field>
       <van-field label="手机号码" placeholder="请输入收件人手机号码" value="{{ order.receiver.mobile }}" bind:change="onReceiverMobileChange" error-message="{{ receiverMobileErrorMsg }}"></van-field>
       <van-field label="证件号" placeholder="请输入收件人证件号" value="{{ order.receiverIdCardNumber }}" bind:change="onReceiverIdCardNumberChange" error-message="{{ receiverIdCardNumberErrorMsg }}"></van-field>
-      <van-cell label-class="error-message" title="证件正面" label="{{ receiverIdCardFrontErrorMsg }}">
+      <van-cell label-class="error-message" title="证件国徽面" label="{{ receiverIdCardFrontErrorMsg }}">
         <van-uploader max-count="1" max-size="20971520" file-list="{{ receiverIdCardFrontPhoto }}" bind:after-read="afterReadIdCardFrontPhoto" bind:delete="onDeleteIdCardFrontPhoto" bind:oversize="onPhotoOversize"></van-uploader>
       </van-cell>
-      <van-cell label-class="error-message" title="证件反面" label="{{ receiverIdCardReverseErrorMsg }}">
+      <van-cell label-class="error-message" title="证件人像面" label="{{ receiverIdCardReverseErrorMsg }}">
         <van-uploader max-count="1" max-size="20971520" file-list="{{ receiverIdCardReversePhoto }}" bind:after-read="afterReadIdCardReversePhoto" bind:delete="onDeleteIdCardReversePhoto" bind:oversize="onPhotoOversize"></van-uploader>
       </van-cell>
     </van-cell-group>
