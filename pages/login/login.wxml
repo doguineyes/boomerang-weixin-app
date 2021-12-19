@@ -1,7 +1,7 @@
 <!--pages/login/login.wxml-->
 <view class="full-height">
   <view class="logo-box">
-    <image mode="aspectFit" src="./logo_transparent.png" />
+    <image mode="aspectFit" src="../static/logo_transparent.png" />
   </view>
   <view>
     <van-cell is-link title="国家与地区" value="{{ countryCode }}" link-type="navigateTo" url="/pages/login/area-code-picker" />
