@@ -4,6 +4,14 @@ page{
   flex-direction: column;
   justify-content: center;
   background: #eeeeee;
+  height: 100%;
+}
+
+.full-height{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .logo-box {
@@ -12,14 +20,21 @@ page{
   justify-content: center;
 }
 
-.full-height{
-  height: 100%;
-}
-
 .footer-btn-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.footer-files {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.footer-files-each-file {
+  flex: 1;
 }
 
 .primary-login-btn {

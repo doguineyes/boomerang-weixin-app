@@ -46,6 +46,18 @@ Page({
     })
   },
 
+  onServiceTerms: function() {
+    wx.redirectTo({
+      url: '/pages/login/service-terms',
+    })
+  },
+
+  onPrivacyPolicy: function() {
+    wx.redirectTo({
+      url: '/pages/login/privacy-policy',
+    })
+  },
+
   onSignUpClick: function() {
     wx.reLaunch({
       url: '/pages/login/register',

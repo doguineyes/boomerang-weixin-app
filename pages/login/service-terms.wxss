@@ -1,0 +1,11 @@
+/* pages/login/service.wxss */
+page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #eeeeee;
+}
+
+.head {
+  text-align: center;
+}

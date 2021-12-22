@@ -37,7 +37,9 @@
     "pages/orders/steps/arrival-order",
     "pages/mine/mine",
     "pages/login/reset-passwd",
-    "pages/mine/change-passwd"
+    "pages/mine/change-passwd",
+    "pages/login/service-terms",
+    "pages/login/privacy-policy"
   ],
   "window": {
     "backgroundTextStyle": "light",
