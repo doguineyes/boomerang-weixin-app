@@ -4,9 +4,8 @@
     <van-cell title="订单号" value="{{ order.id }}"></van-cell>
     <van-cell title="订单状态" value="{{ order.orderStatusName }}" ></van-cell>
   </van-cell-group>
-  <van-cell-group title="国际快递来件信息">
+  <van-cell-group title="入仓信息">
     <van-cell title="国际快递单号" value="{{ order.arrivalExpressInfo.arrivalExpressNumber }}" ></van-cell>
-    <van-cell title="来件收件人" value="{{ order.arrivalExpressInfo.name }}"></van-cell>
     <van-cell title="仓库地址" value="{{ order.arrivalExpressInfo.warehouseAddress }}" ></van-cell>
   </van-cell-group>
   <van-cell-group title="收件人信息">

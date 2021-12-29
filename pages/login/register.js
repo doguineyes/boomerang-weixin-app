@@ -142,52 +142,95 @@ Page({
     })
     .then((code) => {
       const baseUrl = app.globalData.baseUrl;
-      wx.request({
-        url: `${baseUrl}/users/register/wechat/${code}`,
-        method: "POST",
-        data: {
-          "areaCode": this.data.country.tel,
-          "mobile": this.data.mobile,
-          "password": this.data.password,
-          "smsVerificationCode": this.data.verifyCode,
-        },
-        success: function(response) {
-          if (response.statusCode == 400) {
-            that.setData({
-              verifyCodeErrorMessage: "验证码错误",
-            });
-            return;
-          }
-          if (response.statusCode == 403) {
-            that.setData({
-              mobileErrorMessage: "手机号已注册",
-            });
-            return;
-          }
-          if (response.statusCode == 200) {
+      return new Promise((resolve, reject) => {
+        wx.request({
+          url: `${baseUrl}/users/register/wechat/${code}`,
+          method: "POST",
+          data: {
+            "areaCode": that.data.country.tel,
+            "mobile": that.data.mobile,
+            "password": that.data.password,
+            "smsVerificationCode": that.data.verifyCode,
+          },
+          success: function(response) {
+            if (response.statusCode == 400) {
+              that.setData({
+                verifyCodeErrorMessage: "验证码错误",
+              });
+              reject(response);
+            }
+            if (response.statusCode == 403) {
+              that.setData({
+                mobileErrorMessage: "手机号已注册",
+              });
+              reject(response);
+            }
+            if (response.statusCode == 200) {
+              //that.saveTokens(response);
+              resolve(response);
+            }
+          },
+          fail: function(error) {
+            reject(error);
+          },
+        });
+      });
+    })
+    .then(
+      (response) => {
+        const baseUrl = app.globalData.baseUrl;
+        const password = that.data.password;
+        const mobile = that.data.mobile;
+        const areaCode = that.data.country.tel;
+        const requestData = {
+          "areaCode": areaCode,
+          "mobile": mobile,
+          "password": password,
+        };
+        wx.request({
+          url: `${baseUrl}/users/login/mobile`,
+          method: "POST",
+          data: requestData,
+          success: function(response) {
+            if (response.statusCode != 200) {
+              Dialog.alert({
+                message: "登录失败",
+              }).then(() => {
+                // on close
+              });
+              return;
+            }
             that.saveTokens(response);
-          }
-        },
-        fail: function(error) {
-
-        },
-      })
-    });
+          },
+          fail(err) {
+          },
+          complete() {
+            //Toast.clear();
+            // that.setData({
+            //   loading: false
+            // });
+          },
+        })
+      }
+    )
   },
 
   saveTokens: function(response) {
     const token = response.data.jwtToken;
     const username = response.data.username;
     const authorities = response.data.authorities;
+    const entryCode = response.data.entryCode;
     const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
     wx.setStorageSync('token', token);
     wx.setStorageSync('username', username);
     wx.setStorageSync('expiredtime', expiredTime);
-    wx.setStorageSync('authorities', authorities)
+    wx.setStorageSync('authorities', authorities);
+    wx.setStorageSync('entryCode', entryCode);
     app.globalData.token = token;
     app.globalData.username = username;
     app.globalData.expiredTime = expiredTime;
     app.globalData.authorities = authorities;
+    app.globalData.entryCode = entryCode;
     this.setData({
       username: response.data.username,
       token: response.data.jwtToken,

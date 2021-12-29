@@ -1,6 +1,6 @@
 <!--pages/mine/mine.wxml-->
 <view>
-  <button class="primary-btn" open-type="contact" >联系客服</button>
+  <button class="primary-btn" open-type="contact">联系客服</button>
   <van-button custom-class="primary-btn" bind:click="onChangePasswordClick">修改密码</van-button>
   <van-button custom-class="primary-btn" bind:click="onSignOutClick">登出</van-button>
   <van-toast id="van-toast" />

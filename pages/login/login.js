@@ -133,15 +133,18 @@ Page({
     const token = response.data.jwtToken;
     const username = response.data.username;
     const authorities = response.data.authorities;
+    const entryCode = response.data.entryCode;
     const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
     wx.setStorageSync('token', token);
     wx.setStorageSync('username', username);
     wx.setStorageSync('expiredtime', expiredTime);
-    wx.setStorageSync('authorities', authorities)
+    wx.setStorageSync('authorities', authorities);
+    wx.setStorageSync('entryCode', entryCode);
     app.globalData.token = token;
     app.globalData.username = username;
     app.globalData.expiredTime = expiredTime;
     app.globalData.authorities = authorities;
+    app.globalData.entryCode = entryCode;
     this.setData({
       username: response.data.username,
       token: response.data.jwtToken,

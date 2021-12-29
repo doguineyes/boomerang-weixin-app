@@ -1,9 +1,9 @@
 <!--pages/send/send.wxml-->
 <view class="main">
   <view>
-    <van-cell-group custom-class="cell-group-box" title="国际快递来件信息">
-      <van-field label="国际快递单号" placeholder="请输入国际快递单号" value="{{ order.arrivalExpressInfo.arrivalExpressNumber }}" bind:change="onArrivalExpressNumberChange" error-message="{{ arrivalExpressNumberErrorMsg }}"></van-field>
-      <van-field label="来件收件人" placeholder="请输入来件收件人" value="{{ order.arrivalExpressInfo.name }}" bind:change="onArrivalExpressNameChange" error-message="{{ arrivalExpressNameErrorMsg }}"></van-field>
+    <van-cell-group custom-class="cell-group-box" title="入仓信息">
+      <van-field label="国际快递单号" placeholder="请输入国际快递单号（可选）" value="{{ order.arrivalExpressInfo.arrivalExpressNumber }}" bind:change="onArrivalExpressNumberChange" error-message="{{ arrivalExpressNumberErrorMsg }}"></van-field>
+      <van-cell title="入仓号" value="{{ entryCode }}"></van-cell>
       <van-cell label-class="error-message" title="仓库地址" value="{{ order.arrivalExpressInfo.warehouseAddress }}" is-link bind:click="onShowWarehouseAddressPopup" label="{{ arrivalExpressWarehouseAddressErrorMsg }}">
       </van-cell>
       <van-popup position="bottom" show="{{ showWarehouseAddressPopup }}">
@@ -14,16 +14,17 @@
   <view class="order-info-box">
     <van-cell-group title="收件人信息">
       <van-field label="姓名" placeholder="请输入收件人姓名" value="{{ order.receiver.name }}" bind:change="onReceiverNameChange" error-message="{{ receiverNameErrorMsg }}"></van-field>
-      <van-field label="省份" placeholder="请输入收件人省份" value="{{ order.receiver.province }}" bind:change="onReceiverProvinceChange" error-message="{{ receiverProvinceErrorMsg }}"></van-field>
-      <van-field label="城市" placeholder="请输入收件人城市" value="{{ order.receiver.city }}" bind:change="onReceiverCityChange" error-message="{{ receiverCityErrorMsg }}"></van-field>
-      <van-field label="区县" placeholder="请输入收件人区县" value="{{ order.receiver.district }}" bind:change="onReceiverDistrictChange" error-message="{{ receiverDistrictErrorMsg }}"></van-field>
+      <van-cell label-class="error-message" title="地区" value="{{ selectedArea }}" is-link bind:click="onShowAreaSelectPopup" label="{{ areaErrorMsg }}"></van-cell>
+      <van-popup position="bottom" show="{{ showAreaSelectPopup }}">
+        <van-area area-list="{{ areaList }}" bind:cancel="onCancelAreaSelect" bind:confirm="onConfirmAreaSelect"></van-area>
+      </van-popup>
       <van-field label="详细地址" placeholder="请输入收件人详细地址" value="{{ order.receiver.address }}" bind:change="onReceiverAddressChange" error-message="{{ receiverAddressErrorMsg }}"></van-field>
       <van-field label="手机号码" placeholder="请输入收件人手机号码" value="{{ order.receiver.mobile }}" bind:change="onReceiverMobileChange" error-message="{{ receiverMobileErrorMsg }}"></van-field>
-      <van-field label="证件号" placeholder="请输入收件人证件号" value="{{ order.receiverIdCardNumber }}" bind:change="onReceiverIdCardNumberChange" error-message="{{ receiverIdCardNumberErrorMsg }}"></van-field>
-      <van-cell label-class="error-message" title="证件国徽面" label="{{ receiverIdCardFrontErrorMsg }}">
+      <van-field label="身份证号" placeholder="请输入收件人身份证号" value="{{ order.receiverIdCardNumber }}" bind:change="onReceiverIdCardNumberChange" error-message="{{ receiverIdCardNumberErrorMsg }}"></van-field>
+      <van-cell label-class="error-message" title="身份证国徽面" label="{{ receiverIdCardFrontErrorMsg }}">
         <van-uploader max-count="1" max-size="20971520" file-list="{{ receiverIdCardFrontPhoto }}" bind:after-read="afterReadIdCardFrontPhoto" bind:delete="onDeleteIdCardFrontPhoto" bind:oversize="onPhotoOversize"></van-uploader>
       </van-cell>
-      <van-cell label-class="error-message" title="证件人像面" label="{{ receiverIdCardReverseErrorMsg }}">
+      <van-cell label-class="error-message" title="身份证人像面" label="{{ receiverIdCardReverseErrorMsg }}">
         <van-uploader max-count="1" max-size="20971520" file-list="{{ receiverIdCardReversePhoto }}" bind:after-read="afterReadIdCardReversePhoto" bind:delete="onDeleteIdCardReversePhoto" bind:oversize="onPhotoOversize"></van-uploader>
       </van-cell>
     </van-cell-group>
@@ -33,10 +34,11 @@
       <view wx:for="{{ order.cargoRecords }}" wx:key="index">
         <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" name="{{ index }}" async-close bind:close="onDeleteCargoRecord" >
           <view class="cargo-card">
-            <van-field custom-class="cargo-name" label="物品名称" placeholder="请输入物品名称" value="{{ item.name }}" clearable id="{{ index }}" error-message="{{ cargoRecordsErrorMsgs[index] }}" bind:change="onCargoNameChange" bind:blur="onCargoNameBlur"></van-field>
+            <van-field custom-class="cargo-name" label="物品名称" placeholder="请输入物品名称" value="{{ item.name }}" clearable id="{{ index }}" error-message="{{ cargoRecordsErrorMsgs[index].name }}" bind:change="onCargoNameChange" bind:blur="onCargoNameBlur"></van-field>
             <van-cell title="件数">
               <van-stepper id="{{ index }}" value="{{ item.count }}" integer bind:change="onCargoCountChange"></van-stepper>
             </van-cell>
+            <van-field label="单价(元)" placeholder="请输入货物单价" clearable value="{{ item.price }}" id="{{ index }}" type="number" bind:change="onCargoPriceChange" error-message="{{ cargoRecordsErrorMsgs[index].price }}"></van-field>
           </view>
           <view slot="right" class="van-swipe-cell__right">删除</view>
         </van-swipe-cell>

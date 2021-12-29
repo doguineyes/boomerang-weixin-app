@@ -2,6 +2,7 @@
 import Dialog from "@vant/weapp/dialog/dialog";
 import Toast from "@vant/weapp/toast/toast";
 import { getWarehouseAddressesPromise } from "../orders/orderHelper";
+import { areaList } from '@vant/area-data';
 
 const app = getApp();
 
@@ -10,13 +11,48 @@ Page({
    * 页面的初始数据
    */
   data: {
+    areaList,
     order: {
       cargoRecords: [
-        {name: "", count: 1},
+        {
+          name: "", 
+          price: "",
+          count: 1,
+        },
       ],
     },
     showWarehouseAddressPopup: false,
+    showAreaSelectPopup: false,
+    selectedArea: "",
     warehouseAddressesOptions: [],
+    entryCode: "",
+  },
+
+  onShowAreaSelectPopup() {
+    this.setData({
+      showAreaSelectPopup: true,
+    });
+  },
+
+  onCancelAreaSelect() {
+    this.setData({
+      showAreaSelectPopup: false,
+    });
+  },
+
+  onConfirmAreaSelect(event) {
+    const values = event.detail.values;
+    const provinceName = values[0].name;
+    const cityName = values[1].name;
+    const districtName = values[2].name;
+    this.setData({
+      ["order.receiver.province"]: provinceName,
+      ["order.receiver.city"]: cityName,
+      ["order.receiver.district"]: districtName,
+      showAreaSelectPopup: false,
+      selectedArea: `${provinceName} ${cityName} ${districtName}`,
+      areaErrorMsg: "",
+    });
   },
 
   onArrivalExpressNumberChange(event) {
@@ -58,27 +94,6 @@ Page({
     this.setData({
       ["order.receiver.name"]: event.detail,
       receiverNameErrorMsg: "",
-    });
-  },
-
-  onReceiverProvinceChange(event) {
-    this.setData({
-      ["order.receiver.province"]: event.detail,
-      receiverProvinceErrorMsg: "",
-    });
-  },
-
-  onReceiverCityChange(event) {
-    this.setData({
-      ["order.receiver.city"]: event.detail,
-      receiverCityErrorMsg: "",
-    });
-  },
-
-  onReceiverDistrictChange(event) {
-    this.setData({
-      ["order.receiver.district"]: event.detail,
-      receiverDistrictErrorMsg: "",
     });
   },
 
@@ -176,7 +191,7 @@ Page({
     }
     const last = this.data.order.cargoRecords.length;
     this.setData({
-      [`order.cargoRecords[${last}]`]: {name: "", count: 1}
+      [`order.cargoRecords[${last}]`]: {name: "", count: 1, price: "",}
     });
   },
 
@@ -185,7 +200,7 @@ Page({
     const name = event.detail;
     this.setData({
       [`order.cargoRecords[${index}].name`]: name,
-      [`cargoRecordsErrorMsgs[${index}]`]: "",
+      [`cargoRecordsErrorMsgs[${index}].name`]: "",
     });
   },
 
@@ -194,7 +209,7 @@ Page({
     const name = event.detail.value;
     this.setData({
       [`order.cargoRecords[${index}].name`]: name,
-      [`cargoRecordsErrorMsgs[${index}]`]: "",
+      [`cargoRecordsErrorMsgs[${index}].name`]: "",
     });
   },
 
@@ -202,7 +217,16 @@ Page({
     const index = event.target.id;
     const inputCount = event.detail;
     this.setData({
-      [`order.cargoRecords[${index}].count`]: inputCount
+      [`order.cargoRecords[${index}].count`]: inputCount,
+    });
+  },
+
+  onCargoPriceChange: function(event) {
+    const index = event.target.id;
+    const inputPrice = event.detail;
+    this.setData({
+      [`order.cargoRecords[${index}].price`]: inputPrice,
+      [`cargoRecordsErrorMsgs[${index}].price`]: "",
     });
   },
 
@@ -254,6 +278,25 @@ Page({
     }
   },
 
+  checkIdCardNumber(idCardNumber) {
+    if (idCardNumber?.length !== 18) 
+      return false;
+    if (!idCardNumber.match(/^[\d]+(\d|x|X)$/))
+      return false;
+    let sum = 0;
+    const powers = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2,];
+    for (let i = 0; i < 17; i++) {
+      sum += parseInt(idCardNumber[i]) * powers[i];
+    }
+    const r = sum % 11;
+    const results = ["1", "0", "x", "9", "8", "7", "6", "5", "4", "3", "2",];
+    if (idCardNumber[17].toLowerCase() === results[r]) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
   onSubmitOrder: function() {
     this.setData({
       submitting: true,
@@ -274,16 +317,10 @@ Page({
     let somethingError = false;
     const order = this.data.order;
     const nameOrAddressPattern = /^[\p{Unified_Ideograph}\w .,，。-]+$/u;
-    if (!order?.arrivalExpressInfo?.arrivalExpressNumber || order?.arrivalExpressInfo?.arrivalExpressNumber.length > 64 || !order?.arrivalExpressInfo?.arrivalExpressNumber.match(nameOrAddressPattern)) {
+    if (order?.arrivalExpressInfo?.arrivalExpressNumber && order?.arrivalExpressInfo?.arrivalExpressNumber.length > 64) {
       somethingError = true;
       this.setData({
         arrivalExpressNumberErrorMsg: "请输入正确的国际快递单号",
-      });
-    }
-    if (!order?.arrivalExpressInfo?.name || order?.arrivalExpressInfo?.name.length > 32 || !order?.arrivalExpressInfo?.name.trim().match(nameOrAddressPattern)) {
-      somethingError = true;
-      this.setData({
-        arrivalExpressNameErrorMsg: "请输入正确的国际快递收件人姓名",
       });
     }
     if (!order?.arrivalExpressInfo?.warehouseAddress || order?.arrivalExpressInfo?.warehouseAddress.length > 128) {
@@ -301,19 +338,19 @@ Page({
     if (!order?.receiver?.province || order?.receiver?.province.length > 32 || !order?.receiver?.province.match(nameOrAddressPattern)) {
       somethingError = true;
       this.setData({
-        receiverProvinceErrorMsg: "请输入正确的省",
+        areaErrorMsg: "请输入正确的地区",
       });
     }
     if (!order?.receiver?.city || order?.receiver?.city.length > 32 || !order?.receiver?.city.match(nameOrAddressPattern)) {
       somethingError = true;
       this.setData({
-        receiverCityErrorMsg: "请输入正确的城市",
+        areaErrorMsg: "请输入正确的地区",
       });
     }
     if (!order?.receiver?.district || order?.receiver?.district.length > 32 || !order?.receiver?.district.match(nameOrAddressPattern)) {
       somethingError = true;
       this.setData({
-        receiverDistrictErrorMsg: "请输入正确的区县",
+        areaErrorMsg: "请输入正确的地区",
       });
     }
     if (!order?.receiver?.address || order?.receiver?.address.length > 128 || !order?.receiver?.address.match(nameOrAddressPattern)) {
@@ -328,7 +365,7 @@ Page({
         receiverMobileErrorMsg: "请输入正确的手机号码",
       });
     }
-    if (!order?.receiverIdCardNumber || order?.receiverIdCardNumber.length > 32 || !order?.receiverIdCardNumber.match(/^[\dxX]+$/)) {
+    if (!order?.receiverIdCardNumber || !this.checkIdCardNumber(order.receiverIdCardNumber)) {
       somethingError = true;
       this.setData({
         receiverIdCardNumberErrorMsg: "请输入正确的证件号码",
@@ -351,7 +388,19 @@ Page({
       if (cargo && !cargo?.name.trim()) {
         somethingError = true;
         this.setData({
-          [`cargoRecordsErrorMsgs[${i}]`]: "请输入正确的货物名称",
+          [`cargoRecordsErrorMsgs[${i}].name`]: "请输入正确的货物名称",
+        });
+      }
+      if (cargo && !cargo?.price?.trim()) {
+        somethingError = true;
+        this.setData({
+          [`cargoRecordsErrorMsgs[${i}].price`]: "请输入正确的货物单价",
+        });
+      }
+      if (parseInt(cargo?.price?.trim()) > 2000) {
+        somethingError = true;
+        this.setData({
+          [`cargoRecordsErrorMsgs[${i}].price`]: "货物单价过大",
         });
       }
     }
@@ -515,10 +564,13 @@ Page({
       });
     }
 
+    this.setData({
+      entryCode: app.globalData.entryCode,
+    });
+
     getWarehouseAddressesPromise()
     .then(
       (data) => {
-        console.log(data);
         this.setData({
           warehouseAddressesOptions: data,
         });
