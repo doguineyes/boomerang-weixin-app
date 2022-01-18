@@ -1,25 +1,82 @@
 <!--pages/login/login.wxml-->
-<view class="full-height">
-  <view class="logo-box">
-    <image mode="aspectFit" src="../static/logo_transparent.png" />
-  </view>
-  <view>
-    <van-cell is-link title="国家与地区" value="{{ countryCode }}" link-type="navigateTo" url="/pages/login/area-code-picker" />
-    <van-field value="{{ mobile }}" label="手机号" clearable  maxlength="11" placeholder="请输入手机号" error-message="{{ mobileErrorMessage }}" bind:change="onMobileChange" bind:focus="onMobileFocus"/>
-    <van-field value="{{ password }}" label="密码" password maxlength="50" clearabel placeholder="请输入密码" error-message="{{ passwordErrorMessage }}" bind:change="onPasswordChange" bind:focus="onPasswordFocus"></van-field>
-  </view>
-  <view class="footer-btn-box">
-    <van-button round custom-class="primary-login-btn" block bind:tap="onLoginClick">登陆</van-button>
-    <van-button round custom-class="quick-login-btn" block bind:tap="onWechatQuickLoginClick">账号已绑定微信快速登录</van-button>
-    <van-button custom-class="hyperlink-btn" block bind:tap="onSignUpClick">新用户注册</van-button>
-    <van-button custom-class="hyperlink-btn" block bind:tap="onResetPasswordClick">忘记密码</van-button>
-  </view>
-  <view class="footer-files">
-    <view class="footer-files-each-file">
-      <van-button custom-class="hyperlink-btn" block bind:tap="onServiceTerms">服务条款</van-button>
+<view class="container container--full-height">
+  <image class="logo" mode="aspectFit" src="../static/logo_transparent.png" />
+  <van-cell 
+    is-link 
+    title="国家与地区" 
+    value="{{ countryCode }}" 
+    link-type="navigateTo" 
+    url="/pages/login/area-code-picker" 
+  />
+  <van-field 
+    value="{{ mobile }}" 
+    label="手机号" 
+    clearable
+    maxlength="11"
+    placeholder="请输入手机号"
+    error-message="{{ mobileErrorMessage }}"
+    bind:change="onMobileChange"
+    bind:focus="onMobileFocus"
+  />
+  <van-field
+    value="{{ password }}"
+    label="密码"
+    password
+    maxlength="50"
+    clearabel
+    placeholder="请输入密码"
+    error-message="{{ passwordErrorMessage }}"
+    bind:change="onPasswordChange"
+    bind:focus="onPasswordFocus"
+  />
+  <van-button 
+    custom-class="button button--action button--long"
+    round
+    block
+    bind:tap="onLoginClick"
+  >
+    登陆
+  </van-button>
+  <van-button
+    custom-class="button button--alternative button--long"
+    round
+    block
+    bind:tap="onWechatQuickLoginClick"
+  >
+    账号已绑定微信快速登录
+  </van-button>
+  <van-button
+    custom-class="button button--hyperlink"
+    block
+    bind:tap="onSignUpClick"
+  >
+    新用户注册
+  </van-button>
+  <van-button
+    custom-class="button button--hyperlink"
+    block
+    bind:tap="onResetPasswordClick"
+  >
+    忘记密码
+  </van-button>
+  <view class="page-footer">
+    <view class="page-footer__item">
+      <van-button
+        custom-class="button button--hyperlink"
+        block
+        bind:tap="onServiceTerms"
+      >
+        服务条款
+      </van-button>
     </view>
-    <view class="footer-files-each-file">
-      <van-button custom-class="hyperlink-btn" block bind:tap="onPrivacyPolicy">隐私政策</van-button>
+    <view class="page-footer__item">
+      <van-button
+        custom-class="button button--hyperlink"
+        block
+        bind:tap="onPrivacyPolicy"
+      >
+        隐私政策
+      </van-button>
     </view>
   </view>
 </view>

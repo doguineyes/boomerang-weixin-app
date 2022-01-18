@@ -1,0 +1,48 @@
+.button {
+  margin-top: 0.5em;
+  /* padding: 0.5em 0.8em !important;
+  font-size: 1rem !important; */
+}
+
+.button--action {
+  background-color: var(--secondary) !important;
+  color: var(--text-on-secondary) !important;
+  /* width: 70% !important; */
+}
+
+.button--alternative {
+  background-color: var(--primary) !important;
+  color: var(--text-on-primary) !important;
+  /* width: 70% !important; */
+}
+
+.button--hyperlink {
+  margin-top: 0;
+  background: var(--background) !important;
+  color: var(--primary-dark) !important;
+}
+
+.button--swip-delete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--error);
+  color: white;
+  text-align: center;
+  height: 100%;
+  width: 65px;
+}
+
+.button--little {
+  margin: 0;
+}
+
+.button--long {
+  width: 70% !important;
+}
+
+.button__panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

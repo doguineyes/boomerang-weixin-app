@@ -1,9 +1,8 @@
 <!--pages/orders/components/package-price-view.wxml-->
 <view>
-  <van-cell-group title="ETK打包信息" custom-class="etk-packages-box">
+  <van-cell-group title="ETK打包信息">
     <view wx:for="{{ order.etkPackages }}" wx:for-item="package" wx:for-index="packageIndex" wx:key="packageIndex">
-      <package-cargo-fee-view package="{{ package }}" packageIndex="{{ packageIndex }}">
-      </package-cargo-fee-view>
+      <package-cargo-fee-view package="{{ package }}" packageIndex="{{ packageIndex }}" />
     </view>
   </van-cell-group>
   <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}"></van-cell>

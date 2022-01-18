@@ -1,12 +1,24 @@
 <!--pages/orders/components/basic-information.wxml-->
 <view class="order-info-box">
   <van-cell-group title="基本信息">
-    <van-cell title="订单号" value="{{ order.id }}"></van-cell>
-    <van-cell title="订单状态" value="{{ order.orderStatusName }}" ></van-cell>
+    <van-cell
+      title="订单号"
+      value="{{ order.id }}"
+    />
+    <van-cell
+      title="订单状态"
+      value="{{ order.orderStatusName }}"
+    />
   </van-cell-group>
   <van-cell-group title="入仓信息">
-    <van-cell title="国际快递单号" value="{{ order.arrivalExpressInfo.arrivalExpressNumber }}" ></van-cell>
-    <van-cell title="仓库地址" value="{{ order.arrivalExpressInfo.warehouseAddress }}" ></van-cell>
+    <van-cell
+      title="国际快递单号"
+      value="{{ order.arrivalExpressInfo.arrivalExpressNumber }}"
+    />
+    <van-cell
+      title="仓库地址"
+      value="{{ order.arrivalExpressInfo.warehouseAddress }}"
+    />
   </van-cell-group>
   <van-cell-group title="收件人信息">
     <van-cell title="姓名" value="{{ order.receiver.name }}"></van-cell>
@@ -17,14 +29,24 @@
     <van-cell title="手机号码" value="{{ order.receiver.mobile }}"></van-cell>
     <van-cell title="证件号" value="{{ order.receiverIdCardNumber }}"></van-cell>
     <van-cell title="证件正面">
-      <van-uploader max-count="1" file-list="{{ idCardPhotos.front }}" deletable="{{ false }}" disabled="{{ true }}"></van-uploader>
+      <van-uploader 
+        max-count="1"
+        file-list="{{ idCardPhotos.front }}"
+        deletable="{{ false }}"
+        disabled="{{ true }}"
+      ></van-uploader>
     </van-cell>
     <van-cell title="证件反面">
-      <van-uploader max-count="1" file-list="{{ idCardPhotos.reverse }}" deletable="{{ false }}" disabled="{{ true }}"></van-uploader>
+      <van-uploader
+        max-count="1"
+        file-list="{{ idCardPhotos.reverse }}"
+        deletable="{{ false }}"
+        disabled="{{ true }}"
+      ></van-uploader>
     </van-cell>
   </van-cell-group>
   <van-cell-group title="货物信息">
-    <view wx:for="{{ order.cargoRecords }}" wx:key="index" class="cargo-line">
+    <view wx:for="{{ order.cargoRecords }}" wx:key="index" class="cargo-card">
       <van-cell title="名称" value="{{ item.name }}"></van-cell>
       <van-cell title="数量" value="{{ item.count }}"></van-cell>
     </view>

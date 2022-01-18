@@ -4,14 +4,24 @@ page {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  width: 100%;
   min-height: 100%;
 }
 
+.box {
+  background: #eeeeee;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 5%;
+  width: 95%;
+}
+
 .primary-btn {
-  background: #5f7481 !important;
-  border-color: #5f7481 !important;
+  /* background: #5f7481 !important; */
+  /* border-color: #5f7481 !important; */
   width: 100%;
-  margin: 2%;
-  color: white !important;
+  /* margin: 1%; */
+  /* color: white !important; */
   font-size: 1em !important;
 }

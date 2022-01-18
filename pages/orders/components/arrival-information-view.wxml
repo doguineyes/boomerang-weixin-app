@@ -2,7 +2,14 @@
 <view>
   <van-cell-group title="到达信息">
     <van-cell title="到达照片">
-      <van-uploader max-count="3" max-size="20971520" file-list="{{ arrivalPhotos }}" disabled="{{ true }}" deletable="{{ false }}" show-upload="{{ false }}"></van-uploader>
+      <van-uploader 
+        max-count="3" 
+        max-size="20971520" 
+        file-list="{{ arrivalPhotos }}" 
+        disabled="{{ true }}" 
+        deletable="{{ false }}" 
+        show-upload="{{ false }}"
+      />
     </van-cell>
   </van-cell-group>
 </view>

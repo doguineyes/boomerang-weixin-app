@@ -1,10 +1,1 @@
-page {
-  background: #eeeeee;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.order-info-box {
-  margin: 1%;
-}
+@import "../../../app.wxss";

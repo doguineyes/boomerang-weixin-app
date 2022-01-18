@@ -1,11 +1,4 @@
 /* pages/orders/orders.wxss */
-page {
-  background: #eeeeee;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 0.9em;
-}
 
 .order-card {
   background-color: white;
@@ -15,36 +8,30 @@ page {
   margin: 2%;
 }
 
-.order-card-head {
+.order-card__head {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.order-card-summary {
+.order-card__head__number {
+  color: gray;
+  font-size: 0.85em
+}
+
+.order-card__summary {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.order-card-footer {
+.order-card__summary__from-to-line {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
 }
 
-.order-card-footer-item {
-  color: black;
-  margin: 1%;
-}
-
-.from-to-line {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.person-and-address-box {
+.order-card__summary__from-to-line__person-and-address-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -59,17 +46,12 @@ page {
   text-align: right;
 }
 
-.name {
+.order-card__summary__from-to-line__person-and-address-card__name {
   color: black;
   font-size: 1.1em;
 }
 
-.address {
+.order-card__summary__from-to-line__person-and-address-card__address {
   color: gray;
   font-size: 0.85em;
-}
-
-.order-no {
-  color: gray;
-  font-size: 0.85em
 }

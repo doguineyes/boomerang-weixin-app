@@ -1,18 +1,34 @@
 <!--pages/orders/orders.wxml-->
 <view>
-  <view wx:if="{{isAdmin}}" class="admin-filters-card">
-    <van-search value="{{ searchKeyWord }}" use-action-slot clearable placeholder="请输入订单号或入仓码" bind:change="onSearchKeyWordChange" bind:search="onKeyWordSearch">
-      <view slot="action" bind:tap="onClickKeyWordSearch">搜索</view>
+  <view wx:if="{{ isAdmin }}">
+    <van-search
+      value="{{ searchKeyWord }}"
+      use-action-slot
+      clearable
+      placeholder="请输入订单号或入仓码"
+      bind:change="onSearchKeyWordChange"
+      bind:search="onKeyWordSearch"
+    >
+      <view 
+        slot="action"
+        bind:tap="onClickKeyWordSearch"
+      >
+        搜索
+      </view>
     </van-search>
   </view>
   <van-dropdown-menu>
-    <van-dropdown-item value="{{ requestOrderStatus }}" options="{{ orderStatusOptions }}" bindchange="orderStatusOptionsChange" />
+    <van-dropdown-item 
+      value="{{ requestOrderStatus }}"
+      options="{{ orderStatusOptions }}"
+      bindchange="orderStatusOptionsChange"
+    />
   </van-dropdown-menu>
   <van-empty description="暂无订单" wx-if="{{orders.length === 0}}" />
   <view class="order-card" wx:for="{{ orders }}" wx:key="index">
-    <view class="order-card-head">
-      <view class="order-no">订单号: {{item.id}}</view>
-      <view class="order-status">
+    <view class=".order-card__head">
+      <view class="order-card__head__number">订单号: {{item.id}}</view>
+      <view>
         <van-tag size="small" wx-if="{{item.orderStatus=='Cancelled'}}">已取消</van-tag>
 				<van-tag type="primary" size="small" wx-if="{{item.orderStatus=='NewOrder'}}">新订单</van-tag>
         <van-tag type="warning" size="small" wx-if="{{item.orderStatus=='Arrival'}}">已到达</van-tag>
@@ -21,15 +37,15 @@
         <van-tag type="success" size="small" wx-if="{{item.orderStatus=='Mailed'}}">已完成</van-tag>
       </view>
     </view>
-    <view custom-class="order-card-summary">
-      <van-cell value-class="from-to-line" link-type="navigateTo" url="{{item.stepUrl + item.id}}">
-        <view class="person-and-address-box text-align-left">
-          <view class="name">{{item.sender.name}}</view>
-          <view class="address">{{item.sender.address}}</view>
-        </view>
-        <view class="person-and-address text-align-right">
-          <view class="name">{{item.receiver.name}}</view>
-          <view class="address">{{item.receiver.address}}</view>
+    <view custom-class="order-card__summary">
+      <van-cell value-class="order-card__summary__from-to-line" link-type="navigateTo" url="{{item.stepUrl + item.id}}">
+        <!-- <view class="order-card__summary__from-to-line__person-and-address-card text-align-left">
+          <view class="order-card__summary__from-to-line__person-and-address-card__name">{{item.sender.name}}</view>
+          <view class="order-card__summary__from-to-line__person-and-address-card__address">{{item.sender.address}}</view>
+        </view> -->
+        <view class="order-card__summary__from-to-line__person-and-address-card text-align-right">
+          <view class="order-card__summary__from-to-line__person-and-address-card__name">{{item.receiver.name}}</view>
+          <view class="order-card__summary__from-to-line__person-and-address-card__address">{{item.receiver.address}}</view>
         </view>
       </van-cell>
     </view>

@@ -1,10 +1,17 @@
 <!--pages/orders/steps/unpaid-order.wxml-->
 <view>
-  <basic-info order="{{ order }}" idCardPhotos="{{ idCardPhotos }}"></basic-info>
-  <arrival-info-view arrivalPhotos="{{ order.arrivalPhotos }}"></arrival-info-view>
-  <package-price-view order="{{ order }}"></package-price-view>
+  <basic-info order="{{ order }}" idCardPhotos="{{ idCardPhotos }}" />
+  <arrival-info-view arrivalPhotos="{{ order.arrivalPhotos }}" />
+  <package-price-view order="{{ order }}" />
   <view wx:if="{{ loginUsername === order.customer.username }}">
-    <van-button round custom-class="pay-btn" bind:click="onPay">支付</van-button>
+    <van-button
+      round
+      block
+      custom-class="button button--action button--long"
+      bind:click="onPay"
+    >
+      支付
+    </van-button>
   </view>
   <van-dialog id="van-dialog" />
   <van-toast id="van-toast" />

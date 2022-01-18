@@ -55,6 +55,16 @@ Page({
     });
   },
 
+  onCopyWarehouseAddressToClipboard() {
+    if (!this.data.order || !this.data.order?.arrivalExpressInfo?.warehouseAddress) {
+      Toast.fail("请选择仓库地址");
+      return;
+    }
+    wx.setClipboardData({
+      data: this.data.order.arrivalExpressInfo.warehouseAddress
+    });
+  },
+
   onArrivalExpressNumberChange(event) {
     this.setData({
       ["order.arrivalExpressInfo.arrivalExpressNumber"]: event.detail,

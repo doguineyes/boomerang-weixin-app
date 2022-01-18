@@ -1,24 +1,2 @@
 /* pages/orders/stages/newOrder.wxss */
-page {
-  background: #eeeeee;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.footer-btn-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.primary-btn {
-  background: #F9AA33 !important;
-  font-size: 1.2em !important;
-  margin-top: 2%;
-  margin-bottom: 2%;
-}
-
-.error-message {
-  color: red !important;
-}
+@import "../../button.wxss";

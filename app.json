@@ -28,7 +28,6 @@
     "pages/send/send",
     "pages/orders/orders",
     "pages/send/success",
-    "pages/orders/orderDetails",
     "pages/orders/steps/new-order",
     "pages/orders/steps/unpaid-order",
     "pages/orders/steps/paid-order",

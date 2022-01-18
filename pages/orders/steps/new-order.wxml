@@ -1,14 +1,30 @@
-<view>
-  <basic-info order="{{ order }}" idCardPhotos="{{ idCardPhotos }}"></basic-info>
+<view class="container">
+  <basic-info
+    order="{{ order }}"
+    idCardPhotos="{{ idCardPhotos }}"
+  />
   <view wx:if="{{ isAdmin }}">
     <van-cell-group title="到达信息">
-      <van-cell title="到达照片" label="{{ order.arrivalPhotosErrorMessage }}" label-class="error-message">
-        <van-uploader max-count="3" max-size="20971520" file-list="{{ order.arrivalPhotos }}" bind:after-read="afterArrivalPhotoRead" bind:delete="onDeleteArrivalPhoto"></van-uploader>
+      <van-cell
+        title="到达照片"
+        label="{{ order.arrivalPhotosErrorMessage }}"
+        label-class="error-message"
+      >
+        <van-uploader
+          max-count="3"
+          max-size="20971520"
+          file-list="{{ order.arrivalPhotos }}"
+          bind:after-read="afterArrivalPhotoRead"
+          bind:delete="onDeleteArrivalPhoto"
+        />
       </van-cell>
     </van-cell-group>
-    <view class="footer-btn-box">
-      <van-button custom-class="primary-btn" round bind:click="onSaveAndNotifyCustomerOrderArrival">通知客户包裹到达</van-button>
-    </view>
+    <van-button
+      custom-class="button button--action button--long" 
+      block
+      round
+      bind:click="onSaveAndNotifyCustomerOrderArrival"
+    >通知客户包裹到达</van-button>
   </view>
   <van-dialog id="van-dialog" />
   <van-toast id="van-toast" />

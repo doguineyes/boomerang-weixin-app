@@ -1,24 +1,2 @@
 /* pages/orders/steps/unpaid-order.wxss */
-page {
-  background: #eeeeee;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.btn-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 3%;
-}
-
-.pay-btn{
-  background: #F9AA33 !important;
-  color: black !important;
-  left: 10%;
-  width: 80%;
-  margin-top: 2%;
-  margin-bottom: 3%;
-  font-size: 1.2em !important;
-}
+@import "../../button.wxss";

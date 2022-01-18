@@ -1,57 +1,21 @@
 /* pages/login/login.wxss */
-page{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: #eeeeee;
+@import "../button.wxss";
+
+page {
   height: 100%;
 }
 
-.full-height{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
+.logo {
+  width: 100%;
 }
 
-.logo-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.footer-btn-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.footer-files {
+.page-footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-top: auto;
 }
 
-.footer-files-each-file {
+.page-footer__item {
   flex: 1;
-}
-
-.primary-login-btn {
-  background-color: #ffb300 !important;
-  width: 70% !important;
-  margin-top: 1%;
-}
-
-.quick-login-btn {
-  background-color: #344955 !important;
-  color: white !important;
-  width: 70% !important;
-  margin-top: 1%;
-}
-
-.hyperlink-btn {
-  background: #eeeeee !important;
-  color: #0b222c !important;
-  width: 50% !important;
 }

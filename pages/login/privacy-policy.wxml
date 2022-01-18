@@ -1,4 +1,5 @@
 <!--pages/login/privacy-policy.wxml-->
+<view class="container">
 <text class="head">
 隐私政策
 </text>
@@ -71,3 +72,4 @@
 1、在获取明确同意的情况下共享：获得您的明确同意后，我们会与其他方共享您的用户信息。
 2、我们可能会根据法律法规规定，或按政府主管部门的强制性要求，对外共享您的用户信息。
 </text>
+</view>

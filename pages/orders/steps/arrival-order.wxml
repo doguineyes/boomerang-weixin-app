@@ -1,51 +1,164 @@
 <!--pages/orders/steps/arrival-order.wxml-->
-<view>
-  <basic-info order="{{ order }}" idCardPhotos="{{ idCardPhotos }}"></basic-info>
-  <arrival-info-view arrivalPhotos="{{ order.arrivalPhotos }}"></arrival-info-view>
+<view class="container">
+  <basic-info order="{{ order }}" idCardPhotos="{{ idCardPhotos }}" />
+  <arrival-info-view arrivalPhotos="{{ order.arrivalPhotos }}" />
   <view wx:if="{{ isAdmin }}">
     <van-cell-group title="ETK打包信息">
-      <view wx:for="{{ order.etkPackages }}" wx:for-item="package" wx:for-index="packageIndex" wx:key="packageIndex">
-        <van-cell-group custom-class="etk-package-box">
-          <van-swipe-cell id="{{ packageIndex }}" async-close bind:close="onDeletePackage" right-width="{{ 65 }}">
-            <view class="etk-package-box-head">
-              <van-cell custom-class="etk-package-box-head-title" title="{{ '包裹'+(packageIndex+1) }}"></van-cell>
+      <view 
+        wx:for="{{ order.etkPackages }}"
+        wx:for-item="package"
+        wx:for-index="packageIndex"
+        wx:key="packageIndex"
+      >
+        <view class="etk-package-card">
+          <van-swipe-cell
+            id="{{ packageIndex }}"
+            async-close
+            bind:close="onDeletePackage"
+            right-width="{{ 65 }}"
+          >
+            <view class="etk-package-card__title">
+              {{ '包裹'+(packageIndex+1) }}
             </view>
-            <view slot="right" class="delete-btn">删除包裹</view>
+            <view
+              slot="right"
+              class="button--swip-delete"
+            >
+              删除包裹
+            </view>
           </van-swipe-cell>
-          <view class="etk-package-body">
-            <van-cell-group title="物品信息" custom-class="cargo-info-box">
-              <view wx:for="{{ package.etkCargoRecords }}" wx:for-item="cargo" wx:for-index="cargoIndex" wx:key="cargoIndex">
-                <van-swipe-cell id="{{ [packageIndex, cargoIndex] }}" async-close bind:close="onDeletePackageCargoRecord" right-width="{{ 65 }}">
-                  <van-field label="物品名称" placeholder="请输入物品名称" value="{{ cargo.name }}" id="{{ [packageIndex, cargoIndex] }}" clearable bind:change="onPackageCargoNameChange" error-message="{{ cargo.errorMessage }}"></van-field>
+          <view class="etk-package-card__body">
+            <van-cell-group title="物品信息" custom-class="cargo-card">
+              <view
+                wx:for="{{ package.etkCargoRecords }}"
+                wx:for-item="cargo"
+                wx:for-index="cargoIndex"
+                wx:key="cargoIndex"
+              >
+                <van-swipe-cell
+                  id="{{ [packageIndex, cargoIndex] }}"
+                  async-close
+                  bind:close="onDeletePackageCargoRecord"
+                  right-width="{{ 65 }}"
+                >
+                  <van-field
+                    label="物品名称"
+                    placeholder="请输入物品名称"
+                    value="{{ cargo.name }}"
+                    id="{{ [packageIndex, cargoIndex] }}"
+                    clearable
+                    bind:change="onPackageCargoNameChange"
+                    error-message="{{ cargo.errorMessage }}"
+                  />
                   <van-cell title="件数">
-                    <van-stepper id="{{ [packageIndex, cargoIndex] }}" value="{{ cargo.count }}" integer bind:change="onPackageCargoCountChange"></van-stepper>
+                    <van-stepper
+                      id="{{ [packageIndex, cargoIndex] }}"
+                      value="{{ cargo.count }}"
+                      integer
+                      bind:change="onPackageCargoCountChange"
+                    />
                   </van-cell>
-                  <view slot="right" class="delete-btn">删除货物</view>
+                  <view slot="right" class="button--swip-delete">删除货物</view>
                 </van-swipe-cell>
               </view>
-              <view class="cargo-info-box-footer">
-                <van-button round id="{{ packageIndex }}" bind:click="onAddCargoField" custom-class="little-btn">更多物品</van-button>
+              <view class="cargo-card__footer">
+                <van-button
+                  round id="{{ packageIndex }}"
+                  bind:click="onAddCargoField"
+                  custom-class="bottom button--alternative"
+                >
+                  更多物品
+                </van-button>
               </view>
             </van-cell-group>
             <van-cell-group title="称重和计价">
-              <van-field label="重量(kg)" placeholder="请输入重量" clearable value="{{ package.feeList.weightInKilograms }}" id="{{ packageIndex }}" type="digit" bind:change="onPackageWeightChange" error-message="{{ package.feeList.weightErrorMessage }}"></van-field>
-              <van-field label="打包费(元)" placeholder="请输入打包费" clearable value="{{ package.feeList.packingFeeInYuan }}" id="{{ packageIndex }}" type="digit" bind:change="onPackagePackagingFeeChange"></van-field>
-              <van-field label="运费(元)" placeholder="请输入运费" clearable value="{{ package.feeList.expressFeeInYuan }}" id="{{ packageIndex }}" type="digit" bind:change="onPackageExpressFeeChange"></van-field>
-              <van-field label="税费补贴(元)" placeholder="请输入税费补贴" clearable value="{{ package.feeList.taxesInYuan }}" id="{{ packageIndex }}" type="digit" bind:change="onPackageTaxesChange"></van-field>
-              <van-field label="保价(元)" placeholder="请输入保价" clearable value="{{ package.feeList.insuranceInYuan }}" id="{{ packageIndex }}" type="digit" bind:change="onPackageInsuranceChange"></van-field>
-              <van-cell title="包裹合计(元)" value="{{ package.feeList.packageTotalCostInYuan }}" label="{{ package.feeList.feesErrorMessage }}" label-class="error-message"></van-cell>
+              <van-field 
+                label="重量(kg)"
+                placeholder="请输入重量"
+                clearable value="{{ package.feeList.weightInKilograms }}"
+                id="{{ packageIndex }}"
+                type="digit"
+                bind:change="onPackageWeightChange"
+                error-message="{{ package.feeList.weightErrorMessage }}"
+              />
+              <van-field
+                label="打包费(元)"
+                placeholder="请输入打包费"
+                clearable
+                value="{{ package.feeList.packingFeeInYuan }}"
+                id="{{ packageIndex }}"
+                type="digit"
+                bind:change="onPackagePackagingFeeChange"
+              />
+              <van-field
+                label="运费(元)"
+                placeholder="请输入运费"
+                clearable
+                value="{{ package.feeList.expressFeeInYuan }}"
+                id="{{ packageIndex }}"
+                type="digit"
+                bind:change="onPackageExpressFeeChange"
+              />
+              <van-field
+                label="税费补贴(元)"
+                placeholder="请输入税费补贴"
+                clearable
+                value="{{ package.feeList.taxesInYuan }}"
+                id="{{ packageIndex }}"
+                type="digit"
+                bind:change="onPackageTaxesChange"
+              />
+              <van-field
+                label="保价(元)"
+                placeholder="请输入保价"
+                clearable
+                value="{{ package.feeList.insuranceInYuan }}"
+                id="{{ packageIndex }}"
+                type="digit"
+                bind:change="onPackageInsuranceChange"
+              />
+              <van-cell
+                title="包裹合计(元)"
+                value="{{ package.feeList.packageTotalCostInYuan }}"
+                label="{{ package.feeList.feesErrorMessage }}"
+                label-class="error-message"
+              />
             </van-cell-group>
           </view>
-        </van-cell-group> 
+        </view> 
       </view>
-      <view class="etk-package-btn-footer">
-        <van-button round bind:click="onAddPackage" custom-class="little-btn">增加包裹</van-button>
+      <view class="etk-package-card__footer">
+        <van-button
+          block
+          round
+          bind:click="onAddPackage"
+          custom-class="bottom button--alternative"
+        >
+          增加包裹
+        </van-button>
       </view>
-      <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}" label="{{ order.totalCostInCentErrorMessage }}" label-class="error-message"></van-cell>
+      <van-cell
+        title="订单总计(元)"
+        value="{{ order.totalCostInYuan }}"
+        label="{{ order.totalCostInCentErrorMessage }}"
+        label-class="error-message"
+      />
     </van-cell-group>
-    <view class="page-footer">
-      <van-button round bind:click="onSavePackagingAndFeeButNotNotice" custom-class="secondary-btn">仅保存但不通知支付</van-button>
-      <van-button round bind:click="onSaveAndNoticePayment" custom-class="primary-btn">保存并通知支付</van-button>
+    <view class="order-footer">
+      <van-button 
+        round
+        bind:click="onSavePackagingAndFeeButNotNotice"
+        custom-class="button button--alternative"
+      >
+        仅保存但不通知支付
+      </van-button>
+      <van-button
+        round
+        bind:click="onSaveAndNoticePayment"
+        custom-class="button button--action"
+      >
+        保存并通知支付
+      </van-button>
     </view>
   </view>
   <van-dialog id="van-dialog" />

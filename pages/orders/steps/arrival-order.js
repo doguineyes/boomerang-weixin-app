@@ -13,6 +13,11 @@ Page({
    */
   data: {
     deletedOriginPackages: [],
+    order: {etkPackages: [{
+      etkCargoRecords:[{name: "", count: 1,},],
+      feeList: {},
+      status: "new",
+    }]},
   },
 
   onPackageCargoNameChange: function(event) {
@@ -507,7 +512,7 @@ Page({
       }];
       this.setData({
         ["order.etkPackages"]: emptyPackages,
-      })
+      });
     } else {
       for (let [packageIndex, etkPackage] of this.data.order.etkPackages.entries()) {
         let feeList = etkPackage.feeList;

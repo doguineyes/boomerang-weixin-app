@@ -1,14 +1,83 @@
 /**app.wxss**/
 page {
+  --primary: #344955;
+  --primary-light: #5f7481;
+  --primary-dark: #0b222c;
+  --text-on-primary: #ffffff;
+  --secondary: #f9aa33;
+  --secondary-light: #ffdc65;
+  --secondary-dark: #c17b00;
+  --text-on-secondary: #000000;
+  --background: #eeeeee;
+  --background-dark: #cacaca;
+  --error: red;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--background);
+  padding: 20rpx 0;
+  box-sizing: border-box;
 }
 
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
+  justify-content: center;
+  background-color: var(--background);
+  padding: 5rpx 5rpx;
   box-sizing: border-box;
-} 
+}
+
+.container--full-height {
+  height: 100%;
+}
+
+.error-message {
+  color: var(--error) !important;
+}
+
+.order-info-box {
+  margin: 1%;
+}
+
+.cargo-card {
+  margin: 1%;
+}
+
+.etk-package-card {
+  margin: 1%;
+  border: 1rpx solid var(--primary-light);
+}
+
+.etk-package-card__title {
+  padding: 0.5em;
+  background: var(--primary-dark) !important;
+  color: var(--text-on-primary) !important;
+}
+
+.etk-package-card__body {
+  margin: 0.5em;
+}
+
+.etk-package-card__footer {
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+  display: flex;
+  flex-direction: row;
+}
+
+.cargo-card {
+  margin: 1%;
+}
+
+.cargo-card__footer {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.order-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
