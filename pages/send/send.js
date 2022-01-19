@@ -57,11 +57,12 @@ Page({
 
   onCopyWarehouseAddressToClipboard() {
     if (!this.data.order || !this.data.order?.arrivalExpressInfo?.warehouseAddress) {
-      Toast.fail("请选择仓库地址");
+      Toast.fail("请选择仓库");
       return;
     }
+    const warehouseAddress = this.data.order.arrivalExpressInfo.warehouseAddress + " (" + this.data.entryCode + ")";
     wx.setClipboardData({
-      data: this.data.order.arrivalExpressInfo.warehouseAddress
+      data: warehouseAddress,
     });
   },
 
