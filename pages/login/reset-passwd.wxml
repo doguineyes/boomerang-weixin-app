@@ -74,11 +74,13 @@
     />
   </van-cell-group>
   <van-button
-    custom-class="button button--action"
+    custom-class="button button--action button--long"
     block
     round
     bind:click="onSubmit"
-  >提交</van-button>
+  >
+    提交
+  </van-button>
   <van-toast id="van-toast" />
   <van-dialog id="van-dialog" />
 </view>

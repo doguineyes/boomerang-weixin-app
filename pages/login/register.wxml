@@ -74,7 +74,7 @@
     />
   </van-cell-group>
   <van-button
-    custom-class="button button--action"
+    custom-class="button button--action button--long"
     round
     block
     bind:click="onSubmit"

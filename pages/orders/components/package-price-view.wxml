@@ -5,5 +5,5 @@
       <package-cargo-fee-view package="{{ package }}" packageIndex="{{ packageIndex }}" />
     </view>
   </van-cell-group>
-  <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}"></van-cell>
+  <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}" />
 </view>

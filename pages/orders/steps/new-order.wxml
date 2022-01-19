@@ -24,7 +24,9 @@
       block
       round
       bind:click="onSaveAndNotifyCustomerOrderArrival"
-    >通知客户包裹到达</van-button>
+    >
+      通知客户包裹到达
+    </van-button>
   </view>
   <van-dialog id="van-dialog" />
   <van-toast id="van-toast" />

@@ -21,20 +21,41 @@
     />
   </van-cell-group>
   <van-cell-group title="收件人信息">
-    <van-cell title="姓名" value="{{ order.receiver.name }}"></van-cell>
-    <van-cell title="省份" value="{{ order.receiver.province }}"></van-cell>
-    <van-cell title="城市" value="{{ order.receiver.city }}"></van-cell>
-    <van-cell title="区县" value="{{ order.receiver.district }}"></van-cell>
-    <van-cell title="详细地址" value="{{ order.receiver.address }}"></van-cell>
-    <van-cell title="手机号码" value="{{ order.receiver.mobile }}"></van-cell>
-    <van-cell title="证件号" value="{{ order.receiverIdCardNumber }}"></van-cell>
+    <van-cell 
+      title="姓名" 
+      value="{{ order.receiver.name }}"
+    />
+    <van-cell
+      title="省份"
+      value="{{ order.receiver.province }}"
+    />
+    <van-cell
+      title="城市"
+      value="{{ order.receiver.city }}"
+    />
+    <van-cell
+      title="区县"
+      value="{{ order.receiver.district }}"
+    />
+    <van-cell
+      title="详细地址"
+      value="{{ order.receiver.address }}"
+    />
+    <van-cell
+      title="手机号码"
+      value="{{ order.receiver.mobile }}"
+    />
+    <van-cell
+      title="证件号"
+      value="{{ order.receiverIdCardNumber }}"
+    />
     <van-cell title="证件正面">
       <van-uploader 
         max-count="1"
         file-list="{{ idCardPhotos.front }}"
         deletable="{{ false }}"
         disabled="{{ true }}"
-      ></van-uploader>
+      />
     </van-cell>
     <van-cell title="证件反面">
       <van-uploader
@@ -42,13 +63,13 @@
         file-list="{{ idCardPhotos.reverse }}"
         deletable="{{ false }}"
         disabled="{{ true }}"
-      ></van-uploader>
+      />
     </van-cell>
   </van-cell-group>
   <van-cell-group title="货物信息">
     <view wx:for="{{ order.cargoRecords }}" wx:key="index" class="cargo-card">
-      <van-cell title="名称" value="{{ item.name }}"></van-cell>
-      <van-cell title="数量" value="{{ item.count }}"></van-cell>
+      <van-cell title="名称" value="{{ item.name }}" />
+      <van-cell title="数量" value="{{ item.count }}" />
     </view>
   </van-cell-group>
 </view>

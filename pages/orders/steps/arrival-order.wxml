@@ -58,7 +58,9 @@
                       bind:change="onPackageCargoCountChange"
                     />
                   </van-cell>
-                  <view slot="right" class="button--swip-delete">删除货物</view>
+                  <view slot="right" class="button--swip-delete">
+                    删除货物
+                  </view>
                 </van-swipe-cell>
               </view>
               <view class="cargo-card__footer">

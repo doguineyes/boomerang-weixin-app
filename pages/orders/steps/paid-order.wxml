@@ -3,7 +3,12 @@
   <basic-info order="{{ order }}" idCardPhotos="{{ idCardPhotos }}" />
   <arrival-info-view arrivalPhotos="{{ order.arrivalPhotos }}" />
   <van-cell-group title="ETK打包信息">
-    <view wx:for="{{ order.etkPackages }}" wx:for-item="etkPackage" wx:for-index="packageIndex" wx:key="packageIndex">
+    <view
+      wx:for="{{ order.etkPackages }}"
+      wx:for-item="etkPackage"
+      wx:for-index="packageIndex"
+      wx:key="packageIndex"
+    >
       <package-cargo-fee-view package="{{ etkPackage }}" packageIndex="{{ packageIndex }}">
         <view wx:if="{{ etkPackage.alreadySentOut }}">
           <van-cell-group title="打包照片">
@@ -17,10 +22,14 @@
               show-upload="{{ false }}"
             />
           </van-cell-group>
-          <van-cell title="ETK快递号码" value="{{ etkPackage.etkNumber }}"/>
+          <van-cell title="ETK快递号码" value="{{ etkPackage.etkNumber }}" />
         </view>
         <view wx:elif="{{ !etkPackage.alreadySentOut && isAdmin }}">
-          <van-cell title="打包照片" label="{{ etkPackage.etkPackagePhotosErrorMessage }}" label-class="error-message">
+          <van-cell
+            title="打包照片"
+            label="{{ etkPackage.etkPackagePhotosErrorMessage }}"
+            label-class="error-message"
+          >
             <van-uploader
               id="{{ packageIndex }}"
               max-count="3"
@@ -50,7 +59,7 @@
       </package-cargo-fee-view>
     </view>
   </van-cell-group>
-  <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}"></van-cell>
+  <van-cell title="订单总计(元)" value="{{ order.totalCostInYuan }}" />
   <view wx:if="{{ isAdmin && order.orderStatus === 'PaymentCompleted'}}" class="order-footer">
       <van-button
         round
@@ -65,7 +74,9 @@
         block
         bind:click="onNotifyCustomerOrderComplete"
         custom-class="button button--action"
-      >通知客户订单完成</van-button>
+      >
+        通知客户订单完成
+      </van-button>
   </view>
   <van-dialog id="van-dialog" />
   <van-toast id="van-toast" />
