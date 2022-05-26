@@ -9,14 +9,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-
   },
 
-  onChangePasswordClick: function() {
-    wx.reLaunch({
-      url: '/pages/mine/change-passwd',
-    });
-  },
+  // onChangePasswordClick: function() {
+  //   wx.reLaunch({
+  //     url: '/pages/mine/change-passwd',
+  //   });
+  // },
 
   onSignOutClick: function() {
     Dialog.confirm({

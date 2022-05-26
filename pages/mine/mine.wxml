@@ -1,9 +1,17 @@
 <!--pages/mine/mine.wxml-->
 <view class="box">
-  <van-button custom-class="primary-btn" open-type="contact">联系客服</van-button>
-  <van-button custom-class="primary-btn" bindclick="onChangePasswordClick">修改密码</van-button>
-  <van-button custom-class="primary-btn" bind:click="onSignOutClick">登出</van-button>
-
+  <van-grid gutter="{{ 5 }}">
+    <van-grid-item
+      icon="closed-eye"
+      text="修改密码"
+      url="/pages/mine/change-passwd"
+    />
+    <van-grid-item
+      icon="cross"
+      text="登出"
+      bind:click="onSignOutClick"
+    />
+  </van-grid>
   <van-toast id="van-toast" />
   <van-dialog id="van-dialog" />
 </view>

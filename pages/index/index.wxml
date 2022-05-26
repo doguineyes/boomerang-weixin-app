@@ -1,6 +1,48 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
+<view class="container container--full-height">
+  <swiper class="swiper" indicator-dots="{{true}}" autoplay="{{true}}" >
+    <view wx:for="{{swiperImages}}" wx:key="*this">
+      <swiper-item>
+        <image class="swiper__image" mode="widthFix" src="{{item}}"></image>
+      </swiper-item>
+    </view>
+  </swiper>
+  <view class="main">
+    <van-grid gutter="{{ 5 }}" class="main-panel">
+      <van-grid-item
+        icon="send-gift-o"
+        text="寄件"
+        link-type="switchTab"
+        url="/pages/send/send"
+      />
+      <van-grid-item
+        icon="orders-o"
+        text="订单"
+        link-type="switchTab"
+        url="/pages/orders/orders"
+      />
+      <!-- <van-grid-item
+        icon="phone-o"
+        text="联系我们"
+      /> -->
+    </van-grid>
+    <van-button
+      icon="service-o"
+      block
+      round
+      custom-class="button button--alternative bottom"
+      open-type="contact"
+    >
+      <span class="service-btn__primary-text">寄件咨询</span>
+      <span class="service-btn__secondary-text">
+        物品是否可寄？何时能到？运费多少？
+      </span>
+    </van-button>
+  </view>
+
+
+  
+  <!-- <view class="userinfo">
     <block wx:if="{{canIUseOpenData}}" calss="userinfo-opendata">
       <view class="userinfo-avatar">
         <open-data type="userAvatarUrl"></open-data>
@@ -19,5 +61,5 @@
   </view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
-  </view>
+  </view> -->
 </view>

@@ -1,6 +1,37 @@
 /**index.wxss**/
+@import "../button.wxss";
 
-.userinfo {
+.container {
+  padding: 0;
+}
+
+.swiper {
+  height: 25vh;
+}
+
+.swiper__image {
+  width: 100%;
+}
+
+.main {
+  margin: .5em .5em 0 .5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 70vh;
+}
+
+.service-btn__primary-text {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.service-btn__secondary-text {
+  font-size: 1em;
+  color: #eeeeee;
+}
+
+/* .userinfo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,4 +49,4 @@
 .usermotto {
   text-align: center;
   margin-top: 200px;
-}
+} */
