@@ -1,0 +1,35 @@
+<!--pages/index/contact.wxml-->
+<view>
+  <van-cell-group inset title="徐先生">
+    <van-cell title="联系电话" value="+852 51694656" />
+    <van-cell
+      title="微信二维码"
+      is-link
+      link-type="navigateTo" 
+      url="/pages/index/contact-wechat-code?id=0"
+    />
+  </van-cell-group>
+  <van-cell-group inset title="单先生">
+    <van-cell title="联系电话" value="+852 69956833" />
+    <van-cell
+      title="微信二维码"
+      is-link
+      link-type="navigateTo"
+      url="/pages/index/contact-wechat-code?id=1"
+    />
+  </van-cell-group>
+  <van-cell-group inset title="侯小姐">
+    <van-cell title="联系电话" value="+852 67440188" />
+    <van-cell title="微信二维码" is-link 
+      link-type="navigateTo"
+      url="/pages/index/contact-wechat-code?id=2"
+    />
+  </van-cell-group>
+  <van-cell-group inset title="客服专线">
+    <van-cell title="联系电话" value="+852 53082574" />
+    <van-cell title="微信二维码" is-link
+      link-type="navigateTo"
+      url="/pages/index/contact-wechat-code?id=3"
+    />
+  </van-cell-group>
+</view>

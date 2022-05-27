@@ -38,7 +38,9 @@
     "pages/login/reset-passwd",
     "pages/mine/change-passwd",
     "pages/login/service-terms",
-    "pages/login/privacy-policy"
+    "pages/login/privacy-policy",
+    "pages/index/contact",
+    "pages/index/contact-wechat-code"
   ],
   "window": {
     "backgroundTextStyle": "light",

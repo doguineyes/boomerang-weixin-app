@@ -1,0 +1,7 @@
+/* pages/index/contact-wechat-code.wxss */
+
+.wechat-code {
+  display: block;
+  width: auto;
+  margin: 2em 1em 0 1em;
+}

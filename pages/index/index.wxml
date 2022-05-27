@@ -21,10 +21,12 @@
         link-type="switchTab"
         url="/pages/orders/orders"
       />
-      <!-- <van-grid-item
+      <van-grid-item
         icon="phone-o"
         text="联系我们"
-      /> -->
+        link-type="navigateTo"
+        url="/pages/index/contact"
+      />
     </van-grid>
     <van-button
       icon="service-o"
