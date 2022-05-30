@@ -40,7 +40,8 @@
     "pages/login/service-terms",
     "pages/login/privacy-policy",
     "pages/index/contact",
-    "pages/index/contact-wechat-code"
+    "pages/index/contact-wechat-code",
+    "pages/index/services"
   ],
   "window": {
     "backgroundTextStyle": "light",

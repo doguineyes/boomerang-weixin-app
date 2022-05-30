@@ -22,6 +22,12 @@
         url="/pages/orders/orders"
       />
       <van-grid-item
+        icon="info-o"
+        text="服务须知"
+        link-type="navigateTo"
+        url="/pages/index/services"
+      />
+      <van-grid-item
         icon="phone-o"
         text="联系我们"
         link-type="navigateTo"

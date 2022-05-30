@@ -1,0 +1,32 @@
+/* pages/index/services.wxss */
+view {
+  margin-bottom: .5em;
+}
+
+h1 {
+  margin-top: 2em;
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  margin-top: .5em;
+  display: block;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+em {
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+li {
+  display: block;
+}
+
+.fees {
+  margin: 0 0.5em 0 0.5em;
+}

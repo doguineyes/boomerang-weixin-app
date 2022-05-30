@@ -1,0 +1,77 @@
+<!--pages/index/services.wxml-->
+<view>
+  <h1>一、香港ETK普通商品直邮服务</h1>
+  <h2>（一）服务简介</h2>
+  <view>
+    适合<em>普通化妆品、保健产品、日用产品、普通衣裤鞋包</em>。
+  </view>
+  <view>
+    中国邮政和香港邮政合作ETK快递通道。低税率正规报关，物流信息在邮政官网实时更新，路线清晰可查询。时效4-6个工作日。可以寄件人缴税，无需收件人缴税。
+  </view>
+  <h2>（二）包裹要求</h2>
+  <view>
+    <ul>
+      <li>1、包裹重量不得超过<em>3kg</em></li>
+      <li>2、包裹单边尺寸不得超过<em>70cm</em></li>
+      <li>3、包裹内物品品种不超过<em>3种</em>，同种品种不超过<em>5件</em></li>
+    </ul>
+  </view>
+  <view>
+    <h2>（三）收费标准</h2>
+    <view class="fees">
+      <van-cell-group title="运费">
+        <van-cell title="首重1kg" value="￥80"></van-cell>
+        <van-cell title="续重每0.5kg" value="￥15"></van-cell>
+      </van-cell-group>
+      <van-cell-group title="杂费">
+        <van-cell title="打包费" value="￥30/件" label="疫情期间减免￥10"></van-cell>
+        <van-cell title="海外小包裹接收报关费" value="￥50/件（5kg内）" label="香港海关报关费用"></van-cell>
+        <van-cell title="海外大包裹接收报关费" value="￥100/件（5kg以上）" label="香港海关报关费用"></van-cell>
+        <van-cell title="香港本地包裹接受处理费" value="免费" label="免费不包含香港本地快递上门费（如有）"></van-cell>
+        <van-cell title="问题件处理费" value="￥20/件" label="如尺寸型号颜色有误需要退回海外发件地（邮费客户自理）"></van-cell>
+        <van-cell title="保价费用" value="3%货品价值" label="单个包裹保险价值最高 1 万"></van-cell>
+      </van-cell-group>
+    </view>
+  </view>
+  <h1>二、个人跨境电商香港邮政轻奢直邮服务</h1>
+  <h2>（一）服务简介</h2>
+  <view>适合<em>轻奢潮牌服饰鞋包化妆品，可带原包装礼盒</em>。</view>
+  <view>中国邮政和香港邮政合作专供个人跨境电商小包裹通道。低税率正规报关，物流信息在邮政官网实时更新，路线清晰可查询。时效3-5个工作日。可以寄件人自行缴税，也可以本司代理缴税，无需收件人缴税。</view>
+  <view>提供专人客服提供<em>货品图片视频</em>，辅助查询追踪物流信息。</view>
+  <h2>（二）包裹要求</h2>
+  <ul>
+    <li>1、包裹重量不得超过<em>2.5kg</em></li>
+    <li>2、包裹单边尺寸不得超过<em>50cm</em></li>
+    <li>3、包裹内货品以自用，件数符合合理自用范围，例如：一个包裹有且只有一个包包、一个包裹有且只有一双鞋子等</li>
+  </ul>
+  <h2>（三）收费标准</h2>
+    <view class="fees">
+      <van-cell-group title="运费">
+        <van-cell title="首重1kg" value="￥100"></van-cell>
+        <van-cell title="续重每0.5kg" value="￥50"></van-cell>
+      </van-cell-group>
+      <van-cell-group title="杂费">
+        <van-cell title="打包费" value="￥30/件" label="疫情期间减免￥10"></van-cell>
+        <van-cell title="海外小包裹接收报关费" value="￥50/件（5kg内）" label="香港海关报关费用"></van-cell>
+        <van-cell title="海外大包裹接收报关费" value="￥100/件（5kg以上）" label="香港海关报关费用"></van-cell>
+        <van-cell title="香港本地包裹接受处理费" value="免费" label="免费不包含香港本地快递上门费（如有）"></van-cell>
+        <van-cell title="问题件处理费" value="￥20/件" label="如尺寸型号颜色有误需要退回海外发件地（邮费客户自理）"></van-cell>
+        <van-cell title="保价费用" value="3%货品价值" label="单个包裹保险价值最高2万"></van-cell>
+        <van-cell title="税费补贴" value="包：100-300；化妆品：50-100；服饰鞋子：暂无" label="可寄件人自缴，如需我司代缴则需支付税费补贴"></van-cell>
+      </van-cell-group>
+    </view>
+  <h1>三、禁运物品</h1>
+  <view>
+    1、中华人民共和国禁寄物品和香港邮政公布的禁运物品
+  </view>
+  <view>
+    2、珍稀保护动物皮制产品，高档手表，珠宝，游戏机及光碟，电器，电脑配件，海参，燕窝花胶，文件海报，红酒，香烟，有压缩气体物品等
+  </view>
+  <h1>四、理赔</h1>
+  <view>
+    非保价类包裹：丢失赔付5倍邮费，损坏酌情赔付1-3倍邮费。
+  </view>
+  <view>
+    保价类包裹：丢失按保价价格全额赔付，损坏酌情按5%-30%保价价格赔付。
+  </view>
+</view>
