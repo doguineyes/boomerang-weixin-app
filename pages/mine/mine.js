@@ -37,15 +37,22 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function() {
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    const token = app.globalData.token;
+    const expiredTime = app.globalData.expiredTime;
+    const now = new Date();
+    
+    if (!token || now > expiredTime) {
+      wx.reLaunch({
+        url: '../login/login',
+      });
+    }
   },
 
   /**

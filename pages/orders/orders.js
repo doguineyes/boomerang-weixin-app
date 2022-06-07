@@ -134,6 +134,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const token = app.globalData.token;
+    const expiredTime = app.globalData.expiredTime;
+    const now = new Date();
+    
+    if (!token || now > expiredTime) {
+      return;
+    }
+    
     if (app.isAdmin()) {
       this.setData({
         isAdmin: true,
@@ -155,6 +163,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    const token = app.globalData.token;
+    const expiredTime = app.globalData.expiredTime;
+    const now = new Date();
+    
+    if (!token || now > expiredTime) {
+      wx.reLaunch({
+        url: '../login/login',
+      });
+      return;
+    }
     this.clearPage();
     this.loadOrders();
   },

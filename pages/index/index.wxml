@@ -10,6 +10,12 @@
   <view class="main">
     <van-grid gutter="{{ 5 }}" class="main-panel">
       <van-grid-item
+        icon="info-o"
+        text="服务须知"
+        link-type="navigateTo"
+        url="/pages/index/services"
+      />
+      <van-grid-item
         icon="send-gift-o"
         text="寄件"
         link-type="switchTab"
@@ -20,12 +26,6 @@
         text="订单"
         link-type="switchTab"
         url="/pages/orders/orders"
-      />
-      <van-grid-item
-        icon="info-o"
-        text="服务须知"
-        link-type="navigateTo"
-        url="/pages/index/services"
       />
       <van-grid-item
         icon="phone-o"
