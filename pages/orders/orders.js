@@ -134,11 +134,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const token = app.globalData.token;
-    const expiredTime = app.globalData.expiredTime;
+    const token = app.globalData.token || wx.getStorageSync('token');
+    const expiredTime = app.globalData.expiredTime || wx.getStorageSync('expiredtime');
+    const userName = app.globalData.username || wx.getStorageSync('username');
     const now = new Date();
-    
-    if (!token || now > expiredTime) {
+    if (!token || now > expiredTime || !userName) {
+      wx.reLaunch({
+        url: '../login/login',
+      });
       return;
     }
     
