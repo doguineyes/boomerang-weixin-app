@@ -12,7 +12,8 @@ App({
     const token = wx.getStorageSync('token');
     const username = wx.getStorageSync('username');
     const expiredTime = wx.getStorageSync('expiredtime');
-    const authorities = wx.getStorageInfoSync('authorities');
+    const authorities = wx.getStorageSync('authorities');
+    const entryCode = wx.getStorageSync('entryCode');
     const now = new Date();
 
     if (token && now < expiredTime) {
@@ -20,6 +21,7 @@ App({
       this.globalData.username = username;
       this.globalData.expiredTime = expiredTime;
       this.globalData.authorities = authorities;
+      this.globalData.entryCode = entryCode;
     } else {
       wx.clearStorageSync();
     }
