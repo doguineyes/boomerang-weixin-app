@@ -134,7 +134,7 @@ Page({
     const username = response.data.username;
     const authorities = response.data.authorities;
     const entryCode = response.data.entryCode;
-    const expiredTime = new Date() + 1*1*60*60*1000; //1 hour
+    const expiredTime = new Date() + 30*24*60*60*1000; //30 days
     wx.setStorageSync('token', token);
     wx.setStorageSync('username', username);
     wx.setStorageSync('expiredtime', expiredTime);
