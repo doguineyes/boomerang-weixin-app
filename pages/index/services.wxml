@@ -1,6 +1,50 @@
 <!--pages/index/services.wxml-->
 <view>
-  <h1>一、香港ETK普通商品直邮服务</h1>
+  <van-collapse value="{{ activeNames }}" bind:change="onChange">
+    <van-collapse-item title="香港顺丰特C线路" name="1" content-class="item">
+      <h2>线路特点</h2>
+      <ul>
+        <li><em>所有品牌、所有价值</em>衣帽鞋、<em>皮包手袋</em>、珠宝首饰</li>
+        <li>每包裹最多3件货品，珠宝首饰必须和衣帽鞋包拼邮</li>
+        <li><em>通关率99.9%</em></li>
+        <li>包裹限重最多<em>3kg</em>(包含体积重)</li>
+        <li>时效5日左右(1日静置消毒)</li>
+      </ul>
+      <h2>收费标准</h2>
+      <van-cell-group title="运费">
+        <van-cell title="首重1kg" value="￥300" label="顺丰F2S纸箱(20×20×15cm)"></van-cell>
+        <van-cell title="1.5kg" value="￥450" label="顺丰F2纸箱(30×20×15cm)"></van-cell>
+        <van-cell title="2kg" value="￥600" label="本司纸箱(33×24×15cm)"></van-cell>
+        <van-cell title="2.5kg" value="￥750" label="顺丰F3纸箱(30×25×20cm)"></van-cell>
+        <van-cell title="3kg" value="￥900" label="本司纸箱(35×25×20cm)"></van-cell>
+      </van-cell-group>
+      <van-cell-group title="其他费用">
+        <van-cell title="打包费" value="￥25/包裹"></van-cell>
+        <van-cell title="疫情附加费" value="￥25/包裹"></van-cell>
+        <van-cell title="保价费" value="1%货物价值，保价上限￥2万"></van-cell>
+      </van-cell-group>
+    </van-collapse-item>
+    <van-collapse-item title="香港顺特快普线" name="2" content-class="item">
+      <h2>线路特点</h2>
+      <ul>
+        <li><em>三四线</em>品牌<em>衣帽鞋</em></li>
+        <li>鞋大衣外套<em>1件直邮</em>，<em>春夏薄款衫裤可2件</em></li>
+        <li>通关率99%</li>
+        <li>时效5日左右(1日静置消毒)</li>
+      </ul>
+      <h2>收费标准</h2>
+      <van-cell-group title="运费">
+        <van-cell title="首重1kg" value="￥90"></van-cell>
+        <van-cell title="续重每0.5kg" value="￥25"></van-cell>
+      </van-cell-group>
+      <van-cell-group title="其他费用">
+        <van-cell title="打包费" value="￥25/包裹"></van-cell>
+        <van-cell title="疫情附加费" value="￥25/包裹"></van-cell>
+        <van-cell title="保价费" value="1%货物价值，保价上限￥5千"></van-cell>
+      </van-cell-group>
+    </van-collapse-item>
+  </van-collapse>
+  <!-- <h1>一、香港ETK普通商品直邮服务</h1>
   <h2>（一）服务简介</h2>
   <view>
     适合<em>普通化妆品、保健产品、日用产品、普通衣裤鞋包</em>。
@@ -73,5 +117,5 @@
   </view>
   <view>
     保价类包裹：丢失按保价价格全额赔付，损坏酌情按5%-30%保价价格赔付。
-  </view>
+  </view> -->
 </view>

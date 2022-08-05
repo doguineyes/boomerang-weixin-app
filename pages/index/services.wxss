@@ -3,16 +3,23 @@ view {
   margin-bottom: .5em;
 }
 
+.item {
+  color: black !important;
+  background-color: var(--background) !important;
+}
+
 h1 {
   margin-top: 2em;
   display: block;
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 h2 {
-  margin-top: .5em;
+  margin-top: .4em;
+  margin-bottom: 0.1em;
+  font-size: 1.2em;
   display: block;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
@@ -24,6 +31,7 @@ em {
 }
 
 li {
+  font-size: 1.1em;
   display: block;
 }
 
