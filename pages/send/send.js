@@ -427,9 +427,12 @@ Page({
       (resolve) => {
         wx.requestSubscribeMessage({
           tmplIds: [
-            "loJMx4AGyLQnmP6WO3l7CX_sE8ZEGS7nnrGEVNpLAP4",
-            "fcXFO32mH_XqFkYtU4ZeGmQOozj5yCoB6-4MyCA1vdY",
-            "6-aMAe08S_Svtb7fIq9AxaCQVaXSMqpFAitteQULFXs",
+            // "loJMx4AGyLQnmP6WO3l7CX_sE8ZEGS7nnrGEVNpLAP4",
+            // "fcXFO32mH_XqFkYtU4ZeGmQOozj5yCoB6-4MyCA1vdY",
+            // "6-aMAe08S_Svtb7fIq9AxaCQVaXSMqpFAitteQULFXs",
+            "n0Pa02_UGH1HHH_ranvzPoRqzsZEmzl2y0hhL7Rmorc", //order status message id
+            "dmfcJWwkceOd_LLyIhJhIhRoaaj2tQ1mVcyt8fW0gJg", //order ready to pay message id
+            "qdvGYvJGeor4fvhrcfvQdqF2YQM8Gg5GxNdtIQxp1MQ", //order pay complete message id
           ],
           success: (res) => {
             resolve(res);

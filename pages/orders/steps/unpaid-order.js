@@ -146,7 +146,8 @@ Page({
       (resolve) => {
         wx.requestSubscribeMessage({
           tmplIds: [
-            "ws8iZAAPeKzoidhjG4gqYIyJghndtBetOQL1zhEIdpo",
+            // "ws8iZAAPeKzoidhjG4gqYIyJghndtBetOQL1zhEIdpo",
+            "nEA0b8G8l0cNX2miz_nTKB6GRtkyyOgTvtTKEMlGXto", //order mail message id
           ],
           success: (res) => {
             resolve(res);
