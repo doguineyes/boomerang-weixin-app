@@ -41,7 +41,8 @@
     "pages/login/privacy-policy",
     "pages/index/contact",
     "pages/index/contact-wechat-code",
-    "pages/index/services"
+    "pages/index/services",
+    "pages/send/warehouse"
   ],
   "window": {
     "backgroundTextStyle": "light",

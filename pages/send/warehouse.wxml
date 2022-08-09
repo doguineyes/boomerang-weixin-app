@@ -1,0 +1,38 @@
+<!--pages/send/warehouse.wxml-->
+<view class="cantainer container--full-height">
+  <van-cell-group title="入仓信息">
+    <van-cell
+      size="large"
+      title="入仓号"
+      value="{{ entryCode }}"
+    />
+    <van-cell
+      label-class="error-message"
+      title="仓库地址"
+      size="large"
+      value="{{ order.arrivalExpressInfo.warehouseAddress }}"
+      is-link
+      bind:click="onShowWarehouseAddressPopup"
+      label="{{ arrivalExpressWarehouseAddressErrorMsg }}"
+    />
+    <view class="footer">
+      <van-button
+        round
+        custom-class="bottom button--alternative" bind:click="onCopyWarehouseAddressToClipboard"
+      >复制仓库地址到剪贴板</van-button>
+    </view>
+    <van-popup
+      position="bottom"
+      show="{{ showWarehouseAddressPopup }}"
+    >
+        <van-picker
+          show-toolbar
+          title="仓库地址"
+          columns="{{ warehouseAddressesOptions }}"
+          default-index="{{ 0 }}"
+          bind:cancel="onWarehouseAddressCancel"
+          bind:confirm="onWarehouseAddressConfirm"
+        />
+    </van-popup>
+  </van-cell-group>
+</view>

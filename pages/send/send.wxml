@@ -10,11 +10,13 @@
       />
       <van-cell
         title="入仓号"
+        size="large"
         value="{{ entryCode }}"
       />
       <van-cell
         label-class="error-message"
         title="仓库地址"
+        size="large"
         value="{{ order.arrivalExpressInfo.warehouseAddress }}"
         is-link
         bind:click="onShowWarehouseAddressPopup"
@@ -34,7 +36,7 @@
             show-toolbar
             title="仓库地址"
             columns="{{ warehouseAddressesOptions }}"
-            default-index="{{ 1 }}"
+            default-index="{{ 0 }}"
             bind:cancel="onWarehouseAddressCancel"
             bind:confirm="onWarehouseAddressConfirm"
           />

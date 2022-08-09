@@ -3,12 +3,12 @@
   <swiper class="swiper" indicator-dots="{{true}}" autoplay="{{true}}" >
     <view wx:for="{{swiperImages}}" wx:key="*this">
       <swiper-item>
-        <image class="swiper__image" mode="widthFix" src="{{item}}"></image>
+        <image class="swiper__image" mode="aspectFill" src="{{item}}"></image>
       </swiper-item>
     </view>
   </swiper>
   <view class="main">
-    <van-grid gutter="{{ 5 }}" class="main-panel">
+    <van-grid column-num="3" gutter="{{ 14 }}" class="main-panel">
       <van-grid-item
         icon="info-o"
         text="服务须知"
@@ -26,6 +26,12 @@
         text="订单"
         link-type="switchTab"
         url="/pages/orders/orders"
+      />
+      <van-grid-item
+        icon="shop-o"
+        text="仓库地址"
+        link-type="navigateTo"
+        url="/pages/send/warehouse"
       />
       <van-grid-item
         icon="phone-o"

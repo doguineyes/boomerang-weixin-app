@@ -55,14 +55,19 @@ Page({
     });
   },
 
+  createAddress(address, entryCode) {
+    return `ECWT+(${entryCode}) ${address}`;
+  },
+
   onCopyWarehouseAddressToClipboard() {
     if (!this.data.order || !this.data.order?.arrivalExpressInfo?.warehouseAddress) {
       Toast.fail("请选择仓库");
       return;
     }
-    const warehouseAddress = this.data.order.arrivalExpressInfo.warehouseAddress + " (" + this.data.entryCode + ")";
+    // const warehouseAddress = this.data.order.arrivalExpressInfo.warehouseAddress + " (" + this.data.entryCode + ")";
+    // const warehouseAddress = this.createAddress(this.data.order.arrivalExpressInfo.warehouseAddress, this.data.entryCode);
     wx.setClipboardData({
-      data: warehouseAddress,
+      data: this.data.order.arrivalExpressInfo.warehouseAddress,
     });
   },
 
@@ -89,7 +94,7 @@ Page({
   onWarehouseAddressConfirm(event) {
     const { picker, value, index } = event.detail;
     this.setData({
-      ["order.arrivalExpressInfo.warehouseAddress"]: value,
+      ["order.arrivalExpressInfo.warehouseAddress"]: this.createAddress(value, this.data.entryCode),
       arrivalExpressWarehouseAddressErrorMsg: "",
       showWarehouseAddressPopup: false,
     });
@@ -588,6 +593,11 @@ Page({
         this.setData({
           warehouseAddressesOptions: data,
         });
+        if (data.length === 1) {
+          this.setData({
+            ["order.arrivalExpressInfo.warehouseAddress"]: this.createAddress(data[0], this.data.entryCode),
+          });
+        }
       }
     )
     .catch(
