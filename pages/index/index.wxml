@@ -34,6 +34,12 @@
         url="/pages/send/warehouse"
       />
       <van-grid-item
+        icon="qr"
+        text="体积重量计算"
+        link-type="navigateTo"
+        url="/pages/utility/dimensional-weight-calculator"
+      />
+      <van-grid-item
         icon="phone-o"
         text="联系我们"
         link-type="navigateTo"

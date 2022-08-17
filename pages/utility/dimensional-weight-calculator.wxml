@@ -1,0 +1,45 @@
+<view>
+  <van-cell-group>
+    <van-field
+      value="{{ length }}"
+      label="长度(cm)"
+      placeholder="请输入长度（单位：厘米）"
+      type="digit"
+      clearable
+      error-message="{{ lengthErrorMessage }}"
+      bind:change="onLengthChange"
+    >
+    </van-field>
+    <van-field
+      value="{{ width }}"
+      label="宽度(cm)"
+      placeholder="请输入宽度（单位：厘米）"
+      type="digit"
+      clearable
+      error-message="{{ widthErrorMessage }}"
+      bind:change="onWidthChange"
+    >
+    </van-field>
+    <van-field
+      value="{{ high }}"
+      label="高度(cm)"
+      placeholder="请输入高度（单位：厘米）"
+      type="digit"
+      clearable
+      error-message="{{ highErrorMessage }}"
+      bind:change="onHighChange"
+    >
+    </van-field>
+  </van-cell-group>
+  <van-cell
+    value="{{ weight }}"
+    title="体积重量(kg)"
+    label="(长×1.3×宽×1.3×高×1.3)/6000"
+    size="large"
+  ></van-cell>
+  <van-button
+    round
+    custom-class="bottom button--alternative"
+    bind:click="onCalculate"
+  >计算体积重量</van-button>
+</view>

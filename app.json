@@ -42,7 +42,8 @@
     "pages/index/contact",
     "pages/index/contact-wechat-code",
     "pages/index/services",
-    "pages/send/warehouse"
+    "pages/send/warehouse",
+    "pages/utility/dimensional-weight-calculator"
   ],
   "window": {
     "backgroundTextStyle": "light",
