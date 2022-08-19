@@ -1,9 +1,9 @@
 <!--pages/send/warehouse.wxml-->
 <view class="cantainer container--full-height">
-  <van-cell-group title="入仓信息">
+  <van-cell-group title="来件信息">
     <van-cell
       size="large"
-      title="入仓号"
+      title="客户代码"
       value="{{ entryCode }}"
     />
     <van-cell

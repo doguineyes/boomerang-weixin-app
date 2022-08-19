@@ -5,7 +5,7 @@
       value="{{ searchKeyWord }}"
       use-action-slot
       clearable
-      placeholder="请输入订单号或入仓码"
+      placeholder="请输入订单号或客户代码"
       bind:change="onSearchKeyWordChange"
       bind:search="onKeyWordSearch"
     >

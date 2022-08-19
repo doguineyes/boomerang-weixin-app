@@ -10,7 +10,7 @@
       value="{{ order.orderStatusName }}"
     />
   </van-cell-group>
-  <van-cell-group title="入仓信息">
+  <van-cell-group title="来件信息">
     <van-cell
       title="国际快递单号"
       value="{{ order.arrivalExpressInfo.arrivalExpressNumber }}"
