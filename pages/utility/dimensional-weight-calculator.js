@@ -8,6 +8,10 @@ Page({
 
   },
 
+  calculateDimWeight: function(length, width, high) {
+    return ((length + 3) * (width + 3) * (high + 3) / 6000);
+  },
+
   onCalculate: function() {
     let somethingError = false;
     if (!this.data?.length) {
@@ -15,7 +19,7 @@ Page({
         lengthErrorMessage: "请输入长度（单位:厘米）"
       });
       somethingError = true;
-    } else if (this.data.length <= 0) {
+    } else if (parseFloat(this.data.length) <= 0) {
       this.setData({
         lengthErrorMessage: "长度需要大于0"
       });
@@ -26,7 +30,7 @@ Page({
         widthErrorMessage: "请输入宽度（单位:厘米）"
       });
       somethingError = true;
-    } else if (this.data.width <= 0) {
+    } else if (parseFloat(this.data.width) <= 0) {
       this.setData({
         widthErrorMessage: "宽度需要大于0"
       });
@@ -37,14 +41,17 @@ Page({
         highErrorMessage: "请输入高度（单位:厘米）"
       });
       somethingError = true;
-    } else if (this.data.high <= 0) {
+    } else if (parseFloat(this.data.high) <= 0) {
       this.setData({
         highErrorMessage: "高度需要大于0"
       });
       somethingError = true;
     }
     if (somethingError) return;
-    const weight = this.data.length * 1.3 * this.data.width * 1.3 * this.data.high * 1.3 / 6000;
+    const length = parseFloat(this.data.length);
+    const width = parseFloat(this.data.width);
+    const high = parseFloat(this.data.high);
+    const weight = this.calculateDimWeight(length, width, high);
     this.setData({
       weight,
     });
